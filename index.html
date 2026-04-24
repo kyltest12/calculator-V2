@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Калькулятор цены артефактов</h1>
+    <h1 class="artifact-title">Калькулятор цены артефактов</h1>
 
     <div class="header-stats">
         <div class="search-container">
@@ -62,7 +62,7 @@
     </div>
 
     <!-- КАЛЬКУЛЯТОР МУТАНТОВ -->
-    <h2>Скупка частей мутантов</h2>
+    <h2 class="section-title mutant-title">Скупка частей мутантов</h2>
     <div class="mutant-section">
         <div class="mutant-header-stats">
             <div class="mutant-sum-display">
@@ -81,11 +81,36 @@
             <button class="reset-btn" id="mutantResetBtn">Очистить</button>
         </div>
 
-        <h3>Обычные Части тела</h3>
-        <div class="buttons-container mutant-buttons-container" id="mutantButtonsContainerNormal"></div>
+        <div class="buttons-container mutant-buttons-container" id="mutantButtonsContainer"></div>
+    </div>
 
-        <h3>Необычные Части тела</h3>
-        <div class="buttons-container mutant-buttons-container" id="mutantButtonsContainerRare"></div>
+    <h2 class="section-title cigar-title">Калькулятор сигар</h2>
+    <div class="cigar-section">
+        <div class="cigar-header-stats">
+            <div class="cigar-search-container">
+                <input type="text" class="search-input cigar-search-input" id="cigarSearchInput" placeholder="Поиск сигар...">
+            </div>
+
+            <div class="cigar-sum-display">
+                Базовая сумма: <span id="cigarTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+            </div>
+
+            <div class="bonus-buttons cigar-bonus-buttons">
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="0">Без %</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="5">+5%</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="10">+10%</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="15">+15%</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="20">+20%</button>
+            </div>
+
+            <div class="final-sum cigar-final-sum">
+                Итого: <span id="cigarFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+            </div>
+
+            <button class="reset-btn cigar-reset-btn" id="cigarResetBtn">Очистить</button>
+        </div>
+
+        <div class="buttons-container cigar-buttons-container" id="cigarButtonsContainer"></div>
     </div>
 
     <footer>
