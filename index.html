@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90'>💎</text></svg>">
+    <title>Калькулятор цены артефактов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="artifact-title">Калькулятор цены артефактов</h1>
+
+    <div class="header-stats">
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Поиск артефактов...">
+            <button class="settings-btn" id="settingsBtn" title="Настройки цен">⚙️</button>
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Переключить тему">🌙</button>
+        </div>
+
+        <div class="sum-display">
+            Базовая сумма: <span id="totalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+        </div>
+
+        <div class="bonus-buttons">
+            <button class="bonus-btn" data-bonus="0">Без %</button>
+            <button class="bonus-btn" data-bonus="5">+5%</button>
+            <button class="bonus-btn" data-bonus="10">+10%</button>
+            <button class="bonus-btn" data-bonus="15">+15%</button>
+            <button class="bonus-btn" data-bonus="20">+20%</button>
+        </div>
+
+        <div class="final-sum">
+            Итого: <span id="finalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+        </div>
+
+        <button class="reset-btn" id="resetBtn">Очистить</button>
+        <button class="export-btn" id="exportBtn">📄 Экспорт отчёта</button>
+    </div>
+
+    <div class="content">
+        <div class="buttons-container" id="buttonsContainer"></div>
+    </div>
+
+    <!-- Модальное окно настроек -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Редактирование цен артефактов</h3>
+                <span class="close-btn" id="closeModalBtn">&times;</span>
+            </div>
+            <table class="price-table" id="priceTable">
+                <thead>
+                    <tr>
+                        <th>Артефакт</th>
+                        <th>Цена (руб.)</th>
+                    </tr>
+                </thead>
+                <tbody id="priceTableBody"></tbody>
+            </table>
+            <button class="save-settings-btn" id="savePricesBtn">Сохранить изменения</button>
+        </div>
+    </div>
+
+    <!-- КАЛЬКУЛЯТОР МУТАНТОВ -->
+    <h2 class="section-title mutant-title">Скупка частей мутантов</h2>
+    <div class="mutant-section">
+        <div class="mutant-header-stats">
+            <div class="mutant-sum-display">
+                Сумма за части: <span id="mutantTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+            </div>
+            <div class="bonus-buttons mutant-bonus-buttons">
+                <button class="bonus-btn mutant-bonus-btn" data-bonus="0">Без %</button>
+                <button class="bonus-btn mutant-bonus-btn" data-bonus="5">-5%</button>
+                <button class="bonus-btn mutant-bonus-btn" data-bonus="10">-10%</button>
+                <button class="bonus-btn mutant-bonus-btn" data-bonus="15">-15%</button>
+                <button class="bonus-btn mutant-bonus-btn" data-bonus="20">-20%</button>
+            </div>
+            <div class="final-sum mutant-final-sum">
+                Итого: <span id="mutantFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+            </div>
+            <button class="reset-btn" id="mutantResetBtn">Очистить</button>
+        </div>
+
+        <div class="buttons-container mutant-buttons-container" id="mutantButtonsContainer"></div>
+    </div>
+
+    <h2 class="section-title cigar-title">Калькулятор сигар</h2>
+    <div class="cigar-section">
+        <div class="cigar-header-stats">
+            <div class="cigar-search-container">
+                <input type="text" class="search-input cigar-search-input" id="cigarSearchInput" placeholder="Поиск сигар...">
+            </div>
+
+            <div class="cigar-sum-display">
+                Базовая сумма: <span id="cigarTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+            </div>
+
+            <div class="bonus-buttons cigar-bonus-buttons">
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="0">Без %</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="5">+5%</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="10">+10%</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="15">+15%</button>
+                <button class="bonus-btn cigar-bonus-btn" data-bonus="20">+20%</button>
+            </div>
+
+            <div class="final-sum cigar-final-sum">
+                Итого: <span id="cigarFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+            </div>
+
+            <button class="reset-btn cigar-reset-btn" id="cigarResetBtn">Очистить</button>
+        </div>
+
+        <div class="buttons-container cigar-buttons-container" id="cigarButtonsContainer"></div>
+    </div>
+
+    <footer>
+        <div><strong>Создатель: Жирин - Kyltest12</strong></div>
+        <div>
+            Связь:
+            <a href="https://steamcommunity.com/id/kyltest12/" title="Steam">
+                <img src="https://img.icons8.com/?size=100&id=bAueu1nRM1E2&format=png&color=000000" alt="Steam">
+            </a>
+            <a href="https://guns.lol/kyltest12" title="Guns.lol">
+                <img src="https://avatars.githubusercontent.com/u/157977633?s=200&v=4" alt="Guns.lol">
+            </a>
+        </div>
+        <div>Телеграм - @kyltest12</div>
+    </footer>
+
+    <!-- Туториал подсказка -->
+    <div id="artifactTooltip" class="artifact-tooltip"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
