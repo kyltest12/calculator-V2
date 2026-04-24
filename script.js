@@ -581,27 +581,95 @@
     let mutantTotalSum = 0;
     let currentMutantBonus = 0;
     const mutantQuantityElements = new Map();
-    const mutantPartsNormal = [
-        { name: 'Хвост собаки', price: 1165 }, { name: 'Глаз плоти', price: 1390 }, { name: 'Шкура собаки', price: 1500 },
-        { name: 'Копыта кабана', price: 2055 }, { name: 'Шкура кабана', price: 2400 }
+    const legacyMutantPrices = new Map([
+        ['глаз плоти', 1390],
+        ['голова зомби паразита', 3000],
+        ['голова собаки', 1500],
+        ['голова собаки паразита', 1750],
+        ['голова сабаки паразита', 1750],
+        ['голова тушкана', 1055],
+        ['маска снорка', 3250],
+        ['нога снорка', 2890],
+        ['рука зомби', 2390],
+        ['рука излома', 2555],
+        ['рука карлика', 1450],
+        ['шкура собаки', 1500]
+    ]);
+    const mutantPartNames = [
+        'Глаз Плоти',
+        'Голова Зомби Паразита',
+        'Голова Крысы',
+        'Голова Собаки',
+        'Голова Сабаки Паразита',
+        'Голова Тушкана',
+        'Коготь Химеры',
+        'Крыло Псевдоснорка',
+        'Маска Снорка',
+        'Нога Кабана',
+        'Нога Снорка',
+        'Рука Бюрера',
+        'Рука Зомби',
+        'Рука Излома',
+        'Рука Карлика',
+        'Рука Контролёра',
+        'Рука Полтергейста',
+        'Шкура Псевдогиганта',
+        'Шкура Псевдособаки',
+        'Шкура Собаки',
+        'Шкура Химеры',
+        'шкура Плоти',
+        'Щупальцы Кровососа'
     ];
-    const mutantPartsRare = [
-        { name: 'Голова тушкана', price: 1055 }, { name: 'Рука карлика', price: 1450 }, { name: 'Голова собаки', price: 1500 },
-        { name: 'Голова собаки паразита', price: 1750 }, { name: 'Рука зомби', price: 2390 }, { name: 'Рука излома', price: 2555 },
-        { name: 'Нога снорка', price: 2890 }, { name: 'Голова зомби паразита', price: 3000 }, { name: 'Маска снорка', price: 3250 }
-    ];
-    const mutantParts = [...mutantPartsNormal, ...mutantPartsRare];
+    const mutantImageFolder = 'мутанты';
+    const mutantImageAliases = {
+        'Глаз Плоти': 'Глаз плоти',
+        'Голова Зомби Паразита': 'Голова зараженного зомби',
+        'Голова Крысы': 'Голова крысы',
+        'Голова Собаки': 'Голова собаки',
+        'Голова Сабаки Паразита': 'Голова Заражённой Собаки',
+        'Голова Тушкана': 'Голова тушкана',
+        'Коготь Химеры': 'Клык хименры',
+        'Крыло Псевдоснорка': 'Крало снорка',
+        'Маска Снорка': 'Глова снорка',
+        'Нога Кабана': 'Нога кабана',
+        'Нога Снорка': 'Нога снорка',
+        'Рука Бюрера': 'Рука буреры',
+        'Рука Зомби': 'Рука зомби',
+        'Рука Излома': 'Рука излома',
+        'Рука Карлика': 'Рука карлика',
+        'Рука Контролёра': 'Рука колектора',
+        'Рука Полтергейста': 'Рука полтергейста',
+        'Шкура Псевдогиганта': 'Шкура всевдогигинта',
+        'Шкура Псевдособаки': 'Шкура всевдособаки',
+        'Шкура Собаки': 'Шкура собика',
+        'Шкура Химеры': 'Шкура химеры',
+        'шкура Плоти': 'Шкура плоти',
+        'Щупальцы Кровососа': 'Шупальца кровососа'
+    };
+
+    function getLocalMutantImagePath(name) {
+        const imageName = mutantImageAliases[name] || name;
+        return `${mutantImageFolder}/${encodeURIComponent(imageName)}.png`;
+    }
+
+    const mutantParts = mutantPartNames.map(name => ({
+        name,
+        price: legacyMutantPrices.get(name.toLowerCase()) ?? 100,
+        image: getLocalMutantImagePath(name)
+    }));
 
     if (savedMutantPrices) {
         try {
             const prices = JSON.parse(savedMutantPrices);
-            if (Array.isArray(prices)) {
-                mutantParts.forEach((part, index) => {
-                    const savedPrice = prices[index];
+            if (prices && !Array.isArray(prices) && typeof prices === 'object') {
+                mutantParts.forEach(part => {
+                    const savedPrice = prices[part.name];
                     if (Number.isFinite(savedPrice) && savedPrice >= 0) {
                         part.price = savedPrice;
                     }
                 });
+            } else {
+                localStorage.removeItem('mutantPartPrices');
             }
         } catch (error) {
             console.warn('Не удалось загрузить сохраненные цены частей мутантов:', error);
@@ -610,7 +678,7 @@
     }
 
     function saveMutantPricesToStorage() {
-        const prices = mutantParts.map(part => part.price);
+        const prices = Object.fromEntries(mutantParts.map(part => [part.name, part.price]));
         localStorage.setItem('mutantPartPrices', JSON.stringify(prices));
     }
 
@@ -619,7 +687,7 @@
         mutantFinalDisplay.textContent = Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
     }
 
-    function createMutantButton(part, isRare) {
+    function createMutantButton(part) {
         const itemDiv = document.createElement('div'); 
         itemDiv.className = 'item mutant-item';
         
@@ -627,16 +695,20 @@
         nameDiv.className = 'item-name'; 
         nameDiv.textContent = part.name;
 
-        const visualDiv = document.createElement('div');
-        visualDiv.className = 'mutant-card-visual';
-        visualDiv.textContent = isRare ? 'R' : 'N';
+        const imgButton = document.createElement('button');
+        imgButton.className = 'image-button';
+        const img = document.createElement('img');
+        img.src = part.image;
+        img.alt = part.name;
+        img.onerror = function () { this.src = fallbackImage; };
+        imgButton.appendChild(img);
         
         const priceDiv = document.createElement('div'); 
         priceDiv.className = 'price'; 
         priceDiv.textContent = part.price + ' руб.';
         
         itemDiv.appendChild(nameDiv); 
-        itemDiv.appendChild(visualDiv);
+        itemDiv.appendChild(imgButton);
         itemDiv.appendChild(priceDiv);
         
         const controlsDiv = document.createElement('div'); 
@@ -671,6 +743,34 @@
 
         addBtn.addEventListener('click', () => updateQuantity(1));
         subBtn.addEventListener('click', () => updateQuantity(-1));
+        
+        imgButton.addEventListener('click', (e) => {
+            if (e.shiftKey || e.button === 2) {
+                e.preventDefault();
+                updateQuantity(-1);
+            } else {
+                updateQuantity(1);
+            }
+        });
+        
+        imgButton.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            updateQuantity(-1);
+        });
+        
+        itemDiv.addEventListener('mousedown', (e) => {
+            if (e.button === 1) {
+                e.preventDefault();
+                const currentQty = parseInt(quantitySpan.textContent);
+                if (currentQty > 0) {
+                    mutantTotalSum -= currentQty * part.price;
+                    quantitySpan.textContent = '0';
+                    updateMutantTotals();
+                }
+            }
+        });
+        
+        itemDiv.addEventListener('contextmenu', (e) => e.preventDefault());
 
         priceDiv.addEventListener('dblclick', () => {
             const input = document.createElement('input');
@@ -710,7 +810,7 @@
         buttonGroup.appendChild(addBtn);
         controlsDiv.appendChild(buttonGroup); 
         itemDiv.appendChild(controlsDiv);
-        document.getElementById(isRare ? 'mutantButtonsContainerRare' : 'mutantButtonsContainerNormal').appendChild(itemDiv);
+        document.getElementById('mutantButtonsContainer').appendChild(itemDiv);
     }
 
     mutantBonusButtons.forEach(btn => btn.addEventListener('click', () => {
@@ -729,8 +829,7 @@
         updateMutantTotals();
     });
 
-    mutantPartsNormal.forEach(p => createMutantButton(p, false));
-    mutantPartsRare.forEach(p => createMutantButton(p, true));
+    mutantParts.forEach(p => createMutantButton(p));
     mutantBonusButtons[0].classList.add('active');
 
     // Копирование по клику
