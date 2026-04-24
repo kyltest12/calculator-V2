@@ -4,4 +4,4 @@
 
 Буду рад если будете писать о найденых багам.
 
-https://kyltest12.github.io/Calculator/
+https://kyltest12.github.io/calculator-V2/
