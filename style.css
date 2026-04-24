@@ -1,52 +1,72 @@
 /* === ТЕМЫ И ПЕРЕМЕННЫЕ === */
 :root {
-    --bg-primary: rgb(255, 223, 194);
-    --bg-secondary: #f5f5f5;
+    --bg-primary: #eef4fb;
+    --bg-secondary: #f5faff;
     --bg-card: white;
-    --bg-header: sandybrown;
-    --bg-header2: #8b6f47;
-    --bg-h3: #d4a574;
-    --text-primary: #333;
-    --text-secondary: #555;
-    --text-accent: #d9534f;
-    --border-light: #ddd;
-    --border-accent: sandybrown;
+    --bg-header: #4d93de;
+    --bg-header2: #2b6fb9;
+    --bg-h3: #67abef;
+    --text-primary: #263646;
+    --text-secondary: #5a6d82;
+    --text-accent: #2f76c6;
+    --border-light: #d7e2ef;
+    --border-accent: #6eb4f2;
     --shadow-light: rgba(0, 0, 0, 0.1);
-    --btn-bg: #f9f9f9;
-    --btn-border: #ddd;
-    --bonus-btn-text: sandybrown;
-    --footer-bg: sandybrown;
+    --btn-bg: #f7fbff;
+    --btn-border: #d7e2ef;
+    --bonus-btn-text: #2f76c6;
+    --footer-bg: #395a7b;
     --footer-text: white;
-    --mutant-header-bg: #f5f5f5;
-    --mutant-header-text: #333;
+    --mutant-accent: #eb6a74;
+    --mutant-accent-dark: #c94952;
+    --mutant-section-bg: #fff1f3;
+    --mutant-header-bg: #fff7f8;
+    --mutant-header-text: #53272c;
+    --mutant-title-bg: #d95a64;
+    --cigar-accent: #59c86d;
+    --cigar-accent-dark: #2f9749;
+    --cigar-section-bg: #eef8ee;
+    --cigar-header-bg: #f7fff7;
+    --cigar-header-text: #24412a;
+    --cigar-title-bg: #46ad5c;
     --tooltip-bg: #2c2c2c;
     --tooltip-text: #f0f0f0;
-    --tooltip-accent: sandybrown;
+    --tooltip-accent: #6eb4f2;
 }
 
 [data-theme="dark"] {
-    --bg-primary: #121212;
-    --bg-secondary: #1e1e1e;
-    --bg-card: #2a2a2a;
-    --bg-header: #4a3f2e;
-    --bg-header2: #5a4a30;
-    --bg-h3: #6a5030;
-    --text-primary: #e0e0e0;
-    --text-secondary: #b0b0b0;
-    --text-accent: #ff6b35;
-    --border-light: #404040;
-    --border-accent: #ff8c00;
+    --bg-primary: #101824;
+    --bg-secondary: #142133;
+    --bg-card: #1a293a;
+    --bg-header: #2b5f99;
+    --bg-header2: #214f83;
+    --bg-h3: #3270ac;
+    --text-primary: #e4edf8;
+    --text-secondary: #aec0d4;
+    --text-accent: #7dc0ff;
+    --border-light: #31475f;
+    --border-accent: #5aa6f0;
     --shadow-light: rgba(0, 0, 0, 0.3);
-    --btn-bg: #404040;
-    --btn-border: #555;
-    --bonus-btn-text: #ff8c00;
-    --footer-bg: #2d2418;
-    --footer-text: #ddd;
-    --mutant-header-bg: #1e1e1e;
-    --mutant-header-text: #e0e0e0;
+    --btn-bg: #1d2e41;
+    --btn-border: #3d5570;
+    --bonus-btn-text: #8bcaff;
+    --footer-bg: #162537;
+    --footer-text: #dbe8f6;
+    --mutant-accent: #ff8f98;
+    --mutant-accent-dark: #d45a63;
+    --mutant-section-bg: #251518;
+    --mutant-header-bg: #2b181c;
+    --mutant-header-text: #ffd9dd;
+    --mutant-title-bg: #a63d46;
+    --cigar-accent: #79d98a;
+    --cigar-accent-dark: #4eb866;
+    --cigar-section-bg: #16231a;
+    --cigar-header-bg: #1b2a1f;
+    --cigar-header-text: #d7f0dd;
+    --cigar-title-bg: #2f8045;
     --tooltip-bg: #1a1a1a;
     --tooltip-text: #e0e0e0;
-    --tooltip-accent: #ff8c00;
+    --tooltip-accent: #6fbdf7;
 }
 
 * {
@@ -69,7 +89,6 @@ body {
 h1 {
     width: 100%;
     height: 85px;
-    background-color: var(--bg-header);
     color: white;
     display: flex;
     justify-content: center;
@@ -80,10 +99,13 @@ h1 {
     transition: background-color 0.4s ease;
 }
 
+.artifact-title {
+    background: linear-gradient(135deg, var(--bg-header), var(--bg-header2));
+}
+
 h2 {
     width: 100%;
     height: 60px;
-    background-color: var(--bg-header2);
     color: white;
     display: flex;
     justify-content: center;
@@ -93,6 +115,18 @@ h2 {
     text-shadow: 2px 2px 4px var(--shadow-light);
     margin-top: 30px;
     transition: background-color 0.4s ease;
+}
+
+.section-title {
+    letter-spacing: 0.4px;
+}
+
+.mutant-title {
+    background: linear-gradient(135deg, var(--mutant-title-bg), var(--mutant-accent-dark));
+}
+
+.cigar-title {
+    background: linear-gradient(135deg, var(--cigar-title-bg), var(--cigar-accent-dark));
 }
 
 h3 {
@@ -108,7 +142,7 @@ h3 {
 }
 
 .header-stats {
-    background-color: var(--bg-secondary);
+    background: linear-gradient(180deg, var(--bg-secondary), rgba(255, 255, 255, 0.8));
     padding: 20px;
     text-align: center;
     border-bottom: 2px solid var(--border-accent);
@@ -188,7 +222,7 @@ h3 {
 
 .search-input:focus {
     outline: none;
-    box-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+    box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
     width: 250px;
     border-color: var(--border-accent);
 }
@@ -224,7 +258,7 @@ h3 {
 #finalSum:hover,
 #mutantTotalSum:hover {
     opacity: 0.8;
-    background-color: rgba(217, 83, 79, 0.1);
+    background-color: rgba(47, 118, 198, 0.12);
 }
 
 .bonus-buttons {
@@ -270,7 +304,7 @@ h3 {
 .reset-btn {
     padding: 8px 12px;
     margin-top: 10px;
-    background-color: #6c757d;
+    background-color: var(--bg-header2);
     color: white;
     border: none;
     border-radius: 4px;
@@ -280,7 +314,7 @@ h3 {
 }
 
 .reset-btn:hover {
-    background-color: #5a6268;
+    background-color: var(--bg-header);
 }
 
 .content {
@@ -426,9 +460,9 @@ h3 {
 
 /* Мутанты */
 .mutant-section {
-    background-color: var(--bg-secondary);
+    background-color: var(--mutant-section-bg);
     text-align: center;
-    border-top: 2px solid var(--bg-header2);
+    border-top: 2px solid var(--mutant-accent);
     transition: background-color 0.4s;
 }
 
@@ -436,7 +470,7 @@ h3 {
     background-color: var(--mutant-header-bg);
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid var(--bg-header2);
+    border-bottom: 2px solid var(--mutant-accent);
     color: var(--mutant-header-text);
     transition: all 0.4s;
 }
@@ -453,22 +487,35 @@ h3 {
 }
 
 .mutant-final-sum {
-    color: var(--text-accent);
+    color: var(--mutant-accent-dark);
 }
 
+#mutantTotalSum,
 #mutantFinalSum {
-    color: var(--text-accent);
+    color: var(--mutant-accent-dark);
     cursor: pointer;
     transition: opacity 0.2s;
     display: inline-block;
     padding: 2px 6px;
     border-radius: 4px;
-    font-size: 18px;
 }
 
+#mutantTotalSum:hover,
 #mutantFinalSum:hover {
     opacity: 0.8;
-    background-color: rgba(217, 83, 79, 0.1);
+    background-color: rgba(217, 73, 82, 0.12);
+}
+
+.mutant-bonus-buttons .bonus-btn {
+    border-color: var(--mutant-accent);
+    color: var(--mutant-accent-dark);
+}
+
+.mutant-bonus-buttons .bonus-btn:hover,
+.mutant-bonus-buttons .bonus-btn.active {
+    background-color: var(--mutant-accent);
+    border-color: var(--mutant-accent);
+    color: white;
 }
 
 .mutant-buttons-container {
@@ -483,11 +530,28 @@ h3 {
 }
 
 .mutant-item:hover {
-    border-color: var(--border-accent);
+    border-color: var(--mutant-accent);
 }
 
 .mutant-item .item-name {
     min-height: 40px;
+}
+
+.mutant-item .price {
+    color: var(--mutant-accent-dark);
+}
+
+.mutant-item .btn-control:hover {
+    background-color: var(--mutant-accent);
+    border-color: var(--mutant-accent);
+}
+
+#mutantResetBtn {
+    background-color: var(--mutant-accent-dark);
+}
+
+#mutantResetBtn:hover {
+    background-color: var(--mutant-accent);
 }
 
 .mutant-card-visual {
@@ -504,6 +568,120 @@ h3 {
     font-weight: bold;
     margin-bottom: 8px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Сигары */
+.cigar-section {
+    background-color: var(--cigar-section-bg);
+    text-align: center;
+    border-top: 2px solid var(--cigar-accent);
+    transition: background-color 0.4s ease;
+}
+
+.cigar-header-stats {
+    background-color: var(--cigar-header-bg);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--cigar-accent);
+    color: var(--cigar-header-text);
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.cigar-search-container {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.cigar-search-input {
+    border-color: var(--cigar-accent);
+}
+
+.cigar-search-input:focus {
+    box-shadow: 0 0 12px rgba(50, 205, 50, 0.3);
+    border-color: var(--cigar-accent);
+}
+
+.cigar-sum-display {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--cigar-header-text);
+}
+
+#cigarTotalSum,
+#cigarFinalSum {
+    color: var(--cigar-accent-dark);
+    cursor: pointer;
+    transition: opacity 0.2s;
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+#cigarTotalSum {
+    font-size: 28px;
+}
+
+#cigarFinalSum {
+    font-size: 18px;
+}
+
+#cigarTotalSum:hover,
+#cigarFinalSum:hover {
+    opacity: 0.8;
+    background-color: rgba(34, 139, 34, 0.12);
+}
+
+.cigar-bonus-buttons {
+    margin-top: 0;
+}
+
+.cigar-bonus-buttons .bonus-btn {
+    border-color: var(--cigar-accent);
+    color: var(--cigar-accent-dark);
+}
+
+.cigar-bonus-buttons .bonus-btn:hover,
+.cigar-bonus-buttons .bonus-btn.active {
+    background-color: var(--cigar-accent);
+    border-color: var(--cigar-accent);
+    color: white;
+}
+
+.cigar-final-sum {
+    color: var(--cigar-accent-dark);
+}
+
+.cigar-reset-btn {
+    background-color: var(--cigar-accent-dark);
+}
+
+.cigar-reset-btn:hover {
+    background-color: #1a6b1a;
+}
+
+.cigar-buttons-container {
+    gap: 15px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1400px;
+}
+
+.cigar-item:hover {
+    border-color: var(--cigar-accent);
+}
+
+.cigar-item .price {
+    color: var(--cigar-accent-dark);
+}
+
+.cigar-item .btn-control:hover {
+    background-color: var(--cigar-accent);
+    border-color: var(--cigar-accent);
 }
 
 /* Модальное окно настроек */
@@ -676,6 +854,11 @@ footer img {
         justify-content: center;
         margin-bottom: 15px;
     }
+    .cigar-search-container {
+        position: static;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
     .search-input { width: 180px; }
     .search-input:focus { width: 220px; }
 }
@@ -683,6 +866,10 @@ footer img {
 @media (max-width: 480px) {
     .buttons-container { grid-template-columns: repeat(2, 1fr); }
     .search-container {
+        width: 100%;
+        justify-content: center;
+    }
+    .cigar-search-container {
         width: 100%;
         justify-content: center;
     }
