@@ -284,7 +284,7 @@
     // === КАЛЬКУЛЯТОР АРТЕФАКТОВ ===
     const totalDisplay = document.getElementById('totalSum');
     const finalDisplay = document.getElementById('finalSum');
-    const bonusButtons = document.querySelectorAll('.bonus-btn');
+    const bonusButtons = document.querySelectorAll('.header-stats .bonus-btn');
     const resetBtn = document.getElementById('resetBtn');
     const searchInput = document.getElementById('searchInput');
     const exportBtn = document.getElementById('exportBtn');
@@ -465,7 +465,7 @@
 
     searchInput.addEventListener('input', () => {
         const term = searchInput.value.toLowerCase().trim();
-        document.querySelectorAll('.item').forEach(item => {
+        document.querySelectorAll('#buttonsContainer .item').forEach(item => {
             const name = item.dataset.artifactName;
             item.classList.toggle('hidden', term !== '' && !name.includes(term));
         });
@@ -485,7 +485,7 @@
         bonusButtons[0].classList.add('active');
         quantityElements.forEach(span => span.textContent = '0');
         searchInput.value = '';
-        document.querySelectorAll('.item').forEach(i => i.classList.remove('hidden'));
+        document.querySelectorAll('#buttonsContainer .item').forEach(i => i.classList.remove('hidden'));
         updateTotals();
     });
 
@@ -558,7 +558,7 @@
             artifact.price = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
         });
         
-        document.querySelectorAll('.price').forEach((priceDiv, index) => {
+        document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv, index) => {
             if (index < artifacts.length) {
                 priceDiv.textContent = artifacts[index].price + ' руб.';
             }
@@ -581,27 +581,138 @@
     let mutantTotalSum = 0;
     let currentMutantBonus = 0;
     const mutantQuantityElements = new Map();
-    const mutantPartsNormal = [
-        { name: 'Хвост собаки', price: 1165 }, { name: 'Глаз плоти', price: 1390 }, { name: 'Шкура собаки', price: 1500 },
-        { name: 'Копыта кабана', price: 2055 }, { name: 'Шкура кабана', price: 2400 }
+    const legacyMutantPrices = new Map([
+        ['голова крысы', 475],
+        ['голова тушкана', 1055],
+        ['хвост собаки', 1165],
+        ['глаз плоти', 1390],
+        ['рука карлика', 1450],
+        ['голова собаки', 1500],
+        ['шкура собаки', 1525],
+        ['хвост кошки', 1720],
+        ['шкура плоти', 1720],
+        ['голова собаки паразита', 1750],
+        ['голова сабаки паразита', 1750],
+        ['нога кабана', 2055],
+        ['рука зомби', 2390],
+        ['шкура кабана', 2400],
+        ['рука излома', 2555],
+        ['нога снорка', 2890],
+        ['голова зомби паразита', 3000],
+        ['рука коллектора', 3250],
+        ['рука контролёра', 3250],
+        ['маска снорка', 3250],
+        ['крыло псевдоснорка', 1],
+        ['щупальца кровососа', 3310],
+        ['щупальцы кровососа', 3310],
+        ['рука полтергейста', 3400],
+        ['хвост псевдособаки', 3500],
+        ['шкура кровососа', 3710],
+        ['шкура полтергейста', 3750],
+        ['шкура псевдособаки', 4100],
+        ['рука бюрера', 4310],
+        ['коготь химеры', 5170],
+        ['шкура химеры', 5750],
+        ['рука псевдогиганта', 6610],
+        ['шкура псевдогиганта', 7200]
+    ]);
+    const mutantPartNames = [
+        'Голова Крысы',
+        'Голова Тушкана',
+        'Хвост Собаки',
+        'Глаз Плоти',
+        'Рука Карлика',
+        'Голова Собаки',
+        'Шкура Собаки',
+        'Хвост Кошки',
+        'Шкура Плоти',
+        'Голова Собаки Паразита',
+        'Нога Кабана',
+        'Рука Зомби',
+        'Шкура Кабана',
+        'Рука Излома',
+        'Нога Снорка',
+        'Голова Зомби Паразита',
+        'Рука Коллектора',
+        'Маска Снорка',
+        'Крыло Псевдоснорка',
+        'Щупальца Кровососа',
+        'Рука Полтергейста',
+        'Хвост Псевдособаки',
+        'Шкура Кровососа',
+        'Шкура Полтергейста',
+        'Шкура Псевдособаки',
+        'Рука Бюрера',
+        'Коготь Химеры',
+        'Шкура Химеры',
+        'Рука Псевдогиганта',
+        'Шкура Псевдогиганта'
     ];
-    const mutantPartsRare = [
-        { name: 'Голова тушкана', price: 1055 }, { name: 'Рука карлика', price: 1450 }, { name: 'Голова собаки', price: 1500 },
-        { name: 'Голова собаки паразита', price: 1750 }, { name: 'Рука зомби', price: 2390 }, { name: 'Рука излома', price: 2555 },
-        { name: 'Нога снорка', price: 2890 }, { name: 'Голова зомби паразита', price: 3000 }, { name: 'Маска снорка', price: 3250 }
-    ];
-    const mutantParts = [...mutantPartsNormal, ...mutantPartsRare];
+    const mutantImageFolder = 'мутанты';
+    const mutantImageAliases = {
+        'Глаз Плоти': 'Глаз плоти',
+        'Голова Зомби Паразита': 'Голова зараженного зомби',
+        'Голова Крысы': 'Голова крысы',
+        'Голова Собаки': 'Голова собаки',
+        'Голова Собаки Паразита': 'Голова Заражённой Собаки',
+        'Голова Тушкана': 'Голова тушкана',
+        'Хвост Собаки': 'Хвост собаки',
+        'Коготь Химеры': 'Клык хименры',
+        'Маска Снорка': 'Глова снорка',
+        'Нога Кабана': 'Нога кабана',
+        'Нога Снорка': 'Нога снорка',
+        'Рука Бюрера': 'Рука буреры',
+        'Рука Зомби': 'Рука зомби',
+        'Рука Излома': 'Рука излома',
+        'Рука Карлика': 'Рука карлика',
+        'Рука Коллектора': 'Рука колектора',
+        'Рука Полтергейста': 'Рука полтергейста',
+        'Рука Псевдогиганта': 'Рука всевдогиганта',
+        'Крыло Псевдоснорка': 'Крало снорка',
+        'Хвост Кошки': 'Хвост кошки',
+        'Хвост Псевдособаки': 'Хвост всевдособаки',
+        'Шкура Кабана': 'Шкура кабана',
+        'Шкура Кровососа': 'Шкура кровососа',
+        'Шкура Полтергейста': 'Шкура полтергейста',
+        'Шкура Псевдогиганта': 'Шкура всевдогигинта',
+        'Шкура Псевдособаки': 'Шкура всевдособаки',
+        'Шкура Собаки': 'Шкура собика',
+        'Шкура Химеры': 'Шкура химеры',
+        'Шкура Плоти': 'Шкура плоти',
+        'Щупальца Кровососа': 'Шупальца кровососа'
+    };
+
+    function getLocalMutantImagePath(name) {
+        const imageName = mutantImageAliases[name] || name;
+        return `${mutantImageFolder}/${encodeURIComponent(imageName)}.png`;
+    }
+
+    const mutantPriceVersion = '2026-04-24';
+    const savedMutantPriceVersion = localStorage.getItem('mutantPartPricesVersion');
+
+    if (savedMutantPriceVersion !== mutantPriceVersion) {
+        localStorage.removeItem('mutantPartPrices');
+        localStorage.setItem('mutantPartPricesVersion', mutantPriceVersion);
+    }
+
+    const mutantParts = mutantPartNames.map(name => ({
+        name,
+        price: legacyMutantPrices.get(name.toLowerCase()) ?? 100,
+        image: getLocalMutantImagePath(name)
+    }));
 
     if (savedMutantPrices) {
         try {
             const prices = JSON.parse(savedMutantPrices);
-            if (Array.isArray(prices)) {
-                mutantParts.forEach((part, index) => {
-                    const savedPrice = prices[index];
+            if (prices && !Array.isArray(prices) && typeof prices === 'object') {
+                mutantParts.forEach(part => {
+                    const savedPrice = prices[part.name];
                     if (Number.isFinite(savedPrice) && savedPrice >= 0) {
                         part.price = savedPrice;
                     }
                 });
+            } else {
+                localStorage.removeItem('mutantPartPrices');
             }
         } catch (error) {
             console.warn('Не удалось загрузить сохраненные цены частей мутантов:', error);
@@ -610,7 +721,7 @@
     }
 
     function saveMutantPricesToStorage() {
-        const prices = mutantParts.map(part => part.price);
+        const prices = Object.fromEntries(mutantParts.map(part => [part.name, part.price]));
         localStorage.setItem('mutantPartPrices', JSON.stringify(prices));
     }
 
@@ -619,7 +730,7 @@
         mutantFinalDisplay.textContent = Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
     }
 
-    function createMutantButton(part, isRare) {
+    function createMutantButton(part) {
         const itemDiv = document.createElement('div'); 
         itemDiv.className = 'item mutant-item';
         
@@ -627,16 +738,20 @@
         nameDiv.className = 'item-name'; 
         nameDiv.textContent = part.name;
 
-        const visualDiv = document.createElement('div');
-        visualDiv.className = 'mutant-card-visual';
-        visualDiv.textContent = isRare ? 'R' : 'N';
+        const imgButton = document.createElement('button');
+        imgButton.className = 'image-button';
+        const img = document.createElement('img');
+        img.src = part.image;
+        img.alt = part.name;
+        img.onerror = function () { this.src = fallbackImage; };
+        imgButton.appendChild(img);
         
         const priceDiv = document.createElement('div'); 
         priceDiv.className = 'price'; 
         priceDiv.textContent = part.price + ' руб.';
         
         itemDiv.appendChild(nameDiv); 
-        itemDiv.appendChild(visualDiv);
+        itemDiv.appendChild(imgButton);
         itemDiv.appendChild(priceDiv);
         
         const controlsDiv = document.createElement('div'); 
@@ -671,6 +786,34 @@
 
         addBtn.addEventListener('click', () => updateQuantity(1));
         subBtn.addEventListener('click', () => updateQuantity(-1));
+        
+        imgButton.addEventListener('click', (e) => {
+            if (e.shiftKey || e.button === 2) {
+                e.preventDefault();
+                updateQuantity(-1);
+            } else {
+                updateQuantity(1);
+            }
+        });
+        
+        imgButton.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            updateQuantity(-1);
+        });
+        
+        itemDiv.addEventListener('mousedown', (e) => {
+            if (e.button === 1) {
+                e.preventDefault();
+                const currentQty = parseInt(quantitySpan.textContent);
+                if (currentQty > 0) {
+                    mutantTotalSum -= currentQty * part.price;
+                    quantitySpan.textContent = '0';
+                    updateMutantTotals();
+                }
+            }
+        });
+        
+        itemDiv.addEventListener('contextmenu', (e) => e.preventDefault());
 
         priceDiv.addEventListener('dblclick', () => {
             const input = document.createElement('input');
@@ -710,7 +853,7 @@
         buttonGroup.appendChild(addBtn);
         controlsDiv.appendChild(buttonGroup); 
         itemDiv.appendChild(controlsDiv);
-        document.getElementById(isRare ? 'mutantButtonsContainerRare' : 'mutantButtonsContainerNormal').appendChild(itemDiv);
+        document.getElementById('mutantButtonsContainer').appendChild(itemDiv);
     }
 
     mutantBonusButtons.forEach(btn => btn.addEventListener('click', () => {
@@ -729,13 +872,131 @@
         updateMutantTotals();
     });
 
-    mutantPartsNormal.forEach(p => createMutantButton(p, false));
-    mutantPartsRare.forEach(p => createMutantButton(p, true));
+    mutantParts.forEach(p => createMutantButton(p));
     mutantBonusButtons[0].classList.add('active');
+
+    // === СИГАРЫ ===
+    const cigarTotalDisplay = document.getElementById('cigarTotalSum');
+    const cigarFinalDisplay = document.getElementById('cigarFinalSum');
+    const cigarBonusButtons = document.querySelectorAll('.cigar-bonus-btn');
+    const cigarResetBtn = document.getElementById('cigarResetBtn');
+    const cigarSearchInput = document.getElementById('cigarSearchInput');
+    const cigarButtonsContainer = document.getElementById('cigarButtonsContainer');
+    const cigarQuantityElements = new Map();
+    let cigarTotalSum = 0;
+    let currentCigarBonus = 0;
+
+    const cigars = [
+        { name: 'Сигареты', price: 500 },
+        { name: 'Самокрут Марихуана', price: 1500 },
+        { name: 'Самокрут Мескалин', price: 2200 },
+        { name: 'Самокрут Гашик', price: 2200 },
+        { name: 'Самокрут Моракс', price: 2350 },
+        { name: 'Сигара Вудди', price: 2500 },
+        { name: 'Сигара Маковая соломка', price: 2750 },
+        { name: 'Сигара Ананас', price: 2900 },
+        { name: 'Сигара Блондик', price: 5000 }
+    ];
+
+    function updateCigarTotals() {
+        cigarTotalDisplay.textContent = cigarTotalSum.toLocaleString('ru-RU');
+        cigarFinalDisplay.textContent = Math.round(cigarTotalSum * (1 + currentCigarBonus / 100)).toLocaleString('ru-RU');
+    }
+
+    function createCigarButton(cigar) {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'item cigar-item';
+        itemDiv.dataset.cigarName = cigar.name.toLowerCase();
+
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'item-name';
+        nameDiv.textContent = cigar.name;
+
+        const priceDiv = document.createElement('div');
+        priceDiv.className = 'price';
+        priceDiv.textContent = cigar.price + ' руб.';
+
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'controls';
+
+        const buttonGroup = document.createElement('div');
+        buttonGroup.className = 'button-group';
+
+        const subBtn = document.createElement('button');
+        subBtn.className = 'btn-control';
+        subBtn.textContent = '−';
+
+        const quantitySpan = document.createElement('div');
+        quantitySpan.className = 'quantity';
+        quantitySpan.textContent = '0';
+        cigarQuantityElements.set(cigar.name, quantitySpan);
+
+        const addBtn = document.createElement('button');
+        addBtn.className = 'btn-control';
+        addBtn.textContent = '+';
+
+        const updateQuantity = (delta) => {
+            const currentQty = parseInt(quantitySpan.textContent, 10);
+            const nextQty = Math.max(0, currentQty + delta);
+            const actualDelta = nextQty - currentQty;
+
+            if (actualDelta === 0) return;
+
+            quantitySpan.textContent = String(nextQty);
+            cigarTotalSum += actualDelta * cigar.price;
+            updateCigarTotals();
+        };
+
+        addBtn.addEventListener('click', () => updateQuantity(1));
+        subBtn.addEventListener('click', () => updateQuantity(-1));
+
+        buttonGroup.appendChild(subBtn);
+        buttonGroup.appendChild(quantitySpan);
+        buttonGroup.appendChild(addBtn);
+        controlsDiv.appendChild(buttonGroup);
+
+        itemDiv.appendChild(nameDiv);
+        itemDiv.appendChild(priceDiv);
+        itemDiv.appendChild(controlsDiv);
+        cigarButtonsContainer.appendChild(itemDiv);
+    }
+
+    cigarSearchInput.addEventListener('input', () => {
+        const searchTerm = cigarSearchInput.value.toLowerCase().trim();
+        cigarButtonsContainer.querySelectorAll('.cigar-item').forEach(item => {
+            const cigarName = item.dataset.cigarName || '';
+            item.classList.toggle('hidden', searchTerm !== '' && !cigarName.includes(searchTerm));
+        });
+    });
+
+    cigarBonusButtons.forEach(btn => btn.addEventListener('click', () => {
+        cigarBonusButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCigarBonus = parseInt(btn.dataset.bonus, 10);
+        updateCigarTotals();
+    }));
+
+    cigarResetBtn.addEventListener('click', () => {
+        cigarTotalSum = 0;
+        currentCigarBonus = 0;
+        cigarBonusButtons.forEach(b => b.classList.remove('active'));
+        cigarBonusButtons[0].classList.add('active');
+        cigarQuantityElements.forEach(span => {
+            span.textContent = '0';
+        });
+        cigarSearchInput.value = '';
+        cigarButtonsContainer.querySelectorAll('.cigar-item').forEach(item => item.classList.remove('hidden'));
+        updateCigarTotals();
+    });
+
+    cigars.forEach(cigar => createCigarButton(cigar));
+    cigarBonusButtons[0].classList.add('active');
 
     // Копирование по клику
     totalDisplay.addEventListener('click', (e) => copyToClipboard(totalSum.toString(), e));
     finalDisplay.addEventListener('click', (e) => copyToClipboard(Math.round(totalSum * (1 + currentBonus / 100)).toString(), e));
     mutantTotalDisplay.addEventListener('click', (e) => copyToClipboard(mutantTotalSum.toString(), e));
     mutantFinalDisplay.addEventListener('click', (e) => copyToClipboard(Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)).toString(), e));
+    cigarTotalDisplay.addEventListener('click', (e) => copyToClipboard(cigarTotalSum.toString(), e));
+    cigarFinalDisplay.addEventListener('click', (e) => copyToClipboard(Math.round(cigarTotalSum * (1 + currentCigarBonus / 100)).toString(), e));
 })();
