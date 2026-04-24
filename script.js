@@ -284,7 +284,7 @@
     // === КАЛЬКУЛЯТОР АРТЕФАКТОВ ===
     const totalDisplay = document.getElementById('totalSum');
     const finalDisplay = document.getElementById('finalSum');
-    const bonusButtons = document.querySelectorAll('.bonus-btn');
+    const bonusButtons = document.querySelectorAll('.header-stats .bonus-btn');
     const resetBtn = document.getElementById('resetBtn');
     const searchInput = document.getElementById('searchInput');
     const exportBtn = document.getElementById('exportBtn');
@@ -485,7 +485,7 @@
         bonusButtons[0].classList.add('active');
         quantityElements.forEach(span => span.textContent = '0');
         searchInput.value = '';
-        document.querySelectorAll('.item').forEach(i => i.classList.remove('hidden'));
+        document.querySelectorAll('#buttonsContainer .item').forEach(i => i.classList.remove('hidden'));
         updateTotals();
     });
 
@@ -558,7 +558,7 @@
             artifact.price = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
         });
         
-        document.querySelectorAll('.price').forEach((priceDiv, index) => {
+        document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv, index) => {
             if (index < artifacts.length) {
                 priceDiv.textContent = artifacts[index].price + ' руб.';
             }
