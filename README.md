@@ -37,5 +37,5 @@
 
 ## Ссылка на сайт
 
-[Открыть сайт](https://kyltest12.github.io/Calculator/)
+[Открыть сайт](https://kyltest12.github.io/calculator-V2/)
 
