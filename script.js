@@ -898,6 +898,38 @@
         { name: 'Сигара Блондик', price: 5000 }
     ];
 
+    const savedCigarPrices = localStorage.getItem('cigarPrices');
+    if (savedCigarPrices) {
+        try {
+            const prices = JSON.parse(savedCigarPrices);
+            if (prices && !Array.isArray(prices) && typeof prices === 'object') {
+                cigars.forEach(cigar => {
+                    const savedPrice = prices[cigar.name];
+                    if (Number.isFinite(savedPrice) && savedPrice >= 0) {
+                        cigar.price = savedPrice;
+                    }
+                });
+            } else {
+                localStorage.removeItem('cigarPrices');
+            }
+        } catch {
+            localStorage.removeItem('cigarPrices');
+        }
+    }
+
+    function saveCigarPricesToStorage() {
+        const prices = Object.fromEntries(cigars.map(cigar => [cigar.name, cigar.price]));
+        localStorage.setItem('cigarPrices', JSON.stringify(prices));
+    }
+
+    function recalculateCigarTotal() {
+        cigarTotalSum = cigars.reduce((sum, cigar) => {
+            const quantity = parseInt(cigarQuantityElements.get(cigar.name)?.textContent || '0', 10);
+            return sum + (Number.isFinite(quantity) ? quantity * cigar.price : 0);
+        }, 0);
+        updateCigarTotals();
+    }
+
     function updateCigarTotals() {
         cigarTotalDisplay.textContent = cigarTotalSum.toLocaleString('ru-RU');
         cigarFinalDisplay.textContent = Math.round(cigarTotalSum * (1 + currentCigarBonus / 100)).toLocaleString('ru-RU');
@@ -949,6 +981,34 @@
 
         addBtn.addEventListener('click', () => updateQuantity(1));
         subBtn.addEventListener('click', () => updateQuantity(-1));
+
+        priceDiv.addEventListener('dblclick', () => {
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'price-input';
+            input.value = cigar.price;
+            input.min = '0';
+            input.step = '1';
+
+            priceDiv.textContent = '';
+            priceDiv.appendChild(input);
+            input.focus();
+            input.select();
+
+            const saveNewPrice = () => {
+                const parsedPrice = parseInt(input.value, 10);
+                const newPrice = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : cigar.price;
+                cigar.price = newPrice;
+                priceDiv.textContent = newPrice + ' руб.';
+                recalculateCigarTotal();
+                saveCigarPricesToStorage();
+            };
+
+            input.addEventListener('blur', saveNewPrice);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') saveNewPrice();
+            });
+        });
 
         buttonGroup.appendChild(subBtn);
         buttonGroup.appendChild(quantitySpan);
