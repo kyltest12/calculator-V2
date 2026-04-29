@@ -679,7 +679,7 @@
         'Шкура Собаки': 'Шкура собика',
         'Шкура Химеры': 'Шкура химеры',
         'Шкура Плоти': 'Шкура плоти',
-        'Щупальца Кровососа': 'Шупальца кровососа'
+        'Щупальца Кровососа': 'Шупальца кровософа'
     };
 
     function getLocalMutantImagePath(name) {
@@ -908,6 +908,25 @@
         localStorage.setItem('cigarPrices', JSON.stringify(prices));
     }
 
+    // Загрузка сохранённых цен сигар ДО создания кнопок
+    const savedCigarPrices = localStorage.getItem('cigarPrices');
+    if (savedCigarPrices) {
+        try {
+            const prices = JSON.parse(savedCigarPrices);
+            if (Array.isArray(prices) && prices.length === cigars.length) {
+                cigars.forEach((cigar, index) => {
+                    const savedPrice = prices[index];
+                    if (Number.isFinite(savedPrice) && savedPrice >= 0) {
+                        cigar.price = savedPrice;
+                    }
+                });
+            }
+        } catch (error) {
+            console.warn('Не удалось загрузить сохраненные цены сигар:', error);
+            localStorage.removeItem('cigarPrices');
+        }
+    }
+
     function createCigarButton(cigar) {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item cigar-item';
@@ -1027,25 +1046,6 @@
         cigarButtonsContainer.querySelectorAll('.cigar-item').forEach(item => item.classList.remove('hidden'));
         updateCigarTotals();
     });
-
-    // Загрузка сохранённых цен сигар
-    const savedCigarPrices = localStorage.getItem('cigarPrices');
-    if (savedCigarPrices) {
-        try {
-            const prices = JSON.parse(savedCigarPrices);
-            if (Array.isArray(prices)) {
-                cigars.forEach((cigar, index) => {
-                    const savedPrice = prices[index];
-                    if (Number.isFinite(savedPrice) && savedPrice >= 0) {
-                        cigar.price = savedPrice;
-                    }
-                });
-            }
-        } catch (error) {
-            console.warn('Не удалось загрузить сохраненные цены сигар:', error);
-            localStorage.removeItem('cigarPrices');
-        }
-    }
 
     cigars.forEach(cigar => createCigarButton(cigar));
     cigarBonusButtons[0].classList.add('active');
