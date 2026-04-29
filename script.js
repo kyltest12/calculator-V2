@@ -172,6 +172,12 @@
           properties: { 'Выносливость': '+1%', 'Гашение урона': '+10%', 'Защита от разрыва': '-10%', 'Ожог': '+15%', 'Радиация': '-0.12 мк3в/[...]
     ];
 
+    // Унифицированная проверка числовых значений цен из localStorage.
+    // Поддерживает как number, так и строковые числа из старых сохранений.
+    function normalizePrice(value) {
+        const parsed = typeof value === 'number' ? value : Number.parseInt(value, 10);
+        return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
+    }
     // Загрузка сохранённых цен
     const savedPrices = localStorage.getItem('artifactPrices');
     if (savedPrices) {
@@ -179,8 +185,8 @@
             const prices = JSON.parse(savedPrices);
             if (Array.isArray(prices)) {
                 artifacts.forEach((artifact, index) => {
-                    const savedPrice = prices[index];
-                    if (Number.isFinite(savedPrice) && savedPrice >= 0) {
+                    const savedPrice = normalizePrice(prices[index]);
+                    if (savedPrice !== null) {
                         artifact.price = savedPrice;
                     }
                 });
@@ -706,11 +712,20 @@
             const prices = JSON.parse(savedMutantPrices);
             if (prices && !Array.isArray(prices) && typeof prices === 'object') {
                 mutantParts.forEach(part => {
-                    const savedPrice = prices[part.name];
-                    if (Number.isFinite(savedPrice) && savedPrice >= 0) {
+                    const savedPrice = normalizePrice(prices[part.name]);
+                    if (savedPrice !== null) {
                         part.price = savedPrice;
                     }
                 });
+            } else if (Array.isArray(prices)) {
+                // Миграция старого формата (массив) в текущий (объект).
+                mutantParts.forEach((part, index) => {
+                    const savedPrice = normalizePrice(prices[index]);
+                    if (savedPrice !== null) {
+                        part.price = savedPrice;
+                    }
+                });
+                saveMutantPricesToStorage();
             } else {
                 localStorage.removeItem('mutantPartPrices');
             }
@@ -913,10 +928,10 @@
     if (savedCigarPrices) {
         try {
             const prices = JSON.parse(savedCigarPrices);
-            if (Array.isArray(prices) && prices.length === cigars.length) {
+            if (Array.isArray(prices)) {
                 cigars.forEach((cigar, index) => {
-                    const savedPrice = prices[index];
-                    if (Number.isFinite(savedPrice) && savedPrice >= 0) {
+                    const savedPrice = normalizePrice(prices[index]);
+                    if (savedPrice !== null) {
                         cigar.price = savedPrice;
                     }
                 });
