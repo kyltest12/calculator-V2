@@ -90,27 +90,27 @@
     let artifacts = [
         { name: 'Бенгальский огонь', price: 1500, image: '',
           properties: { 'Радиация': '-0.06 мк3в/сек', 'Электрошок': '+10%' } },
-        { name: 'Ломоть мяса', price: 1550, image: 'https://static.wikia.nocookie.net/stalker/images/a/ac/Icon_SoC_artefact_mincer_meat.png/revision/latest?cb=20230723224233&path-prefix=ru',
+        { name: 'Ломоть мяса', price: 1550, image: 'https://static.wikia.nocookie.net/stalker/images/a/ac/Icon_SoC_artefact_mincer_meat.png/revision/latest?cb=20230723224233&path-prefix=[...]
           properties: { 'Гашение урона': '-1%', 'Защита от разрыва': '+5%', 'Радиация': '-0.08 мк3в/сек', 'Химический ожог': '+10%' } },
         { name: 'Кристалл', price: 1650, image: 'https://i.imgur.com/FDiTRln.png',
           properties: { 'Насыщение': '+2%', 'Ожог': '+5%', 'Радиация': '-0.15 мк3в/сек' } },
-        { name: 'Батарейка', price: 1750, image: 'https://static.wikia.nocookie.net/stalker/images/9/92/%D0%91%D0%B0%D1%82%D0%B0%D1%80%D0%B5%D0%B9%D0%BA%D0%B0%28ico%29_cop.png/revision/latest?cb=20120226182001&path-prefix=ru',
+        { name: 'Батарейка', price: 1750, image: 'https://static.wikia.nocookie.net/stalker/images/9/92/%D0%91%D0%B0%D1%82%D0%B0%D1%80%D0%B5%D0%B9%D0%BA%D0%B0%28ico%29_cop.png/revision/la[...]
           properties: { 'Защита от разрыва': '-2%', 'Электрошок': '+10%' } },
-        { name: 'Каменный цветок', price: 1850, image: 'https://static.wikia.nocookie.net/stalker/images/d/d5/%D0%9A%D0%B0%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%86%D0%B2%D0%B5%D1%82%D0%BE%D0%BA%28ico%29_cop.png/revision/latest?cb=20120226185413&path-prefix=ru',
+        { name: 'Каменный цветок', price: 1850, image: 'https://static.wikia.nocookie.net/stalker/images/d/d5/%D0%9A%D0%B0%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%86%D0%B2%D0%B5%D1%8[...]
           properties: { 'Гашение урона': '+3%', 'Радиация': '-0.07 мк3в/сек' } },
         { name: 'Кровь камня', price: 1900, image: 'https://i.imgur.com/LFb6IWv.png',
           properties: { 'Гашение урона': '+2%', 'Защита от разрыва': '-3%', 'Радиация': '-0.09 мк3в/сек', 'Регенерация': '+3%' } },
-        { name: 'Слеза', price: 1950, image: 'https://static.wikia.nocookie.net/modistalker/images/b/b2/%D0%A1%D0%BB%D0%B5%D0%B7%D0%B0_%D0%98%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0.png/revision/latest?cb=20220706141009&path-prefix=ru',
+        { name: 'Слеза', price: 1950, image: 'https://static.wikia.nocookie.net/modistalker/images/b/b2/%D0%A1%D0%BB%D0%B5%D0%B7%D0%B0_%D0%98%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0.png/revision/lates[...]
           properties: { 'Насыщение': '+2%', 'Ожог': '+10%', 'Радиация': '-0.1 мк3в/сек' } },
         { name: 'Медуза', price: 2150, image: 'https://static.wikia.nocookie.net/stalker/images/2/2e/Icon_SoC_artefact_medusa.png/revision/latest?cb=20230723224834&path-prefix=ru',
           properties: { 'Гашение урона': '-3%', 'Защита от разрыва': '+7%', 'Радиация': '+0.05 мк3в/сек' } },
-        { name: 'Линза', price: 2150, image: 'https://static.wikia.nocookie.net/modistalker/images/c/ce/%D0%9B%D0%B8%D0%BD%D0%B7%D0%B0_%D0%98%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0.png/revision/latest?cb=20220706145153&path-prefix=ru',
+        { name: 'Линза', price: 2150, image: 'https://static.wikia.nocookie.net/modistalker/images/c/ce/%D0%9B%D0%B8%D0%BD%D0%B7%D0%B0_%D0%98%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0.png/revision/lates[...]
           properties: { 'Гашение урона': '+5%', 'Защита от разрыва': '+4%', 'Радиация': '-0.06 мк3в/сек' } },
-        { name: 'Изменный Изолятор', price: 2200, image: 'https://static.wikia.nocookie.net/stalker/images/4/4c/%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D0%B8%D0%B7%D0%BE%D0%BB%D1%8F%D1%82%D0%BE%D1%80%28ico%29.png/revision/latest?cb=20120226184834&path-prefix=ru',
+        { name: 'Изменный Изолятор', price: 2200, image: 'https://static.wikia.nocookie.net/stalker/images/4/4c/%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D0%B8[...]
           properties: { 'Ожог': '+5%', 'Радиация': '-0.12 мк3в/сек', 'Химический ожог': '+5%', 'Электрошок': '+5%' } },
-        { name: 'Мамины бусы', price: 2300, image: 'https://static.wikia.nocookie.net/stalker/images/0/09/%D0%9C%D0%B0%D0%BC%D0%B8%D0%BD%D1%8B_%D0%B1%D1%83%D1%81%D1%8B%28ico%29_cop.png/revision/latest?cb=20120226193018&path-prefix=ru',
+        { name: 'Мамины бусы', price: 2300, image: 'https://static.wikia.nocookie.net/stalker/images/0/09/%D0%9C%D0%B0%D0%BC%D0%B8%D0%BD%D1%8B_%D0%B1%D1%83%D1%81%D1%8B%28ico%29_cop.png/[...]
           properties: { 'Гашение урона': '+2%', 'Насыщение': '+2%', 'Радиация': '-0.03 мк3в/сек' } },
-        { name: 'Лунный свет', price: 2400, image: 'https://static.wikia.nocookie.net/stalker/images/a/a0/%D0%9B%D1%83%D0%BD%D0%BD%D1%8B%D0%B9_%D1%81%D0%B2%D0%B5%D1%82%28ico%29_cop.png/revision/latest?cb=20120226192612&path-prefix=ru',
+        { name: 'Лунный свет', price: 2400, image: 'https://static.wikia.nocookie.net/stalker/images/a/a0/%D0%9B%D1%83%D0%BD%D0%BD%D1%8B%D0%B9_%D1%81%D0%B2%D0%B5%D1%82%28ico%29_cop.png/[...]
           properties: { 'Радиация': '-0.03 мк3в/сек', 'Регенерация': '+3%', 'Электрошок': '-10%' } },
         { name: 'Выверт', price: 2800, image: 'https://i.imgur.com/ggVL5xI.png',
           properties: { 'Защита от разрыва': '-2%', 'Радиация': '+0.11 мк3в/сек' } },
@@ -118,15 +118,15 @@
           properties: { 'Гашение урона': '-1%', 'Радиация': '+0.2 мк3в/сек', 'Химический ожог': '+15%' } },
         { name: 'Слизняк', price: 3350, image: 'https://i.imgur.com/AG7a1VR.png',
           properties: { 'Ожог': '-10%', 'Регенерация': '+2%', 'Химический ожог': '-10%' } },
-        { name: 'Огненный шар', price: 3450, image: 'https://static.wikia.nocookie.net/stalker/images/6/6d/Icon_SoC_artefact_fireball.png/revision/latest?cb=20230723224019&path-prefix=ru',
+        { name: 'Огненный шар', price: 3450, image: 'https://static.wikia.nocookie.net/stalker/images/6/6d/Icon_SoC_artefact_fireball.png/revision/latest?cb=20230723224019&path-prefix=[...]
           properties: { 'Ожог': '+30%', 'Радиация': '-0.06 мк3в/сек' } },
-        { name: 'Ночная звезда', price: 3550, image: 'https://static.wikia.nocookie.net/stalker/images/9/99/%D0%9D%D0%BE%D1%87%D0%BD%D0%B0%D1%8F_%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%B0%28ico%29_cop.png/revision/latest?cb=20120226193909&path-prefix=ru',
+        { name: 'Ночная звезда', price: 3550, image: 'https://static.wikia.nocookie.net/stalker/images/9/99/%D0%9D%D0%BE%D1%87%D0%BD%D0%B0%D1%8F_%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%B0%2[...]
           properties: { 'Гашение урона': '+3%', 'Защита от разрыва': '+4%', 'Радиация': '-0.19 мк3в/сек' } },
-        { name: 'Смола', price: 3625, image: 'https://static.wikia.nocookie.net/modistalker/images/0/06/%D0%A1%D0%BC%D0%BE%D0%BB%D0%B0_%D0%98%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0.png/revision/latest?cb=20230612151903&path-prefix=ru',
+        { name: 'Смола', price: 3625, image: 'https://static.wikia.nocookie.net/modistalker/images/0/06/%D0%A1%D0%BC%D0%BE%D0%BB%D0%B0_%D0%98%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0.png/revision/lates[...]
           properties: { 'Ожог': '-5%', 'Радиация': '-0.08 мк3в/сек', 'Регенерация': '+2%', 'Химический ожог': '-5%' } },
-        { name: 'Пустышка', price: 3700, image: 'https://static.wikia.nocookie.net/stalker/images/d/df/%D0%9F%D1%83%D1%81%D1%82%D1%8B%D1%88%D0%BA%D0%B0%28ico%29_cop.png/revision/latest?cb=20120226195520&path-prefix=ru',
+        { name: 'Пустышка', price: 3700, image: 'https://static.wikia.nocookie.net/stalker/images/d/df/%D0%9F%D1%83%D1%81%D1%82%D1%8B%D1%88%D0%BA%D0%B0%28ico%29_cop.png/revision/latest?cb[...]
           properties: { 'Гашение урона': '-3%', 'Насыщение': '+2%', 'Ожог': '+15%' } },
-        { name: 'Медальон', price: 3750, image: 'https://static.wikia.nocookie.net/modistalker/images/c/cb/Icon_%D0%9C%D0%B5%D0%B4%D0%B0%D0%BB%D1%8C%D0%BE%D0%BD_%D0%9F%D1%83%D1%82%D1%8C%D0%B2%D0%BE%D0%BC%D0%B3%D0%BB%D0%B5.png/revision/latest?cb=20250125025309&path-prefix=ru',
+        { name: 'Медальон', price: 3750, image: 'https://static.wikia.nocookie.net/modistalker/images/c/cb/Icon_%D0%9C%D0%B5%D0%B4%D0%B0%D0%BB%D1%8C%D0%BE%D0%BD_%D0%9F%D1%83%D1%82%D1%8C%D[...]
           properties: { 'Гашение урона': '+3%', 'Защита от разрыва': '-1%', 'Радиация': '-0.06 мк3в/сек', 'Регенерация': '+1%' } },
         { name: 'Глаз', price: 4000, image: 'https://static.wikia.nocookie.net/stalker/images/5/5f/%D0%93%D0%BB%D0%B0%D0%B7%28ico%29.png/revision/latest?cb=20120226183639&path-prefix=ru',
           properties: { 'Гашение урона': '+3%', 'Радиация': '-0.1 мк3в/сек' } },
@@ -140,36 +140,36 @@
           properties: { 'Радиация': '-0.06 мк3в/сек', 'Электрошок': '+35%' } },
         { name: 'Вспышка', price: 4950, image: 'https://static.wikia.nocookie.net/stalker/images/c/c1/Icon_SoC_artefact_electra_flash.png/revision/latest?cb=20230722122822&path-prefix=ru',
           properties: { 'Выносливость': '+0.5%', 'Радиация': '-0.07 мк3в/сек', 'Электрошок': '+30%' } },
-        { name: 'Колобок', price: 5250, image: 'https://static.wikia.nocookie.net/stalker/images/9/93/%D0%9A%D0%BE%D0%BB%D0%BE%D0%B1%D0%BE%D0%BA%28ico%29_cop.png/revision/latest?cb=20120226185932&path-prefix=ru',
+        { name: 'Колобок', price: 5250, image: 'https://static.wikia.nocookie.net/stalker/images/9/93/%D0%9A%D0%BE%D0%BB%D0%BE%D0%B1%D0%BE%D0%BA%28ico%29_cop.png/revision/latest?cb=2012022[...]
           properties: { 'Радиация': '-0.09 мк3в/сек', 'Регенерация': '+3%' } },
-        { name: 'Серафим', price: 5750, image: 'https://static.wikia.nocookie.net/modistalker/images/8/84/%D0%A1%D0%B5%D1%80%D0%B0%D1%84%D0%B8%D0%BC_Gamma_icon.png/revision/latest?cb=20240830185105&path-prefix=ru',
-          properties: { 'Гашение урона': '-5%', 'Защита от разрыва': '+5%', 'Ожог': '+15%', 'Радиация': '-0.15 мк3в/сек', 'Регенерация': '+4%' } },
-        { name: 'Пузырь', price: 6000, image: 'https://static.wikia.nocookie.net/stalker/images/f/fa/%D0%9F%D1%83%D0%B7%D1%8B%D1%80%D1%8C%28ico%29.png/revision/latest?cb=20120226195034&path-prefix=ru',
+        { name: 'Серафим', price: 5750, image: 'https://static.wikia.nocookie.net/modistalker/images/8/84/%D0%A1%D0%B5%D1%80%D0%B0%D1%84%D0%B8%D0%BC_Gamma_icon.png/revision/latest?cb=20240[...]
+          properties: { 'Гашение урона': '-5%', 'Защита от разрыва': '+5%', 'Ожог': '+15%', 'Радиация': '-0.15 мк3в/сек', 'Регенерация': '+[...]
+        { name: 'Пузырь', price: 6000, image: 'https://static.wikia.nocookie.net/stalker/images/f/fa/%D0%9F%D1%83%D0%B7%D1%8B%D1%80%D1%8C%28ico%29.png/revision/latest?cb=20120226195034&path[...]
           properties: { 'Гашение урона': '-2%', 'Радиация': '+0.19 мк3в/сек' } },
         { name: 'Губка', price: 7200, image: 'https://i.imgur.com/mAVnKNq.png',
-          properties: { 'Гашение урона': '+4%', 'Защита от разрыва': '+10%', 'Радиация': '-0.1 мк3в/сек', 'Регенерация': '+2%', 'Химический ожог': '+15%' } },
-        { name: 'Снежинка', price: 7250, image: 'https://static.wikia.nocookie.net/stalker/images/0/0b/%D0%A1%D0%BD%D0%B5%D0%B6%D0%B8%D0%BD%D0%BA%D0%B0%28ico%29.png/revision/latest?cb=20120226200901&path-prefix=ru',
+          properties: { 'Гашение урона': '+4%', 'Защита от разрыва': '+10%', 'Радиация': '-0.1 мк3в/сек', 'Регенерация': '+2%', 'Химичес[...]
+        { name: 'Снежинка', price: 7250, image: 'https://static.wikia.nocookie.net/stalker/images/0/0b/%D0%A1%D0%BD%D0%B5%D0%B6%D0%B8%D0%BD%D0%BA%D0%B0%28ico%29.png/revision/latest?cb=201[...]
           properties: { 'Ожог': '+5%', 'Радиация': '-0.77 мк3в/сек', 'Электрошок': '+5%' } },
         { name: 'Солнце', price: 7500, image: 'https://i.imgur.com/qLuSjXC.png',
           properties: { 'Ожог': '+35%', 'Радиация': '-0.177 мк3в/сек', 'Химический ожог': '+10%' } },
-        { name: 'Светляк', price: 8200, image: 'https://static.wikia.nocookie.net/stalker/images/9/9b/%D0%A1%D0%B2%D0%B5%D1%82%D0%BB%D1%8F%D0%BA%28ico%29.png/revision/latest?cb=20120226195910&path-prefix=ru',
+        { name: 'Светляк', price: 8200, image: 'https://static.wikia.nocookie.net/stalker/images/9/9b/%D0%A1%D0%B2%D0%B5%D1%82%D0%BB%D1%8F%D0%BA%28ico%29.png/revision/latest?cb=20120226195[...]
           properties: { 'Гашение урона': '-2%', 'Защита от разрыва': '-3%', 'Регенерация': '+5%' } },
         { name: 'Пламя', price: 8600, image: 'https://i.imgur.com/O4uOCrR.png',
           properties: { 'Гашение урона': '+4%', 'Ожог': '+40%', 'Радиация': '-0.1 мк3в/сек', 'Химический ожог': '+15%' } },
-        { name: 'Компас', price: 12150, image: 'https://static.wikia.nocookie.net/stalker/images/6/65/%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D1%81%28ico%29.png/revision/latest?cb=20120226190302&path-prefix=ru',
-          properties: { 'Выносливость': '+0.75%', 'Ожог': '+15%', 'Радиация': '-0.08 мк3в/сек', 'Химический ожог': '+15%', 'Электрошок': '+15%' } },
+        { name: 'Компас', price: 12150, image: 'https://static.wikia.nocookie.net/stalker/images/6/65/%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D1%81%28ico%29.png/revision/latest?cb=20120226190302&pat[...]
+          properties: { 'Выносливость': '+0.75%', 'Ожог': '+15%', 'Радиация': '-0.08 мк3в/сек', 'Химический ожог': '+15%', 'Электрошок': '+15[...]
         { name: 'Золотая Рыбка', price: 12500, image: 'https://i.imgur.com/RCN1fBo.png',
           properties: { 'Гашение урона': '+5%', 'Защита от разрыва': '-2%', 'Радиация': '-0.12 мк3в/сек' } },
         { name: 'Мертвое сердце', price: 13075, image: 'https://i.imgur.com/SdMv47l.png',
-          properties: { 'Гашение урона': '+7%', 'Защита от разрыва': '-10%', 'Радиация': '-0.06 мк3в/сек', 'Химический ожог': '+15%', 'Электрошок': '+15%' } },
+          properties: { 'Гашение урона': '+7%', 'Защита от разрыва': '-10%', 'Радиация': '-0.06 мк3в/сек', 'Химический ожог': '+15%', 'Эл[...]
         { name: 'Светлый дом', price: 13750, image: 'https://i.imgur.com/QIDPOiN.png',
-          properties: { 'Гашение урона': '-5%', 'Защита от разрыва': '-5%', 'Насыщение': '+4%', 'Радиация': '-0.02 мк3в/сек', 'Регенерация': '+4%' } },
-        { name: 'Изменный Штурвал', price: 50000, image: 'https://static.wikia.nocookie.net/stalker/images/f/f9/%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D1%91%D0%BD%D0%BD%D1%8B%D0%B9_%D1%88%D1%82%D1%83%D1%80%D0%B2%D0%B0%D0%BB%28ico%29.png/revision/latest?cb=20120226185030&path-prefix=ru',
+          properties: { 'Гашение урона': '-5%', 'Защита от разрыва': '-5%', 'Насыщение': '+4%', 'Радиация': '-0.02 мк3в/сек', 'Регенерац[...]
+        { name: 'Изменный Штурвал', price: 50000, image: 'https://static.wikia.nocookie.net/stalker/images/f/f9/%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D1%91%D0%BD%D0%BD%D1%8B%D0%B9_%D1%88%[...]
           properties: { 'Гашение урона': '+5%', 'Насыщение': '+4%', 'Радиация': '-0.1 мк3в/сек', 'Регенерация': '+3%' } },
-        { name: 'Сердце Оазиса', price: 75000, image: 'https://static.wikia.nocookie.net/stalker/images/f/f8/%D0%A1%D0%B5%D1%80%D0%B4%D1%86%D0%B5_%D0%9E%D0%B0%D0%B7%D0%B8%D1%81%D0%B0%28ico%29.png/revision/latest?cb=20120226200052&path-prefix=ru',
+        { name: 'Сердце Оазиса', price: 75000, image: 'https://static.wikia.nocookie.net/stalker/images/f/f8/%D0%A1%D0%B5%D1%80%D0%B4%D1%86%D0%B5_%D0%9E%D0%B0%D0%B7%D0%B8%D1%81%D0%B0%[...]
           properties: { 'Защита от разрыва': '+7%', 'Насыщение': '+7%', 'Радиация': '-0.07 мк3в/сек', 'Регенерация': '+3%' } },
         { name: 'Атом', price: 100000, image: 'https://i.imgur.com/5Tj2WFP.png',
-          properties: { 'Выносливость': '+1%', 'Гашение урона': '+10%', 'Защита от разрыва': '-10%', 'Ожог': '+15%', 'Радиация': '-0.12 мк3в/сек', 'Регенерация': '+3%', 'Химический ожог': '+15%', 'Электрошок': '+15%' } }
+          properties: { 'Выносливость': '+1%', 'Гашение урона': '+10%', 'Защита от разрыва': '-10%', 'Ожог': '+15%', 'Радиация': '-0.12 мк3в/[...]
     ];
 
     // Загрузка сохранённых цен
@@ -903,6 +903,11 @@
         cigarFinalDisplay.textContent = Math.round(cigarTotalSum * (1 + currentCigarBonus / 100)).toLocaleString('ru-RU');
     }
 
+    function saveCigarPricesToStorage() {
+        const prices = cigars.map(c => c.price);
+        localStorage.setItem('cigarPrices', JSON.stringify(prices));
+    }
+
     function createCigarButton(cigar) {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item cigar-item';
@@ -950,6 +955,40 @@
         addBtn.addEventListener('click', () => updateQuantity(1));
         subBtn.addEventListener('click', () => updateQuantity(-1));
 
+        // Редактирование цены при двойном клике
+        priceDiv.addEventListener('dblclick', () => {
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'price-input';
+            input.value = cigar.price;
+            input.min = '0';
+            input.step = '1';
+
+            priceDiv.textContent = '';
+            priceDiv.appendChild(input);
+            input.focus();
+
+            const saveNewPrice = () => {
+                const parsedPrice = parseInt(input.value, 10);
+                const newPrice = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : cigar.price;
+                cigar.price = newPrice;
+                priceDiv.textContent = newPrice + ' руб.';
+
+                cigarTotalSum = Array.from(cigarQuantityElements.entries()).reduce((sum, [name, span]) => {
+                    const cigarItem = cigars.find(item => item.name === name);
+                    return sum + (parseInt(span.textContent) * cigarItem.price);
+                }, 0);
+
+                updateCigarTotals();
+                saveCigarPricesToStorage();
+            };
+
+            input.addEventListener('blur', saveNewPrice);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') saveNewPrice();
+            });
+        });
+
         buttonGroup.appendChild(subBtn);
         buttonGroup.appendChild(quantitySpan);
         buttonGroup.appendChild(addBtn);
@@ -988,6 +1027,25 @@
         cigarButtonsContainer.querySelectorAll('.cigar-item').forEach(item => item.classList.remove('hidden'));
         updateCigarTotals();
     });
+
+    // Загрузка сохранённых цен сигар
+    const savedCigarPrices = localStorage.getItem('cigarPrices');
+    if (savedCigarPrices) {
+        try {
+            const prices = JSON.parse(savedCigarPrices);
+            if (Array.isArray(prices)) {
+                cigars.forEach((cigar, index) => {
+                    const savedPrice = prices[index];
+                    if (Number.isFinite(savedPrice) && savedPrice >= 0) {
+                        cigar.price = savedPrice;
+                    }
+                });
+            }
+        } catch (error) {
+            console.warn('Не удалось загрузить сохраненные цены сигар:', error);
+            localStorage.removeItem('cigarPrices');
+        }
+    }
 
     cigars.forEach(cigar => createCigarButton(cigar));
     cigarBonusButtons[0].classList.add('active');
