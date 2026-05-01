@@ -693,7 +693,7 @@
         return `${mutantImageFolder}/${encodeURIComponent(imageName)}.png`;
     }
 
-    const mutantPriceVersion = '2026-04-24';
+    const mutantPriceVersion = '2026-05-01';
     const savedMutantPriceVersion = localStorage.getItem('mutantPartPricesVersion');
 
     if (savedMutantPriceVersion !== mutantPriceVersion) {
