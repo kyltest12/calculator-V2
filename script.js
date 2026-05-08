@@ -1,6 +1,91 @@
 (function(){
     "use strict";
 
+    // === ПАРОЛИ РАЗДЕЛОВ ===
+    // Меняйте эти значения раз в неделю перед публикацией сайта.
+    // На статическом сайте это защита от обычного просмотра, а не полноценная серверная авторизация.
+    const sectionAccessConfig = {
+        artifacts: { title: 'Калькулятор цены артефактов', password: 'artifacts-2026-05-08' },
+        mutants: { title: 'Скупка частей мутантов', password: 'mutants-2026-05-08' },
+        cigars: { title: 'Калькулятор сигар', password: 'cigars-2026-05-08' }
+    };
+    const sectionAccessDurationMs = 7 * 24 * 60 * 60 * 1000;
+
+    function getAccessStorageKey(sectionKey) {
+        return `sectionAccess_${sectionKey}`;
+    }
+
+    function hasSectionAccess(sectionKey) {
+        const savedAccess = localStorage.getItem(getAccessStorageKey(sectionKey));
+        if (!savedAccess) return false;
+
+        try {
+            const accessData = JSON.parse(savedAccess);
+            if (accessData && Number.isFinite(accessData.expiresAt) && accessData.expiresAt > Date.now()) {
+                return true;
+            }
+        } catch (error) {
+            console.warn('Не удалось прочитать доступ к разделу:', error);
+        }
+
+        localStorage.removeItem(getAccessStorageKey(sectionKey));
+        return false;
+    }
+
+    function saveSectionAccess(sectionKey) {
+        localStorage.setItem(getAccessStorageKey(sectionKey), JSON.stringify({
+            expiresAt: Date.now() + sectionAccessDurationMs
+        }));
+    }
+
+    function setupSectionAccess(sectionKey, elements) {
+        const config = sectionAccessConfig[sectionKey];
+        const validElements = elements.filter(Boolean);
+        if (!config || validElements.length === 0) return;
+
+        const gate = document.createElement('form');
+        gate.className = `access-gate access-gate-${sectionKey}`;
+        gate.innerHTML = `
+            <h2>${config.title}</h2>
+            <div class="access-gate-box">
+                <label for="accessPassword_${sectionKey}">Пароль раздела</label>
+                <div class="access-gate-row">
+                    <input type="password" id="accessPassword_${sectionKey}" autocomplete="current-password" placeholder="Введите пароль">
+                    <button type="submit">Открыть</button>
+                </div>
+                <div class="access-gate-error" role="alert"></div>
+            </div>
+        `;
+
+        validElements[0].before(gate);
+
+        const input = gate.querySelector('input');
+        const error = gate.querySelector('.access-gate-error');
+
+        const setUnlocked = (isUnlocked) => {
+            gate.classList.toggle('hidden', isUnlocked);
+            validElements.forEach(element => {
+                element.classList.toggle('section-locked', !isUnlocked);
+            });
+        };
+
+        setUnlocked(hasSectionAccess(sectionKey));
+
+        gate.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (input.value === config.password) {
+                saveSectionAccess(sectionKey);
+                input.value = '';
+                error.textContent = '';
+                setUnlocked(true);
+                return;
+            }
+
+            error.textContent = 'Неверный пароль';
+            input.select();
+        });
+    }
+
     // === ПРИВЕТСТВЕННОЕ СООБЩЕНИЕ ПРИ ПЕРВОМ ЗАХОДЕ ===
     const hasVisited = localStorage.getItem('hasVisitedBefore');
     if (!hasVisited) {
@@ -288,6 +373,12 @@
     const resetBtn = document.getElementById('resetBtn');
     const searchInput = document.getElementById('searchInput');
     const exportBtn = document.getElementById('exportBtn');
+
+    setupSectionAccess('artifacts', [
+        document.querySelector('.artifact-title'),
+        document.querySelector('.header-stats'),
+        document.querySelector('.content')
+    ]);
 
     let totalSum = 0;
     let currentBonus = 0;
@@ -581,6 +672,12 @@
     let mutantTotalSum = 0;
     let currentMutantBonus = 0;
     const mutantQuantityElements = new Map();
+
+    setupSectionAccess('mutants', [
+        document.querySelector('.mutant-title'),
+        document.querySelector('.mutant-section')
+    ]);
+
     const legacyMutantPrices = new Map([
         ['голова крысы', 475],
         ['голова тушкана', 1055],
@@ -885,6 +982,11 @@
     const cigarQuantityElements = new Map();
     let cigarTotalSum = 0;
     let currentCigarBonus = 0;
+
+    setupSectionAccess('cigars', [
+        document.querySelector('.cigar-title'),
+        document.querySelector('.cigar-section')
+    ]);
 
     const cigars = [
         { name: 'Сигареты', price: 500 },
