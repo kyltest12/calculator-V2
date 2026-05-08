@@ -129,6 +129,121 @@ h2 {
     background: linear-gradient(135deg, var(--cigar-title-bg), var(--cigar-accent-dark));
 }
 
+.section-locked,
+.access-gate.hidden {
+    display: none !important;
+}
+
+.access-gate {
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border-bottom: 2px solid var(--border-accent);
+    color: var(--text-primary);
+    text-align: center;
+    padding-bottom: 24px;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.access-gate h2 {
+    margin-top: 0;
+    background: linear-gradient(135deg, var(--bg-header), var(--bg-header2));
+}
+
+.access-gate-mutants {
+    background-color: var(--mutant-section-bg);
+    border-bottom-color: var(--mutant-accent);
+}
+
+.access-gate-mutants h2 {
+    background: linear-gradient(135deg, var(--mutant-title-bg), var(--mutant-accent-dark));
+}
+
+.access-gate-cigars {
+    background-color: var(--cigar-section-bg);
+    border-bottom-color: var(--cigar-accent);
+}
+
+.access-gate-cigars h2 {
+    background: linear-gradient(135deg, var(--cigar-title-bg), var(--cigar-accent-dark));
+}
+
+.access-gate-box {
+    width: min(92%, 460px);
+    margin: 24px auto 0;
+    padding: 20px;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.access-gate label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+.access-gate-row {
+    display: flex;
+    gap: 10px;
+}
+
+.access-gate input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 2px solid var(--border-accent);
+    border-radius: 6px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.access-gate button {
+    padding: 11px 16px;
+    border: 2px solid var(--border-accent);
+    border-radius: 6px;
+    background-color: var(--border-accent);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.access-gate button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.access-gate-error {
+    min-height: 18px;
+    margin-top: 8px;
+    color: #d34040;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.access-gate-mutants .access-gate-box,
+.access-gate-mutants input,
+.access-gate-mutants button {
+    border-color: var(--mutant-accent);
+}
+
+.access-gate-mutants button {
+    background-color: var(--mutant-accent);
+}
+
+.access-gate-cigars .access-gate-box,
+.access-gate-cigars input,
+.access-gate-cigars button {
+    border-color: var(--cigar-accent);
+}
+
+.access-gate-cigars button {
+    background-color: var(--cigar-accent);
+}
+
 h3 {
     width: 100%;
     padding: 15px;
@@ -875,4 +990,7 @@ footer img {
     }
     .search-input { width: 100%; max-width: 200px; }
     .search-input:focus { width: 100%; max-width: 200px; }
+    .access-gate-row {
+        flex-direction: column;
+    }
 }
