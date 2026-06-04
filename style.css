@@ -342,6 +342,42 @@ h3 {
     border-color: var(--border-accent);
 }
 
+.artifact-tools {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.artifact-tool {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.artifact-tool select {
+    min-width: 210px;
+    max-width: 260px;
+    padding: 10px 12px;
+    border: 2px solid var(--border-accent);
+    border-radius: 6px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.artifact-tool select:focus {
+    outline: none;
+    box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
+    border-color: var(--border-accent);
+}
+
 .sum-display {
     font-size: 20px;
     font-weight: bold;
@@ -964,6 +1000,9 @@ footer img {
     .buttons-container { grid-template-columns: repeat(3, 1fr); }
     h1 { font-size: 24px; height: 70px; }
     h2 { font-size: 20px; height: 55px; }
+    .artifact-tools {
+        margin-top: 14px;
+    }
     .search-container {
         position: static;
         justify-content: center;
@@ -980,6 +1019,21 @@ footer img {
 
 @media (max-width: 480px) {
     .buttons-container { grid-template-columns: repeat(2, 1fr); }
+    .artifact-tools {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .artifact-tool {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        text-align: left;
+    }
+    .artifact-tool select {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
     .search-container {
         width: 100%;
         justify-content: center;
