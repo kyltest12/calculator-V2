@@ -726,46 +726,57 @@
         localStorage.setItem('tgNick', tgNickInput.value.trim());
     });
 
-    tgSendBtn.addEventListener('click', async () => {
+    tgSendBtn.addEventListener('click', () => {
         if (!tgNickInput.value.trim()) {
             tgNickInput.focus();
             tgNickInput.classList.add('tg-nick-error');
             setTimeout(() => tgNickInput.classList.remove('tg-nick-error'), 1500);
             return;
         }
+
         const text = buildTelegramReport();
         tgSendBtn.disabled = true;
         tgSendBtn.textContent = '⏳ Отправка...';
 
-        try {
-            const res = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TG_CHAT_ID,
-                    text,
-                    parse_mode: 'Markdown'
-                })
-            });
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
 
-            const data = await res.json();
-            if (data.ok) {
-                tgSendBtn.textContent = '✅ Отправлено!';
+        xhr.onload = function () {
+            try {
+                const data = JSON.parse(xhr.responseText);
+                if (data.ok) {
+                    tgSendBtn.textContent = '✅ Отправлено!';
+                    setTimeout(() => {
+                        tgSendBtn.textContent = '✈️ Отправить отчёт';
+                        tgSendBtn.disabled = false;
+                    }, 2500);
+                } else {
+                    throw new Error(data.description || 'Ошибка Telegram');
+                }
+            } catch (e) {
+                tgSendBtn.textContent = '❌ Ошибка';
+                tgSendBtn.title = e.message;
                 setTimeout(() => {
                     tgSendBtn.textContent = '✈️ Отправить отчёт';
                     tgSendBtn.disabled = false;
-                }, 2500);
-            } else {
-                throw new Error(data.description || 'Ошибка Telegram');
+                }, 3000);
             }
-        } catch (err) {
-            tgSendBtn.textContent = '❌ Ошибка';
-            tgSendBtn.title = err.message;
+        };
+
+        xhr.onerror = function () {
+            tgSendBtn.textContent = '❌ Нет соединения';
             setTimeout(() => {
                 tgSendBtn.textContent = '✈️ Отправить отчёт';
                 tgSendBtn.disabled = false;
             }, 3000);
-        }
+        };
+
+        xhr.send(JSON.stringify({
+            chat_id: TG_CHAT_ID,
+            text: text,
+            parse_mode: 'Markdown'
+        }));
     });
 
     artifacts.forEach(a => createButton(a));
