@@ -6,26 +6,28 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90'>💎</text></svg>">
     <title>Калькулятор цены артефактов</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109681385', 'ym');
+
+    ym(109681385, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109681385" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
     <h1 class="artifact-title">Калькулятор цены артефактов</h1>
 
     <div class="header-stats">
-        <div class="search-container" id="searchWrapper">
-            <div class="search-input-wrap">
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Поиск и фильтр...">
-                <span class="search-filter-badge" id="searchFilterBadge"></span>
-            </div>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Поиск артефактов...">
             <button class="settings-btn" id="settingsBtn" title="Настройки цен">⚙️</button>
             <button class="theme-toggle-btn" id="themeToggleBtn" title="Переключить тему">🌙</button>
-
-            <div class="property-filter-dropdown" id="propertyFilterDropdown">
-                <div class="property-filter-header">
-                    <span class="property-filter-label">Фильтр по свойствам</span>
-                    <button class="property-filter-clear" id="clearPropertyFilter">✕ Сбросить</button>
-                </div>
-                <div class="property-filter-tags" id="propertyFilterTags"></div>
-            </div>
         </div>
 
         <div class="sum-display">

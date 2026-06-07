@@ -275,145 +275,6 @@ h3 {
     gap: 10px;
 }
 
-/* === ПОИСК + ДРОПДАУН ФИЛЬТРА === */
-.search-input-wrap {
-    position: relative;
-}
-
-.search-input-wrap .search-input {
-    padding-right: 28px;
-}
-
-.search-filter-badge {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--bg-header);
-    color: white;
-    border-radius: 10px;
-    font-size: 11px;
-    font-weight: 700;
-    min-width: 18px;
-    height: 18px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 0 5px;
-    pointer-events: none;
-    line-height: 1;
-}
-
-.search-filter-badge.visible {
-    display: flex;
-}
-
-.property-filter-dropdown {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 340px;
-    background: var(--bg-card);
-    border: 1.5px solid var(--border-accent);
-    border-radius: 12px;
-    padding: 14px 16px;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
-    z-index: 500;
-}
-
-.property-filter-dropdown.open {
-    display: flex;
-    animation: filterDropIn 0.15s ease;
-}
-
-@keyframes filterDropIn {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-.property-filter-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.property-filter-label {
-    font-size: 11px;
-    color: var(--text-secondary);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
-.property-filter-clear {
-    background: none;
-    border: 1px solid var(--border-accent);
-    color: var(--text-accent);
-    border-radius: 5px;
-    padding: 2px 8px;
-    font-size: 11px;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s, background 0.2s;
-    white-space: nowrap;
-}
-
-.property-filter-clear.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.property-filter-clear:hover {
-    background: var(--border-accent);
-    color: white;
-}
-
-.property-filter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.prop-filter-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 2px solid var(--btn-border);
-    background: var(--btn-bg);
-    color: var(--text-secondary);
-    transition: all 0.15s ease;
-    user-select: none;
-    white-space: nowrap;
-}
-
-.prop-filter-tag:hover {
-    border-color: var(--border-accent);
-    color: var(--text-accent);
-}
-
-.prop-filter-tag.active {
-    background: var(--bg-header);
-    border-color: var(--bg-header);
-    color: white;
-    box-shadow: 0 2px 8px rgba(77,147,222,0.35);
-}
-
-.prop-filter-tag .tag-icon {
-    font-size: 13px;
-    line-height: 1;
-}
-
-/* === КНОПКИ TELEGRAM === */
 .theme-toggle-btn,
 .settings-btn {
     background: var(--bg-card);
@@ -478,6 +339,42 @@ h3 {
     outline: none;
     box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
     width: 250px;
+    border-color: var(--border-accent);
+}
+
+.artifact-tools {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.artifact-tool {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.artifact-tool select {
+    min-width: 210px;
+    max-width: 260px;
+    padding: 10px 12px;
+    border: 2px solid var(--border-accent);
+    border-radius: 6px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.artifact-tool select:focus {
+    outline: none;
+    box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
     border-color: var(--border-accent);
 }
 
@@ -1103,6 +1000,9 @@ footer img {
     .buttons-container { grid-template-columns: repeat(3, 1fr); }
     h1 { font-size: 24px; height: 70px; }
     h2 { font-size: 20px; height: 55px; }
+    .artifact-tools {
+        margin-top: 14px;
+    }
     .search-container {
         position: static;
         justify-content: center;
@@ -1119,6 +1019,21 @@ footer img {
 
 @media (max-width: 480px) {
     .buttons-container { grid-template-columns: repeat(2, 1fr); }
+    .artifact-tools {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .artifact-tool {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        text-align: left;
+    }
+    .artifact-tool select {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
     .search-container {
         width: 100%;
         justify-content: center;
