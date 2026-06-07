@@ -319,6 +319,68 @@ h3 {
     color: white;
 }
 
+.tg-send-btn {
+    background: var(--bg-card);
+    border: 2px solid #2AABEE;
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.tg-send-btn:hover:not(:disabled) {
+    background: #2AABEE;
+    color: white;
+}
+
+.tg-send-btn:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.tg-send-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.tg-nick-input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 2px solid #2AABEE;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 14px;
+    width: 160px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tg-nick-input:focus {
+    box-shadow: 0 0 0 3px rgba(42, 171, 238, 0.2);
+}
+
+.tg-nick-input.tg-nick-error {
+    border-color: #e74c3c;
+    animation: nickShake 0.3s ease;
+}
+
+@keyframes nickShake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-5px); }
+    75%       { transform: translateX(5px); }
+}
+
+.tg-send-btn {
+    margin-top: 0;
+}
+
 .search-input {
     width: 200px;
     padding: 10px 15px;
@@ -339,42 +401,6 @@ h3 {
     outline: none;
     box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
     width: 250px;
-    border-color: var(--border-accent);
-}
-
-.artifact-tools {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-}
-
-.artifact-tool {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.artifact-tool select {
-    min-width: 210px;
-    max-width: 260px;
-    padding: 10px 12px;
-    border: 2px solid var(--border-accent);
-    border-radius: 6px;
-    background-color: var(--bg-card);
-    color: var(--text-primary);
-    font-size: 14px;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.artifact-tool select:focus {
-    outline: none;
-    box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
     border-color: var(--border-accent);
 }
 
@@ -1000,9 +1026,6 @@ footer img {
     .buttons-container { grid-template-columns: repeat(3, 1fr); }
     h1 { font-size: 24px; height: 70px; }
     h2 { font-size: 20px; height: 55px; }
-    .artifact-tools {
-        margin-top: 14px;
-    }
     .search-container {
         position: static;
         justify-content: center;
@@ -1019,21 +1042,6 @@ footer img {
 
 @media (max-width: 480px) {
     .buttons-container { grid-template-columns: repeat(2, 1fr); }
-    .artifact-tools {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .artifact-tool {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 6px;
-        text-align: left;
-    }
-    .artifact-tool select {
-        width: 100%;
-        min-width: 0;
-        max-width: none;
-    }
     .search-container {
         width: 100%;
         justify-content: center;
@@ -1048,3 +1056,156 @@ footer img {
         flex-direction: column;
     }
 }
+
+/* === ФИЛЬТР ПО СВОЙСТВАМ (ДРОПДАУН) === */
+.search-container {
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+}
+
+.search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+}
+
+.search-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.search-input-wrap .search-input {
+    width: 100%;
+    padding-right: 28px;
+}
+
+.search-filter-badge {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg-header);
+    color: white;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    pointer-events: none;
+}
+
+.search-filter-badge.visible {
+    display: flex;
+}
+
+.property-filter-dropdown {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-accent);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 4px;
+    box-shadow: 0 6px 20px var(--shadow-light);
+    animation: filterDropIn 0.18s ease;
+    z-index: 100;
+}
+
+.property-filter-dropdown.open {
+    display: flex;
+}
+
+@keyframes filterDropIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.property-filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.property-filter-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.property-filter-clear {
+    background: none;
+    border: 1px solid var(--border-accent);
+    color: var(--text-accent);
+    border-radius: 5px;
+    padding: 2px 9px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, background 0.2s;
+    white-space: nowrap;
+}
+
+.property-filter-clear.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.property-filter-clear:hover {
+    background: var(--border-accent);
+    color: white;
+}
+
+.property-filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.prop-filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid var(--btn-border);
+    background: var(--btn-bg);
+    color: var(--text-secondary);
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.prop-filter-tag:hover {
+    border-color: var(--border-accent);
+    color: var(--text-accent);
+    background: var(--bg-secondary);
+}
+
+.prop-filter-tag.active {
+    background: var(--bg-header);
+    border-color: var(--bg-header);
+    color: white;
+    box-shadow: 0 2px 8px rgba(77, 147, 222, 0.35);
+}
+
+.prop-filter-tag .tag-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+

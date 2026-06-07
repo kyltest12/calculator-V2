@@ -2,40 +2,23 @@
     "use strict";
 
     // === ПАРОЛИ РАЗДЕЛОВ ===
-    // Меняйте эти значения раз в неделю перед публикацией сайта.
     // На статическом сайте это защита от обычного просмотра, а не полноценная серверная авторизация.
     const sectionAccessConfig = {
         artifacts: { title: 'Калькулятор цены артефактов', password: 'artifacts-2026-05-08' },
         mutants: { title: 'Скупка частей мутантов', password: 'mutants-2026-05-08' },
         cigars: { title: 'Калькулятор сигар', password: 'cigars-2026-05-08' }
     };
-    const sectionAccessDurationMs = 7 * 24 * 60 * 60 * 1000;
 
     function getAccessStorageKey(sectionKey) {
         return `sectionAccess_${sectionKey}`;
     }
 
     function hasSectionAccess(sectionKey) {
-        const savedAccess = localStorage.getItem(getAccessStorageKey(sectionKey));
-        if (!savedAccess) return false;
-
-        try {
-            const accessData = JSON.parse(savedAccess);
-            if (accessData && Number.isFinite(accessData.expiresAt) && accessData.expiresAt > Date.now()) {
-                return true;
-            }
-        } catch (error) {
-            console.warn('Не удалось прочитать доступ к разделу:', error);
-        }
-
-        localStorage.removeItem(getAccessStorageKey(sectionKey));
-        return false;
+        return localStorage.getItem(getAccessStorageKey(sectionKey)) === 'granted';
     }
 
     function saveSectionAccess(sectionKey) {
-        localStorage.setItem(getAccessStorageKey(sectionKey), JSON.stringify({
-            expiresAt: Date.now() + sectionAccessDurationMs
-        }));
+        localStorage.setItem(getAccessStorageKey(sectionKey), 'granted');
     }
 
     function setupSectionAccess(sectionKey, elements) {
@@ -373,7 +356,6 @@
     const resetBtn = document.getElementById('resetBtn');
     const searchInput = document.getElementById('searchInput');
     const exportBtn = document.getElementById('exportBtn');
-    const buttonsContainer = document.getElementById('buttonsContainer');
 
     setupSectionAccess('artifacts', [
         document.querySelector('.artifact-title'),
@@ -384,89 +366,8 @@
     let totalSum = 0;
     let currentBonus = 0;
     const quantityElements = new Map();
-    const artifactCards = new Map();
     const artifactImageFolder = 'артефакты V2';
     const fallbackImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="white" width="70" height="70"/%3E%3C/svg%3E';
-    const artifactProperties = Array.from(new Set(
-        artifacts.flatMap(artifact => Object.keys(artifact.properties || {}))
-    )).sort((a, b) => a.localeCompare(b, 'ru'));
-    const artifactPropertySelect = document.createElement('select');
-    const artifactSortSelect = document.createElement('select');
-
-    function createArtifactTools() {
-        const tools = document.createElement('div');
-        tools.className = 'artifact-tools';
-
-        const propertyLabel = document.createElement('label');
-        propertyLabel.className = 'artifact-tool';
-        propertyLabel.textContent = 'Свойство';
-        artifactPropertySelect.id = 'artifactPropertyFilter';
-        artifactPropertySelect.innerHTML = '<option value="">Все свойства</option>';
-        artifactProperties.forEach(property => {
-            const option = document.createElement('option');
-            option.value = property;
-            option.textContent = property;
-            artifactPropertySelect.appendChild(option);
-        });
-        propertyLabel.appendChild(artifactPropertySelect);
-
-        const sortLabel = document.createElement('label');
-        sortLabel.className = 'artifact-tool';
-        sortLabel.textContent = 'Сортировка';
-        artifactSortSelect.id = 'artifactSortSelect';
-        artifactSortSelect.innerHTML = `
-            <option value="default">По умолчанию</option>
-            <option value="name-asc">Название А-Я</option>
-            <option value="name-desc">Название Я-А</option>
-            <option value="price-asc">Цена по возрастанию</option>
-            <option value="price-desc">Цена по убыванию</option>
-            <option value="property-asc">Свойство по возрастанию</option>
-            <option value="property-desc">Свойство по убыванию</option>
-        `;
-        sortLabel.appendChild(artifactSortSelect);
-
-        tools.appendChild(propertyLabel);
-        tools.appendChild(sortLabel);
-        document.querySelector('.header-stats').appendChild(tools);
-    }
-
-    function parsePropertyValue(value) {
-        if (!value) return Number.NEGATIVE_INFINITY;
-        const normalizedValue = String(value).replace(',', '.');
-        const match = normalizedValue.match(/[+-]?\d+(?:\.\d+)?/);
-        return match ? parseFloat(match[0]) : Number.NEGATIVE_INFINITY;
-    }
-
-    function updateArtifactList() {
-        const term = searchInput.value.toLowerCase().trim();
-        const selectedProperty = artifactPropertySelect.value;
-        const sortMode = artifactSortSelect.value;
-        const sortedArtifacts = [...artifacts];
-
-        sortedArtifacts.sort((a, b) => {
-            if (sortMode === 'name-asc') return a.name.localeCompare(b.name, 'ru');
-            if (sortMode === 'name-desc') return b.name.localeCompare(a.name, 'ru');
-            if (sortMode === 'price-asc') return a.price - b.price || a.name.localeCompare(b.name, 'ru');
-            if (sortMode === 'price-desc') return b.price - a.price || a.name.localeCompare(b.name, 'ru');
-            if (sortMode === 'property-asc' || sortMode === 'property-desc') {
-                const aValue = parsePropertyValue(a.properties?.[selectedProperty]);
-                const bValue = parsePropertyValue(b.properties?.[selectedProperty]);
-                const direction = sortMode === 'property-asc' ? 1 : -1;
-                return (aValue - bValue) * direction || a.name.localeCompare(b.name, 'ru');
-            }
-            return 0;
-        });
-
-        sortedArtifacts.forEach(artifact => {
-            const card = artifactCards.get(artifact.name);
-            if (!card) return;
-
-            const matchesSearch = term === '' || artifact.name.toLowerCase().includes(term);
-            const matchesProperty = selectedProperty === '' || Boolean(artifact.properties?.[selectedProperty]);
-            card.classList.toggle('hidden', !matchesSearch || !matchesProperty);
-            buttonsContainer.appendChild(card);
-        });
-    }
 
     function getLocalArtifactImagePath(name) {
         return `${artifactImageFolder}/${encodeURIComponent(name)}.png`;
@@ -491,7 +392,6 @@
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item';
         itemDiv.dataset.artifactName = artifact.name.toLowerCase();
-        itemDiv.dataset.artifactProperties = Object.keys(artifact.properties || {}).join('|').toLowerCase();
 
         const nameDiv = document.createElement('div');
         nameDiv.className = 'item-name';
@@ -620,7 +520,6 @@
                     return sum + (parseInt(span.textContent) * art.price);
                 }, 0);
                 updateTotals();
-                updateArtifactList();
                 savePricesToStorage();
             };
             
@@ -635,13 +534,102 @@
         buttonGroup.appendChild(addBtn);
         controlsDiv.appendChild(buttonGroup);
         itemDiv.appendChild(controlsDiv);
-        artifactCards.set(artifact.name, itemDiv);
-        buttonsContainer.appendChild(itemDiv);
+        document.getElementById('buttonsContainer').appendChild(itemDiv);
     }
 
-    searchInput.addEventListener('input', updateArtifactList);
-    artifactPropertySelect.addEventListener('change', updateArtifactList);
-    artifactSortSelect.addEventListener('change', updateArtifactList);
+    searchInput.addEventListener('input', () => applyArtifactFilters());
+
+    // === ФИЛЬТР ПО СВОЙСТВАМ ===
+    const ALL_PROPERTIES = [
+        { key: 'Радиация',          icon: '☢️' },
+        { key: 'Гашение урона',     icon: '🛡️' },
+        { key: 'Защита от разрыва', icon: '💥' },
+        { key: 'Регенерация',       icon: '❤️' },
+        { key: 'Ожог',              icon: '🔥' },
+        { key: 'Химический ожог',   icon: '🧪' },
+        { key: 'Электрошок',        icon: '⚡' },
+        { key: 'Насыщение',         icon: '🍖' },
+        { key: 'Выносливость',      icon: '🏃' },
+    ];
+
+    const activePropertyFilters = new Set();
+    const propertyFilterTagsEl = document.getElementById('propertyFilterTags');
+    const clearPropertyFilterBtn = document.getElementById('clearPropertyFilter');
+    const filterDropdown = document.getElementById('propertyFilterDropdown');
+    const searchWrapper = document.getElementById('searchWrapper');
+    const searchFilterBadge = document.getElementById('searchFilterBadge');
+
+    // Открытие / закрытие дропдауна
+    searchInput.addEventListener('focus', () => {
+        filterDropdown.classList.add('open');
+    });
+
+    document.addEventListener('mousedown', (e) => {
+        if (!searchWrapper.contains(e.target)) {
+            filterDropdown.classList.remove('open');
+        }
+    });
+
+    function updateFilterBadge() {
+        const count = activePropertyFilters.size;
+        if (count > 0) {
+            searchFilterBadge.textContent = count;
+            searchFilterBadge.classList.add('visible');
+        } else {
+            searchFilterBadge.classList.remove('visible');
+        }
+        clearPropertyFilterBtn.classList.toggle('visible', count > 0);
+    }
+
+    ALL_PROPERTIES.forEach(({ key, icon }) => {
+        const tag = document.createElement('button');
+        tag.className = 'prop-filter-tag';
+        tag.dataset.propKey = key;
+        tag.innerHTML = `<span class="tag-icon">${icon}</span>${key}`;
+        tag.addEventListener('mousedown', (e) => {
+            // mousedown чтобы не триггерить blur на инпуте
+            e.preventDefault();
+            if (activePropertyFilters.has(key)) {
+                activePropertyFilters.delete(key);
+                tag.classList.remove('active');
+            } else {
+                activePropertyFilters.add(key);
+                tag.classList.add('active');
+            }
+            updateFilterBadge();
+            applyArtifactFilters();
+        });
+        propertyFilterTagsEl.appendChild(tag);
+    });
+
+    clearPropertyFilterBtn.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        activePropertyFilters.clear();
+        propertyFilterTagsEl.querySelectorAll('.prop-filter-tag').forEach(t => t.classList.remove('active'));
+        updateFilterBadge();
+        applyArtifactFilters();
+    });
+
+    function applyArtifactFilters() {
+        const term = searchInput.value.toLowerCase().trim();
+        document.querySelectorAll('#buttonsContainer .item').forEach(item => {
+            const name = item.dataset.artifactName || '';
+            const matchesSearch = term === '' || name.includes(term);
+
+            let matchesProps = true;
+            if (activePropertyFilters.size > 0) {
+                const artifact = artifacts.find(a => a.name.toLowerCase() === name);
+                if (!artifact) {
+                    matchesProps = false;
+                } else {
+                    const propKeys = Object.keys(artifact.properties || {});
+                    matchesProps = [...activePropertyFilters].every(f => propKeys.includes(f));
+                }
+            }
+
+            item.classList.toggle('hidden', !matchesSearch || !matchesProps);
+        });
+    }
 
     bonusButtons.forEach(btn => btn.addEventListener('click', () => {
         bonusButtons.forEach(b => b.classList.remove('active'));
@@ -657,9 +645,10 @@
         bonusButtons[0].classList.add('active');
         quantityElements.forEach(span => span.textContent = '0');
         searchInput.value = '';
-        artifactPropertySelect.value = '';
-        artifactSortSelect.value = 'default';
-        updateArtifactList();
+        activePropertyFilters.clear();
+        propertyFilterTagsEl.querySelectorAll('.prop-filter-tag').forEach(t => t.classList.remove('active'));
+        updateFilterBadge();
+        document.querySelectorAll('#buttonsContainer .item').forEach(i => i.classList.remove('hidden'));
         updateTotals();
     });
 
@@ -693,9 +682,93 @@
         URL.revokeObjectURL(url);
     });
 
-    createArtifactTools();
+    // === ОТПРАВКА ОТЧЁТА В TELEGRAM ===
+    const TG_BOT_TOKEN = '8818453236:AAGMAFKysdzc0TGtGJFNb5snRrAT7a5uoWY';
+    const TG_CHAT_ID   = '2132533804';
+
+    function buildTelegramReport() {
+        const now = new Date().toLocaleString('ru-RU');
+        const nick = (document.getElementById('tgNickInput').value.trim()) || 'Аноним';
+        let lines = [`📦 *Отчёт по артефактам*`, `👤 ${nick}`, `🕐 ${now}`, ''];
+        let hasItems = false;
+
+        artifacts.forEach(artifact => {
+            const span = quantityElements.get(artifact.name);
+            const qty = parseInt(span.textContent);
+            if (qty > 0) {
+                const sum = (qty * artifact.price).toLocaleString('ru-RU');
+                lines.push(`• ${artifact.name}: ${qty} шт. × ${artifact.price} = ${sum} руб.`);
+                hasItems = true;
+            }
+        });
+
+        if (!hasItems) {
+            lines.push('_Нет выбранных артефактов_');
+        }
+
+        const final = Math.round(totalSum * (1 + currentBonus / 100));
+        lines.push('');
+        lines.push(`💰 Базовая сумма: *${totalSum.toLocaleString('ru-RU')} руб.*`);
+        if (currentBonus !== 0) {
+            lines.push(`📈 Надбавка: *+${currentBonus}%*`);
+        }
+        lines.push(`✅ Итого: *${final.toLocaleString('ru-RU')} руб.*`);
+
+        return lines.join('\n');
+    }
+
+    const tgSendBtn = document.getElementById('tgSendBtn');
+    const tgNickInput = document.getElementById('tgNickInput');
+
+    // Сохраняем ник в localStorage
+    tgNickInput.value = localStorage.getItem('tgNick') || '';
+    tgNickInput.addEventListener('input', () => {
+        localStorage.setItem('tgNick', tgNickInput.value.trim());
+    });
+
+    tgSendBtn.addEventListener('click', async () => {
+        if (!tgNickInput.value.trim()) {
+            tgNickInput.focus();
+            tgNickInput.classList.add('tg-nick-error');
+            setTimeout(() => tgNickInput.classList.remove('tg-nick-error'), 1500);
+            return;
+        }
+        const text = buildTelegramReport();
+        tgSendBtn.disabled = true;
+        tgSendBtn.textContent = '⏳ Отправка...';
+
+        try {
+            const res = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TG_CHAT_ID,
+                    text,
+                    parse_mode: 'Markdown'
+                })
+            });
+
+            const data = await res.json();
+            if (data.ok) {
+                tgSendBtn.textContent = '✅ Отправлено!';
+                setTimeout(() => {
+                    tgSendBtn.textContent = '✈️ Отправить отчёт';
+                    tgSendBtn.disabled = false;
+                }, 2500);
+            } else {
+                throw new Error(data.description || 'Ошибка Telegram');
+            }
+        } catch (err) {
+            tgSendBtn.textContent = '❌ Ошибка';
+            tgSendBtn.title = err.message;
+            setTimeout(() => {
+                tgSendBtn.textContent = '✈️ Отправить отчёт';
+                tgSendBtn.disabled = false;
+            }, 3000);
+        }
+    });
+
     artifacts.forEach(a => createButton(a));
-    updateArtifactList();
     bonusButtons[0].classList.add('active');
 
     // === МОДАЛЬНОЕ ОКНО НАСТРОЕК ===
@@ -734,9 +807,10 @@
             artifact.price = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
         });
         
-        document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv) => {
-            const artifact = artifacts.find(a => a.name === priceDiv.dataset.artifactName);
-            if (artifact) priceDiv.textContent = artifact.price + ' руб.';
+        document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv, index) => {
+            if (index < artifacts.length) {
+                priceDiv.textContent = artifacts[index].price + ' руб.';
+            }
         });
         
         totalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
@@ -744,7 +818,6 @@
             return sum + (parseInt(span.textContent) * art.price);
         }, 0);
         updateTotals();
-        updateArtifactList();
         
         savePricesToStorage();
         modal.style.display = 'none';
