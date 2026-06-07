@@ -1059,28 +1059,19 @@ footer img {
 
 /* === ФИЛЬТР ПО СВОЙСТВАМ (ДРОПДАУН) === */
 .search-container {
-    position: relative;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 0;
-}
-
-.search-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 0;
+    position: absolute !important;
+    top: 15px !important;
+    right: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
 }
 
 .search-input-wrap {
     position: relative;
-    flex: 1;
-    min-width: 0;
 }
 
 .search-input-wrap .search-input {
-    width: 100%;
     padding-right: 28px;
 }
 
@@ -1111,14 +1102,17 @@ footer img {
     display: none;
     flex-direction: column;
     gap: 8px;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 320px;
     background: var(--bg-card);
     border: 1.5px solid var(--border-accent);
     border-radius: 10px;
     padding: 12px 14px;
-    margin-top: 4px;
-    box-shadow: 0 6px 20px var(--shadow-light);
-    animation: filterDropIn 0.18s ease;
-    z-index: 100;
+    box-shadow: 0 6px 24px var(--shadow-light);
+    z-index: 200;
+    animation: filterDropIn 0.15s ease;
 }
 
 .property-filter-dropdown.open {
@@ -1126,7 +1120,7 @@ footer img {
 }
 
 @keyframes filterDropIn {
-    from { opacity: 0; transform: translateY(-6px); }
+    from { opacity: 0; transform: translateY(-4px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
