@@ -21,6 +21,19 @@
 <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+    <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="История сделок" aria-label="Открыть историю сделок">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="deal-sidebar" id="dealSidebar" aria-label="История сделок">
+        <div class="sidebar-header">
+            <h3>История сделок</h3>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" title="Закрыть" aria-label="Закрыть">&times;</button>
+        </div>
+        <div class="sidebar-content">
+            <div id="dealHistoryList" class="deal-history-list"></div>
+            <button class="sidebar-clear-btn" id="clearDealHistoryBtn">Очистить историю</button>
+        </div>
+    </aside>
+
     <h1 class="artifact-title">Калькулятор цены артефактов</h1>
 
     <div class="header-stats">
@@ -47,6 +60,7 @@
         </div>
 
         <button class="reset-btn" id="resetBtn">Очистить</button>
+        <button class="save-deal-btn" id="saveDealBtn">💾 Сохранить сделку</button>
         <button class="export-btn" id="exportBtn">📄 Экспорт отчёта</button>
     </div>
 
@@ -78,6 +92,9 @@
     <h2 class="section-title mutant-title">Скупка частей мутантов</h2>
     <div class="mutant-section">
         <div class="mutant-header-stats">
+            <div class="mutant-search-container">
+                <input type="text" class="search-input mutant-search-input" id="mutantSearchInput" placeholder="Поиск частей мутантов...">
+            </div>
             <div class="mutant-sum-display">
                 Сумма за части: <span id="mutantTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
             </div>
@@ -143,6 +160,9 @@
     <!-- Туториал подсказка -->
     <div id="artifactTooltip" class="artifact-tooltip"></div>
 
-    <script src="script.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/artifacts.js"></script>
+    <script src="js/mutants.js"></script>
+    <script src="js/cigars.js"></script>
 </body>
 </html>
