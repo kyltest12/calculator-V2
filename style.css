@@ -129,6 +129,121 @@ h2 {
     background: linear-gradient(135deg, var(--cigar-title-bg), var(--cigar-accent-dark));
 }
 
+.section-locked,
+.access-gate.hidden {
+    display: none !important;
+}
+
+.access-gate {
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border-bottom: 2px solid var(--border-accent);
+    color: var(--text-primary);
+    text-align: center;
+    padding-bottom: 24px;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.access-gate h2 {
+    margin-top: 0;
+    background: linear-gradient(135deg, var(--bg-header), var(--bg-header2));
+}
+
+.access-gate-mutants {
+    background-color: var(--mutant-section-bg);
+    border-bottom-color: var(--mutant-accent);
+}
+
+.access-gate-mutants h2 {
+    background: linear-gradient(135deg, var(--mutant-title-bg), var(--mutant-accent-dark));
+}
+
+.access-gate-cigars {
+    background-color: var(--cigar-section-bg);
+    border-bottom-color: var(--cigar-accent);
+}
+
+.access-gate-cigars h2 {
+    background: linear-gradient(135deg, var(--cigar-title-bg), var(--cigar-accent-dark));
+}
+
+.access-gate-box {
+    width: min(92%, 460px);
+    margin: 24px auto 0;
+    padding: 20px;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.access-gate label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+.access-gate-row {
+    display: flex;
+    gap: 10px;
+}
+
+.access-gate input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 2px solid var(--border-accent);
+    border-radius: 6px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.access-gate button {
+    padding: 11px 16px;
+    border: 2px solid var(--border-accent);
+    border-radius: 6px;
+    background-color: var(--border-accent);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.access-gate button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.access-gate-error {
+    min-height: 18px;
+    margin-top: 8px;
+    color: #d34040;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.access-gate-mutants .access-gate-box,
+.access-gate-mutants input,
+.access-gate-mutants button {
+    border-color: var(--mutant-accent);
+}
+
+.access-gate-mutants button {
+    background-color: var(--mutant-accent);
+}
+
+.access-gate-cigars .access-gate-box,
+.access-gate-cigars input,
+.access-gate-cigars button {
+    border-color: var(--cigar-accent);
+}
+
+.access-gate-cigars button {
+    background-color: var(--cigar-accent);
+}
+
 h3 {
     width: 100%;
     padding: 15px;
@@ -204,6 +319,25 @@ h3 {
     color: white;
 }
 
+.save-deal-btn {
+    background: var(--bg-card);
+    border: 2px solid var(--border-accent);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+.save-deal-btn:hover {
+    background: var(--border-accent);
+    color: white;
+}
+
 .search-input {
     width: 200px;
     padding: 10px 15px;
@@ -224,6 +358,42 @@ h3 {
     outline: none;
     box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
     width: 250px;
+    border-color: var(--border-accent);
+}
+
+.artifact-tools {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.artifact-tool {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.artifact-tool select {
+    min-width: 210px;
+    max-width: 260px;
+    padding: 10px 12px;
+    border: 2px solid var(--border-accent);
+    border-radius: 6px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.artifact-tool select:focus {
+    outline: none;
+    box-shadow: 0 0 12px rgba(110, 180, 242, 0.4);
     border-color: var(--border-accent);
 }
 
@@ -353,6 +523,24 @@ h3 {
     transform: translateY(-5px);
 }
 
+.item.item-selected {
+    background: linear-gradient(180deg, rgba(110, 180, 242, 0.18), var(--bg-card));
+    border-color: var(--border-accent);
+    box-shadow: 0 0 0 2px rgba(110, 180, 242, 0.35), 0 4px 12px var(--shadow-light);
+}
+
+.mutant-item.item-selected {
+    background: linear-gradient(180deg, rgba(235, 106, 116, 0.2), var(--bg-card));
+    border-color: var(--mutant-accent);
+    box-shadow: 0 0 0 2px rgba(235, 106, 116, 0.35), 0 4px 12px var(--shadow-light);
+}
+
+.cigar-item.item-selected {
+    background: linear-gradient(180deg, rgba(89, 200, 109, 0.2), var(--bg-card));
+    border-color: var(--cigar-accent);
+    box-shadow: 0 0 0 2px rgba(89, 200, 109, 0.35), 0 4px 12px var(--shadow-light);
+}
+
 .item.hidden {
     display: none;
 }
@@ -472,7 +660,25 @@ h3 {
     text-align: center;
     border-bottom: 2px solid var(--mutant-accent);
     color: var(--mutant-header-text);
+    position: relative;
     transition: all 0.4s;
+}
+
+.mutant-search-container {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.mutant-search-input {
+    border-color: var(--mutant-accent);
+}
+
+.mutant-search-input:focus {
+    box-shadow: 0 0 12px rgba(235, 106, 116, 0.3);
+    border-color: var(--mutant-accent);
 }
 
 .mutant-sum-display {
@@ -838,6 +1044,212 @@ footer img {
     color: #ffb74d;
 }
 
+/* Боковая панель истории сделок */
+.sidebar-toggle-btn {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 10001;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--border-accent);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--shadow-light);
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+    background: var(--border-accent);
+    color: white;
+    transform: scale(1.05);
+}
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10002;
+}
+
+.sidebar-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.deal-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(92vw, 360px);
+    height: 100vh;
+    background: var(--bg-card);
+    border-right: 2px solid var(--border-accent);
+    box-shadow: 4px 0 20px var(--shadow-light);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 10003;
+    display: flex;
+    flex-direction: column;
+}
+
+.deal-sidebar.open {
+    transform: translateX(0);
+}
+
+body.sidebar-open {
+    overflow: hidden;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, var(--bg-header), var(--bg-header2));
+    color: white;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    padding: 0;
+    background: none;
+    font-size: 18px;
+    text-shadow: none;
+}
+
+.sidebar-close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.deal-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar-empty {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 24px 8px;
+}
+
+.sidebar-deal-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.sidebar-deal-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.sidebar-deal-date {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.sidebar-deal-sum {
+    color: var(--text-accent);
+    white-space: nowrap;
+}
+
+.sidebar-deal-meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.sidebar-deal-details {
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.5;
+    padding: 8px;
+    background: var(--bg-card);
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+}
+
+.sidebar-deal-details.hidden {
+    display: none;
+}
+
+.sidebar-deal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.sidebar-action-btn {
+    flex: 1;
+    min-width: 90px;
+    padding: 6px 8px;
+    border: 1px solid var(--border-accent);
+    border-radius: 6px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sidebar-action-btn:hover {
+    background: var(--border-accent);
+    color: white;
+}
+
+.sidebar-action-delete {
+    border-color: #d34040;
+    color: #d34040;
+}
+
+.sidebar-action-delete:hover {
+    background: #d34040;
+    color: white;
+}
+
+.sidebar-clear-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px;
+    border: 2px solid #d34040;
+    border-radius: 6px;
+    background: transparent;
+    color: #d34040;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sidebar-clear-btn:hover {
+    background: #d34040;
+    color: white;
+}
+
 /* Адаптив */
 @media (max-width: 1024px) {
     .buttons-container { grid-template-columns: repeat(5, 1fr); }
@@ -849,12 +1261,16 @@ footer img {
     .buttons-container { grid-template-columns: repeat(3, 1fr); }
     h1 { font-size: 24px; height: 70px; }
     h2 { font-size: 20px; height: 55px; }
+    .artifact-tools {
+        margin-top: 14px;
+    }
     .search-container {
         position: static;
         justify-content: center;
         margin-bottom: 15px;
     }
-    .cigar-search-container {
+    .cigar-search-container,
+    .mutant-search-container {
         position: static;
         justify-content: center;
         margin-bottom: 15px;
@@ -865,14 +1281,33 @@ footer img {
 
 @media (max-width: 480px) {
     .buttons-container { grid-template-columns: repeat(2, 1fr); }
+    .artifact-tools {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .artifact-tool {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        text-align: left;
+    }
+    .artifact-tool select {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
     .search-container {
         width: 100%;
         justify-content: center;
     }
-    .cigar-search-container {
+    .cigar-search-container,
+    .mutant-search-container {
         width: 100%;
         justify-content: center;
     }
     .search-input { width: 100%; max-width: 200px; }
     .search-input:focus { width: 100%; max-width: 200px; }
+    .access-gate-row {
+        flex-direction: column;
+    }
 }

@@ -1,6 +1,91 @@
 (function(){
     "use strict";
 
+    // === ПАРОЛИ РАЗДЕЛОВ ===
+    // Меняйте эти значения раз в неделю перед публикацией сайта.
+    // На статическом сайте это защита от обычного просмотра, а не полноценная серверная авторизация.
+    const sectionAccessConfig = {
+        artifacts: { title: 'Калькулятор цены артефактов', password: 'artifacts-2026-05-08' },
+        mutants: { title: 'Скупка частей мутантов', password: 'mutants-2026-05-08' },
+        cigars: { title: 'Калькулятор сигар', password: 'cigars-2026-05-08' }
+    };
+    const sectionAccessDurationMs = 7 * 24 * 60 * 60 * 1000;
+
+    function getAccessStorageKey(sectionKey) {
+        return `sectionAccess_${sectionKey}`;
+    }
+
+    function hasSectionAccess(sectionKey) {
+        const savedAccess = localStorage.getItem(getAccessStorageKey(sectionKey));
+        if (!savedAccess) return false;
+
+        try {
+            const accessData = JSON.parse(savedAccess);
+            if (accessData && Number.isFinite(accessData.expiresAt) && accessData.expiresAt > Date.now()) {
+                return true;
+            }
+        } catch (error) {
+            console.warn('Не удалось прочитать доступ к разделу:', error);
+        }
+
+        localStorage.removeItem(getAccessStorageKey(sectionKey));
+        return false;
+    }
+
+    function saveSectionAccess(sectionKey) {
+        localStorage.setItem(getAccessStorageKey(sectionKey), JSON.stringify({
+            expiresAt: Date.now() + sectionAccessDurationMs
+        }));
+    }
+
+    function setupSectionAccess(sectionKey, elements) {
+        const config = sectionAccessConfig[sectionKey];
+        const validElements = elements.filter(Boolean);
+        if (!config || validElements.length === 0) return;
+
+        const gate = document.createElement('form');
+        gate.className = `access-gate access-gate-${sectionKey}`;
+        gate.innerHTML = `
+            <h2>${config.title}</h2>
+            <div class="access-gate-box">
+                <label for="accessPassword_${sectionKey}">Пароль раздела</label>
+                <div class="access-gate-row">
+                    <input type="password" id="accessPassword_${sectionKey}" autocomplete="current-password" placeholder="Введите пароль">
+                    <button type="submit">Открыть</button>
+                </div>
+                <div class="access-gate-error" role="alert"></div>
+            </div>
+        `;
+
+        validElements[0].before(gate);
+
+        const input = gate.querySelector('input');
+        const error = gate.querySelector('.access-gate-error');
+
+        const setUnlocked = (isUnlocked) => {
+            gate.classList.toggle('hidden', isUnlocked);
+            validElements.forEach(element => {
+                element.classList.toggle('section-locked', !isUnlocked);
+            });
+        };
+
+        setUnlocked(hasSectionAccess(sectionKey));
+
+        gate.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (input.value === config.password) {
+                saveSectionAccess(sectionKey);
+                input.value = '';
+                error.textContent = '';
+                setUnlocked(true);
+                return;
+            }
+
+            error.textContent = 'Неверный пароль';
+            input.select();
+        });
+    }
+
     // === ПРИВЕТСТВЕННОЕ СООБЩЕНИЕ ПРИ ПЕРВОМ ЗАХОДЕ ===
     const hasVisited = localStorage.getItem('hasVisitedBefore');
     if (!hasVisited) {
@@ -294,12 +379,100 @@
     const resetBtn = document.getElementById('resetBtn');
     const searchInput = document.getElementById('searchInput');
     const exportBtn = document.getElementById('exportBtn');
+    const buttonsContainer = document.getElementById('buttonsContainer');
+
+    setupSectionAccess('artifacts', [
+        document.querySelector('.artifact-title'),
+        document.querySelector('.header-stats'),
+        document.querySelector('.content')
+    ]);
 
     let totalSum = 0;
     let currentBonus = 0;
     const quantityElements = new Map();
+    const artifactCards = new Map();
     const artifactImageFolder = 'артефакты V2';
     const fallbackImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="white" width="70" height="70"/%3E%3C/svg%3E';
+    const artifactProperties = Array.from(new Set(
+        artifacts.flatMap(artifact => Object.keys(artifact.properties || {}))
+    )).sort((a, b) => a.localeCompare(b, 'ru'));
+    const artifactPropertySelect = document.createElement('select');
+    const artifactSortSelect = document.createElement('select');
+
+    function createArtifactTools() {
+        const tools = document.createElement('div');
+        tools.className = 'artifact-tools';
+
+        const propertyLabel = document.createElement('label');
+        propertyLabel.className = 'artifact-tool';
+        propertyLabel.textContent = 'Свойство';
+        artifactPropertySelect.id = 'artifactPropertyFilter';
+        artifactPropertySelect.innerHTML = '<option value="">Все свойства</option>';
+        artifactProperties.forEach(property => {
+            const option = document.createElement('option');
+            option.value = property;
+            option.textContent = property;
+            artifactPropertySelect.appendChild(option);
+        });
+        propertyLabel.appendChild(artifactPropertySelect);
+
+        const sortLabel = document.createElement('label');
+        sortLabel.className = 'artifact-tool';
+        sortLabel.textContent = 'Сортировка';
+        artifactSortSelect.id = 'artifactSortSelect';
+        artifactSortSelect.innerHTML = `
+            <option value="default">По умолчанию</option>
+            <option value="name-asc">Название А-Я</option>
+            <option value="name-desc">Название Я-А</option>
+            <option value="price-asc">Цена по возрастанию</option>
+            <option value="price-desc">Цена по убыванию</option>
+            <option value="property-asc">Свойство по возрастанию</option>
+            <option value="property-desc">Свойство по убыванию</option>
+        `;
+        sortLabel.appendChild(artifactSortSelect);
+
+        tools.appendChild(propertyLabel);
+        tools.appendChild(sortLabel);
+        document.querySelector('.header-stats').appendChild(tools);
+    }
+
+    function parsePropertyValue(value) {
+        if (!value) return Number.NEGATIVE_INFINITY;
+        const normalizedValue = String(value).replace(',', '.');
+        const match = normalizedValue.match(/[+-]?\d+(?:\.\d+)?/);
+        return match ? parseFloat(match[0]) : Number.NEGATIVE_INFINITY;
+    }
+
+    function updateArtifactList() {
+        const term = searchInput.value.toLowerCase().trim();
+        const selectedProperty = artifactPropertySelect.value;
+        const sortMode = artifactSortSelect.value;
+        const sortedArtifacts = [...artifacts];
+
+        sortedArtifacts.sort((a, b) => {
+            if (sortMode === 'name-asc') return a.name.localeCompare(b.name, 'ru');
+            if (sortMode === 'name-desc') return b.name.localeCompare(a.name, 'ru');
+            if (sortMode === 'price-asc') return a.price - b.price || a.name.localeCompare(b.name, 'ru');
+            if (sortMode === 'price-desc') return b.price - a.price || a.name.localeCompare(b.name, 'ru');
+            if (sortMode === 'property-asc' || sortMode === 'property-desc') {
+                const aValue = parsePropertyValue(a.properties?.[selectedProperty]);
+                const bValue = parsePropertyValue(b.properties?.[selectedProperty]);
+                const direction = sortMode === 'property-asc' ? 1 : -1;
+                return (aValue - bValue) * direction || a.name.localeCompare(b.name, 'ru');
+            }
+            return 0;
+        });
+
+        sortedArtifacts.forEach(artifact => {
+            const card = artifactCards.get(artifact.name);
+            if (!card) return;
+
+            const matchesSearch = term === '' || artifact.name.toLowerCase().includes(term);
+            const matchesProperty = selectedProperty === '' || Boolean(artifact.properties?.[selectedProperty]);
+            card.classList.toggle('hidden', !matchesSearch || !matchesProperty);
+            buttonsContainer.appendChild(card);
+        });
+    }
 
     function getLocalArtifactImagePath(name) {
         return `${artifactImageFolder}/${encodeURIComponent(name)}.png`;
@@ -324,6 +497,7 @@
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item';
         itemDiv.dataset.artifactName = artifact.name.toLowerCase();
+        itemDiv.dataset.artifactProperties = Object.keys(artifact.properties || {}).join('|').toLowerCase();
 
         const nameDiv = document.createElement('div');
         nameDiv.className = 'item-name';
@@ -452,6 +626,7 @@
                     return sum + (parseInt(span.textContent) * art.price);
                 }, 0);
                 updateTotals();
+                updateArtifactList();
                 savePricesToStorage();
             };
             
@@ -466,16 +641,13 @@
         buttonGroup.appendChild(addBtn);
         controlsDiv.appendChild(buttonGroup);
         itemDiv.appendChild(controlsDiv);
-        document.getElementById('buttonsContainer').appendChild(itemDiv);
+        artifactCards.set(artifact.name, itemDiv);
+        buttonsContainer.appendChild(itemDiv);
     }
 
-    searchInput.addEventListener('input', () => {
-        const term = searchInput.value.toLowerCase().trim();
-        document.querySelectorAll('#buttonsContainer .item').forEach(item => {
-            const name = item.dataset.artifactName;
-            item.classList.toggle('hidden', term !== '' && !name.includes(term));
-        });
-    });
+    searchInput.addEventListener('input', updateArtifactList);
+    artifactPropertySelect.addEventListener('change', updateArtifactList);
+    artifactSortSelect.addEventListener('change', updateArtifactList);
 
     bonusButtons.forEach(btn => btn.addEventListener('click', () => {
         bonusButtons.forEach(b => b.classList.remove('active'));
@@ -491,7 +663,9 @@
         bonusButtons[0].classList.add('active');
         quantityElements.forEach(span => span.textContent = '0');
         searchInput.value = '';
-        document.querySelectorAll('#buttonsContainer .item').forEach(i => i.classList.remove('hidden'));
+        artifactPropertySelect.value = '';
+        artifactSortSelect.value = 'default';
+        updateArtifactList();
         updateTotals();
     });
 
@@ -525,7 +699,9 @@
         URL.revokeObjectURL(url);
     });
 
+    createArtifactTools();
     artifacts.forEach(a => createButton(a));
+    updateArtifactList();
     bonusButtons[0].classList.add('active');
 
     // === МОДАЛЬНОЕ ОКНО НАСТРОЕК ===
@@ -564,10 +740,9 @@
             artifact.price = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
         });
         
-        document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv, index) => {
-            if (index < artifacts.length) {
-                priceDiv.textContent = artifacts[index].price + ' руб.';
-            }
+        document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv) => {
+            const artifact = artifacts.find(a => a.name === priceDiv.dataset.artifactName);
+            if (artifact) priceDiv.textContent = artifact.price + ' руб.';
         });
         
         totalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
@@ -575,6 +750,7 @@
             return sum + (parseInt(span.textContent) * art.price);
         }, 0);
         updateTotals();
+        updateArtifactList();
         
         savePricesToStorage();
         modal.style.display = 'none';
@@ -587,6 +763,12 @@
     let mutantTotalSum = 0;
     let currentMutantBonus = 0;
     const mutantQuantityElements = new Map();
+
+    setupSectionAccess('mutants', [
+        document.querySelector('.mutant-title'),
+        document.querySelector('.mutant-section')
+    ]);
+
     const legacyMutantPrices = new Map([
         ['голова крысы', 475],
         ['голова тушкана', 1055],
@@ -900,6 +1082,11 @@
     const cigarQuantityElements = new Map();
     let cigarTotalSum = 0;
     let currentCigarBonus = 0;
+
+    setupSectionAccess('cigars', [
+        document.querySelector('.cigar-title'),
+        document.querySelector('.cigar-section')
+    ]);
 
     const cigars = [
         { name: 'Сигареты', price: 500 },
