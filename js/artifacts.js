@@ -82,6 +82,37 @@
             document.querySelector('.content')
         ]);
 
+        // Автоматическая отправка сумм в Яндекс.Метрику: срабатывает через 1.5 сек
+        // после последнего изменения корзины, и только если сумма больше 0.
+        const metrikaSender = SC.createDebouncedMetrikaSender('artifacts_send_result', 1500);
+
+        function getSelectedItems() {
+            const items = [];
+            artifacts.forEach(artifact => {
+                const span = quantityElements.get(artifact.name);
+                const qty = parseInt(span.textContent, 10);
+                if (qty > 0) {
+                    items.push({ name: artifact.name, qty, price: artifact.price });
+                }
+            });
+            return items;
+        }
+
+        function buildMetrikaPayload() {
+            const items = getSelectedItems();
+            return {
+                totalSum,
+                bonus: currentBonus,
+                finalSum: Math.round(totalSum * (1 + currentBonus / 100)),
+                itemsCount: items.length,
+                items
+            };
+        }
+
+        function scheduleMetrikaSend() {
+            metrikaSender.schedule(buildMetrikaPayload);
+        }
+
         let totalSum = 0;
         let currentBonus = 0;
         const quantityElements = new Map();
@@ -235,6 +266,7 @@
                 SC.updateItemSelectedState(itemDiv, nextQty);
                 totalSum += actualDelta * artifact.price;
                 updateTotals();
+                scheduleMetrikaSend();
             };
 
             addBtn.addEventListener('click', () => updateQuantity(1));
@@ -263,6 +295,7 @@
                         quantitySpan.textContent = '0';
                         SC.updateItemSelectedState(itemDiv, 0);
                         updateTotals();
+                        scheduleMetrikaSend();
                     }
                 }
             });
@@ -315,6 +348,7 @@
                     updateTotals();
                     updateArtifactList();
                     savePricesToStorage();
+                    scheduleMetrikaSend();
                 };
 
                 input.addEventListener('blur', saveNewPrice);
@@ -341,6 +375,7 @@
             btn.classList.add('active');
             currentBonus = parseInt(btn.dataset.bonus);
             updateTotals();
+            scheduleMetrikaSend();
         }));
 
         resetBtn.addEventListener('click', () => {
@@ -355,6 +390,7 @@
             artifactSortSelect.value = 'default';
             updateArtifactList();
             updateTotals();
+            metrikaSender.cancel();
         });
 
         exportBtn.addEventListener('click', () => {
@@ -436,6 +472,7 @@
 
             savePricesToStorage();
             modal.style.display = 'none';
+            scheduleMetrikaSend();
         });
 
         totalDisplay.addEventListener('click', (e) => SC.copyToClipboard(totalSum.toString(), e));
@@ -448,14 +485,7 @@
 
         return {
             getState() {
-                const items = [];
-                artifacts.forEach(artifact => {
-                    const span = quantityElements.get(artifact.name);
-                    const qty = parseInt(span.textContent, 10);
-                    if (qty > 0) {
-                        items.push({ name: artifact.name, qty, price: artifact.price });
-                    }
-                });
+                const items = getSelectedItems();
                 return {
                     items,
                     totalSum,
@@ -480,6 +510,7 @@
                     if (art) totalSum += qty * art.price;
                 });
                 updateTotals();
+                scheduleMetrikaSend();
             }
         };
     };
