@@ -22,9 +22,35 @@
             document.querySelector('.cigar-section')
         ]);
 
+        // Автоотправка в Метрику: debounce 1.5с, только при сумме > 0.
+        const sendCigarsMetrika = SC.createMetrikaAutoSender('cigars_sum_changed', 1500);
+
+        function getSelectedCigars() {
+            const items = [];
+            cigars.forEach(cigar => {
+                const span = cigarQuantityElements.get(cigar.name);
+                const qty = parseInt(span.textContent, 10);
+                if (qty > 0) {
+                    items.push({ name: cigar.name, qty, price: cigar.price });
+                }
+            });
+            return items;
+        }
+
         function updateCigarTotals() {
             cigarTotalDisplay.textContent = cigarTotalSum.toLocaleString('ru-RU');
             cigarFinalDisplay.textContent = Math.round(cigarTotalSum * (1 + currentCigarBonus / 100)).toLocaleString('ru-RU');
+
+            sendCigarsMetrika(() => {
+                const items = getSelectedCigars();
+                return {
+                    totalSum: cigarTotalSum,
+                    bonus: currentCigarBonus,
+                    finalSum: Math.round(cigarTotalSum * (1 + currentCigarBonus / 100)),
+                    itemsCount: items.length,
+                    items
+                };
+            });
         }
 
         function createCigarButton(cigar) {
