@@ -65,6 +65,37 @@
             document.querySelector('.mutant-section')
         ]);
 
+        // Автоматическая отправка сумм в Яндекс.Метрику: срабатывает через 1.5 сек
+        // после последнего изменения корзины, и только если сумма больше 0.
+        const metrikaSender = SC.createDebouncedMetrikaSender('mutants_send_result', 1500);
+
+        function getSelectedParts() {
+            const items = [];
+            mutantParts.forEach(part => {
+                const span = mutantQuantityElements.get(part.name);
+                const qty = parseInt(span.textContent, 10);
+                if (qty > 0) {
+                    items.push({ name: part.name, qty, price: part.price });
+                }
+            });
+            return items;
+        }
+
+        function buildMetrikaPayload() {
+            const items = getSelectedParts();
+            return {
+                totalSum: mutantTotalSum,
+                bonus: currentMutantBonus,
+                finalSum: Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)),
+                itemsCount: items.length,
+                items
+            };
+        }
+
+        function scheduleMetrikaSend() {
+            metrikaSender.schedule(buildMetrikaPayload);
+        }
+
         function updateMutantTotals() {
             mutantTotalDisplay.textContent = mutantTotalSum.toLocaleString('ru-RU');
             mutantFinalDisplay.textContent = Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
@@ -132,6 +163,7 @@
                 SC.updateItemSelectedState(itemDiv, nextQty);
                 mutantTotalSum += actualDelta * part.price;
                 updateMutantTotals();
+                scheduleMetrikaSend();
             };
 
             addBtn.addEventListener('click', () => updateQuantity(1));
@@ -160,6 +192,7 @@
                         quantitySpan.textContent = '0';
                         SC.updateItemSelectedState(itemDiv, 0);
                         updateMutantTotals();
+                        scheduleMetrikaSend();
                     }
                 }
             });
@@ -191,6 +224,7 @@
 
                     updateMutantTotals();
                     saveMutantPricesToStorage();
+                    scheduleMetrikaSend();
                 };
 
                 input.addEventListener('blur', saveNewPrice);
@@ -215,6 +249,7 @@
             btn.classList.add('active');
             currentMutantBonus = parseInt(btn.dataset.bonus);
             updateMutantTotals();
+            scheduleMetrikaSend();
         }));
 
         document.getElementById('mutantResetBtn').addEventListener('click', () => {
@@ -227,6 +262,7 @@
             mutantSearchInput.value = '';
             updateMutantList();
             updateMutantTotals();
+            metrikaSender.cancel();
         });
 
         mutantTotalDisplay.addEventListener('click', (e) => SC.copyToClipboard(mutantTotalSum.toString(), e));
