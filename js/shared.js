@@ -5,11 +5,15 @@
 
     StalkerCalc.fallbackImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="70" height="70"%3E%3Crect fill="white" width="70" height="70"/%3E%3C/svg%3E';
     StalkerCalc.DEAL_HISTORY_KEY = 'artifactDealHistory';
+    StalkerCalc.METRIKA_COUNTER_ID = 109681385;
 
+    // === ПАРОЛИ РАЗДЕЛОВ ===
+    // Меняйте эти значения периодически перед публикацией сайта.
+    // На статическом сайте это защита от обычного просмотра, а не полноценная серверная авторизация.
     const sectionAccessConfig = {
-        artifacts: { title: 'Калькулятор цены артефактов', password: 'artifacts-2026-05-08' },
-        mutants: { title: 'Скупка частей мутантов', password: 'mutants-2026-05-08' },
-        cigars: { title: 'Калькулятор сигар', password: 'cigars-2026-05-08' }
+        artifacts: { title: 'Калькулятор цены артефактов', password: 'Art7Kx92mQr4' },
+        mutants: { title: 'Скупка частей мутантов', password: 'Mut3Vb58Ldn1' },
+        cigars: { title: 'Калькулятор сигар', password: 'Cig9Wp16Ztq5' }
     };
     const sectionAccessDurationMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -105,6 +109,47 @@
         }).catch(err => {
             alert('Не удалось скопировать: ' + err);
         });
+    };
+
+    // === ОТПРАВКА СОБЫТИЙ В ЯНДЕКС.МЕТРИКУ ===
+    // goalName — название цели (настраивается в интерфейсе Метрики, либо просто фиксируется как есть).
+    // params — произвольный объект с деталями (сумма, бонус, список позиций и т.д.).
+    StalkerCalc.sendMetrikaEvent = function (goalName, params) {
+        try {
+            if (typeof window.ym === 'function') {
+                window.ym(StalkerCalc.METRIKA_COUNTER_ID, 'reachGoal', goalName, params);
+            } else {
+                console.warn('Яндекс.Метрика недоступна, событие не отправлено:', goalName, params);
+            }
+        } catch (error) {
+            console.warn('Не удалось отправить событие в Яндекс.Метрику:', error);
+        }
+    };
+
+    // Создаёт автономный "отправитель" события в Метрику с задержкой (debounce):
+    // при каждом вызове schedule(getPayload) таймер сбрасывается и запускается заново,
+    // событие реально уйдёт только через delayMs после ПОСЛЕДНЕГО вызова, и только
+    // если на момент отправки getPayload().totalSum > 0 (нулевые/сброшенные суммы не шлём).
+    StalkerCalc.createDebouncedMetrikaSender = function (goalName, delayMs) {
+        let timer = null;
+        return {
+            schedule(getPayload) {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(() => {
+                    timer = null;
+                    const payload = getPayload();
+                    if (payload && payload.totalSum > 0) {
+                        StalkerCalc.sendMetrikaEvent(goalName, payload);
+                    }
+                }, delayMs || 1500);
+            },
+            cancel() {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+            }
+        };
     };
 
     StalkerCalc.parsePropertyValue = function (value) {
