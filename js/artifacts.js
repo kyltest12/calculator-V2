@@ -223,11 +223,29 @@
             itemDiv.appendChild(nameDiv);
 
             const imgButton = document.createElement('button');
+            imgButton.type = 'button';
             imgButton.className = 'image-button';
             const img = document.createElement('img');
             img.src = artifact.image;
             img.alt = artifact.name;
-            img.onerror = function () { this.src = SC.fallbackImage; };
+            img.onerror = function () {
+                // Попытка альтернативных путей к картинкам (ASCII-папки), затем fallback
+                try {
+                    if (!this._triedAlt) {
+                        this._triedAlt = 1;
+                        this.src = `artifacts/${encodeURIComponent(artifact.name)}.png`;
+                        return;
+                    }
+                    if (!this._triedAlt2) {
+                        this._triedAlt2 = 1;
+                        this.src = `artifacts_v2/${encodeURIComponent(artifact.name)}.png`;
+                        return;
+                    }
+                } catch (err) {
+                    // ignore
+                }
+                this.src = SC.fallbackImage;
+            };
             imgButton.appendChild(img);
             itemDiv.appendChild(imgButton);
 
@@ -243,6 +261,7 @@
             buttonGroup.className = 'button-group';
 
             const subBtn = document.createElement('button');
+            subBtn.type = 'button';
             subBtn.className = 'btn-control';
             subBtn.textContent = '−';
 
@@ -252,11 +271,12 @@
             quantityElements.set(artifact.name, quantitySpan);
 
             const addBtn = document.createElement('button');
+            addBtn.type = 'button';
             addBtn.className = 'btn-control';
             addBtn.textContent = '+';
 
             const updateQuantity = (delta) => {
-                const currentQty = parseInt(quantitySpan.textContent);
+                const currentQty = parseInt(quantitySpan.textContent, 10);
                 const nextQty = Math.max(0, currentQty + delta);
                 const actualDelta = nextQty - currentQty;
 
@@ -289,7 +309,7 @@
             itemDiv.addEventListener('mousedown', (e) => {
                 if (e.button === 1) {
                     e.preventDefault();
-                    const currentQty = parseInt(quantitySpan.textContent);
+                    const currentQty = parseInt(quantitySpan.textContent, 10);
                     if (currentQty > 0) {
                         totalSum -= currentQty * artifact.price;
                         quantitySpan.textContent = '0';
@@ -327,6 +347,7 @@
                 const input = document.createElement('input');
                 input.type = 'number';
                 input.className = 'price-input';
+                input.setAttribute('aria-label', `Цена ${artifact.name}`);
                 input.value = artifact.price;
                 input.min = '0';
                 input.step = '1';
@@ -343,7 +364,7 @@
 
                     totalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
                         const art = artifacts.find(a => a.name === name);
-                        return sum + (parseInt(span.textContent) * art.price);
+                        return sum + (parseInt(span.textContent, 10) * art.price);
                     }, 0);
                     updateTotals();
                     updateArtifactList();
@@ -373,7 +394,7 @@
         bonusButtons.forEach(btn => btn.addEventListener('click', () => {
             bonusButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            currentBonus = parseInt(btn.dataset.bonus);
+            currentBonus = parseInt(btn.dataset.bonus, 10);
             updateTotals();
             scheduleMetrikaSend();
         }));
@@ -399,7 +420,7 @@
 
             artifacts.forEach(artifact => {
                 const span = quantityElements.get(artifact.name);
-                const qty = parseInt(span.textContent);
+                const qty = parseInt(span.textContent, 10);
                 if (qty > 0) {
                     report += `${artifact.name}: ${qty} шт. × ${artifact.price} = ${(qty * artifact.price).toLocaleString('ru-RU')} руб.\n`;
                     hasItems = true;
@@ -465,7 +486,7 @@
 
             totalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
                 const art = artifacts.find(a => a.name === name);
-                return sum + (parseInt(span.textContent) * art.price);
+                return sum + (parseInt(span.textContent, 10) * art.price);
             }, 0);
             updateTotals();
             updateArtifactList();
