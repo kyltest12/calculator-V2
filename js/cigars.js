@@ -23,7 +23,7 @@
         ]);
 
         // Автоотправка в Метрику: debounce 1.5с, только при сумме > 0.
-        const sendCigarsMetrika = SC.createMetrikaAutoSender('cigars_sum_changed', 1500);
+        const cigarsMetrikaSender = SC.createDebouncedMetrikaSender('cigars_sum_changed', 1500);
 
         function getSelectedCigars() {
             const items = [];
@@ -41,7 +41,7 @@
             cigarTotalDisplay.textContent = cigarTotalSum.toLocaleString('ru-RU');
             cigarFinalDisplay.textContent = Math.round(cigarTotalSum * (1 + currentCigarBonus / 100)).toLocaleString('ru-RU');
 
-            sendCigarsMetrika(() => {
+            cigarsMetrikaSender.schedule(() => {
                 const items = getSelectedCigars();
                 return {
                     totalSum: cigarTotalSum,
@@ -140,6 +140,7 @@
             cigarSearchInput.value = '';
             cigarCards.forEach(card => card.classList.remove('hidden'));
             updateCigarTotals();
+            cigarsMetrikaSender.cancel();
         });
 
         cigarTotalDisplay.addEventListener('click', (e) => SC.copyToClipboard(cigarTotalSum.toString(), e));
