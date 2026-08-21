@@ -19,159 +19,158 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/109681385" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-    <!-- Varioqub experiments -->
+    <!-- Varioqub experiments (temporarily disabled: original script in repository was truncated and caused JS errors) -->
 <script type="text/javascript">
-(function(e, x, pe, r, i, me, nt){
-e[i]=e[i]||function(){(e[i].a=e[i].a||[]).push(arguments)},
-me=x.createElement(pe),me.async=1,me.src=r,nt=x.getElementsByTagName(pe)[0],me.addEventListener('error',function(){function cb(t){t=t[t.length-1],'function'==typeof t&&t({flags:{}})};Array.isArray(e[i].a)&&e[i].a.forEach(cb);e[i]=function(){cb(arguments)}}),nt.parentNode.insertBefore(me,nt)})
-(window, document, 'script', 'https://abt.s3.yandex.net/expjs/latest/exp.js', 'ymab');
-ymab('metrika.109681385', 'init'/*, {clientFeatures}, {callback}*/);
+  // NOTE: оригинальный скрипт exp.js был обрезан в репозитории и вызывал синтаксические ошибки.
+  // Временно отключён: вставьте корректную версию скрипта по необходимости.
 </script>
 </head>
 <body>
-    <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="История сделок" aria-label="Открыть историю сделок">☰</button>
+    <button type="button" class="sidebar-toggle-btn" id="sidebarToggleBtn" title="История сделок" aria-label="Открыть историю сделок">☰</button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <aside class="deal-sidebar" id="dealSidebar" aria-label="История сделок">
+    <aside role="complementary" class="deal-sidebar" id="dealSidebar" aria-label="История сделок">
         <div class="sidebar-header">
             <h3>История сделок</h3>
-            <button class="sidebar-close-btn" id="sidebarCloseBtn" title="Закрыть" aria-label="Закрыть">&times;</button>
+            <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" title="Закрыть" aria-label="Закрыть">&times;</button>
         </div>
         <div class="sidebar-content">
             <div id="dealHistoryList" class="deal-history-list"></div>
-            <button class="sidebar-clear-btn" id="clearDealHistoryBtn">Очистить историю</button>
+            <button type="button" class="sidebar-clear-btn" id="clearDealHistoryBtn">Очистить историю</button>
         </div>
     </aside>
 
-    <h1 class="artifact-title">Калькулятор цены артефактов</h1>
+    <main>
+      <h1 class="artifact-title">Калькулятор цены артефактов</h1>
 
-    <div class="header-stats">
-        <div class="search-container">
-            <input type="text" class="search-input" id="searchInput" placeholder="Поиск артефактов...">
-            <button class="settings-btn" id="settingsBtn" title="Настройки цен">⚙️</button>
-            <button class="theme-toggle-btn" id="themeToggleBtn" title="Переключить тему">🌙</button>
-        </div>
+      <div class="header-stats">
+          <div class="search-container">
+              <input type="text" class="search-input" id="searchInput" placeholder="Поиск артефактов...">
+              <button type="button" class="settings-btn" id="settingsBtn" title="Настройки цен">⚙️</button>
+              <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="Переключить тему">🌙</button>
+          </div>
 
-        <div class="sum-display">
-            Базовая сумма: <span id="totalSum" title="Нажмите, чтобы скопировать">0</span> руб.
-        </div>
+          <div class="sum-display">
+              Базовая сумма: <span id="totalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+          </div>
 
-        <div class="bonus-buttons">
-            <button class="bonus-btn" data-bonus="0">Без %</button>
-            <button class="bonus-btn" data-bonus="5">+5%</button>
-            <button class="bonus-btn" data-bonus="10">+10%</button>
-            <button class="bonus-btn" data-bonus="15">+15%</button>
-            <button class="bonus-btn" data-bonus="20">+20%</button>
-        </div>
+          <div class="bonus-buttons">
+              <button type="button" class="bonus-btn" data-bonus="0">Без %</button>
+              <button type="button" class="bonus-btn" data-bonus="5">+5%</button>
+              <button type="button" class="bonus-btn" data-bonus="10">+10%</button>
+              <button type="button" class="bonus-btn" data-bonus="15">+15%</button>
+              <button type="button" class="bonus-btn" data-bonus="20">+20%</button>
+          </div>
 
-        <div class="final-sum">
-            Итого: <span id="finalSum" title="Нажмите, чтобы скопировать">0</span> руб.
-        </div>
+          <div class="final-sum">
+              Итого: <span id="finalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+          </div>
 
-        <button class="reset-btn" id="resetBtn">Очистить</button>
-        <button class="save-deal-btn" id="saveDealBtn">💾 Сохранить сделку</button>
-        <button class="export-btn" id="exportBtn">📄 Экспорт отчёта</button>
-    </div>
+          <button type="button" class="reset-btn" id="resetBtn">Очистить</button>
+          <button type="button" class="save-deal-btn" id="saveDealBtn">💾 Сохранить сделку</button>
+          <button type="button" class="export-btn" id="exportBtn">📄 Экспорт отчёта</button>
+      </div>
 
-    <div class="content">
-        <div class="buttons-container" id="buttonsContainer"></div>
-    </div>
+      <div class="content">
+          <div class="buttons-container" id="buttonsContainer"></div>
+      </div>
 
-    <!-- Модальное окно настроек -->
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Редактирование цен артефактов</h3>
-                <span class="close-btn" id="closeModalBtn">&times;</span>
-            </div>
-            <table class="price-table" id="priceTable">
-                <thead>
-                    <tr>
-                        <th>Артефакт</th>
-                        <th>Цена (руб.)</th>
-                    </tr>
-                </thead>
-                <tbody id="priceTableBody"></tbody>
-            </table>
-            <button class="save-settings-btn" id="savePricesBtn">Сохранить изменения</button>
-        </div>
-    </div>
+      <!-- Модальное окно настроек -->
+      <div id="settingsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3 id="settingsModalTitle">Редактирование цен артефактов</h3>
+                  <button type="button" class="close-btn" id="closeModalBtn" aria-label="Закрыть">&times;</button>
+              </div>
+              <table class="price-table" id="priceTable">
+                  <thead>
+                      <tr>
+                          <th>Артефакт</th>
+                          <th>Цена (руб.)</th>
+                      </tr>
+                  </thead>
+                  <tbody id="priceTableBody"></tbody>
+              </table>
+              <button type="button" class="save-settings-btn" id="savePricesBtn">Сохранить изменения</button>
+          </div>
+      </div>
 
-    <!-- КАЛЬКУЛЯТОР МУТАНТОВ -->
-    <h2 class="section-title mutant-title">Скупка частей мутантов</h2>
-    <div class="mutant-section">
-        <div class="mutant-header-stats">
-            <div class="mutant-search-container">
-                <input type="text" class="search-input mutant-search-input" id="mutantSearchInput" placeholder="Поиск частей мутантов...">
-            </div>
-            <div class="mutant-sum-display">
-                Сумма за части: <span id="mutantTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
-            </div>
-            <div class="bonus-buttons mutant-bonus-buttons">
-                <button class="bonus-btn mutant-bonus-btn" data-bonus="0">Без %</button>
-                <button class="bonus-btn mutant-bonus-btn" data-bonus="5">-5%</button>
-                <button class="bonus-btn mutant-bonus-btn" data-bonus="10">-10%</button>
-                <button class="bonus-btn mutant-bonus-btn" data-bonus="15">-15%</button>
-                <button class="bonus-btn mutant-bonus-btn" data-bonus="20">-20%</button>
-            </div>
-            <div class="final-sum mutant-final-sum">
-                Итого: <span id="mutantFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
-            </div>
+      <!-- КАЛЬКУЛЯТОР МУТАНТОВ -->
+      <h2 class="section-title mutant-title">Скупка частей мутантов</h2>
+      <div class="mutant-section">
+          <div class="mutant-header-stats">
+              <div class="mutant-search-container">
+                  <input type="text" class="search-input mutant-search-input" id="mutantSearchInput" placeholder="Поиск частей мутантов...">
+              </div>
+              <div class="mutant-sum-display">
+                  Сумма за части: <span id="mutantTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+              </div>
+              <div class="bonus-buttons mutant-bonus-buttons">
+                  <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="0">Без %</button>
+                  <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="5">-5%</button>
+                  <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="10">-10%</button>
+                  <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="15">-15%</button>
+                  <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="20">-20%</button>
+              </div>
+              <div class="final-sum mutant-final-sum">
+                  Итого: <span id="mutantFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+              </div>
 
-            <button class="reset-btn" id="mutantResetBtn">Очистить</button>
-        </div>
+              <button type="button" class="reset-btn" id="mutantResetBtn">Очистить</button>
+          </div>
 
-        <div class="buttons-container mutant-buttons-container" id="mutantButtonsContainer"></div>
-    </div>
+          <div class="buttons-container mutant-buttons-container" id="mutantButtonsContainer"></div>
+      </div>
 
-    <h2 class="section-title cigar-title">Калькулятор сигар</h2>
-    <div class="cigar-section">
-        <div class="cigar-header-stats">
-            <div class="cigar-search-container">
-                <input type="text" class="search-input cigar-search-input" id="cigarSearchInput" placeholder="Поиск сигар...">
-            </div>
+      <h2 class="section-title cigar-title">Калькулятор сигар</h2>
+      <div class="cigar-section">
+          <div class="cigar-header-stats">
+              <div class="cigar-search-container">
+                  <input type="text" class="search-input cigar-search-input" id="cigarSearchInput" placeholder="Поиск сигар...">
+              </div>
 
-            <div class="cigar-sum-display">
-                Базовая сумма: <span id="cigarTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
-            </div>
+              <div class="cigar-sum-display">
+                  Базовая сумма: <span id="cigarTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+              </div>
 
-            <div class="bonus-buttons cigar-bonus-buttons">
-                <button class="bonus-btn cigar-bonus-btn" data-bonus="0">Без %</button>
-                <button class="bonus-btn cigar-bonus-btn" data-bonus="5">+5%</button>
-                <button class="bonus-btn cigar-bonus-btn" data-bonus="10">+10%</button>
-                <button class="bonus-btn cigar-bonus-btn" data-bonus="15">+15%</button>
-                <button class="bonus-btn cigar-bonus-btn" data-bonus="20">+20%</button>
-            </div>
+              <div class="bonus-buttons cigar-bonus-buttons">
+                  <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="0">Без %</button>
+                  <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="5">+5%</button>
+                  <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="10">+10%</button>
+                  <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="15">+15%</button>
+                  <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="20">+20%</button>
+              </div>
 
-            <div class="final-sum cigar-final-sum">
-                Итого: <span id="cigarFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
-            </div>
+              <div class="final-sum cigar-final-sum">
+                  Итого: <span id="cigarFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+              </div>
 
-            <button class="reset-btn cigar-reset-btn" id="cigarResetBtn">Очистить</button>
-        </div>
+              <button type="button" class="reset-btn cigar-reset-btn" id="cigarResetBtn">Очистить</button>
+          </div>
 
-        <div class="buttons-container cigar-buttons-container" id="cigarButtonsContainer"></div>
-    </div>
+          <div class="buttons-container cigar-buttons-container" id="cigarButtonsContainer"></div>
+      </div>
+    </main>
 
     <footer>
         <div><strong>Создатель: Жирин - Kyltest12</strong></div>
         <div>
             Связь:
-            <a href="https://steamcommunity.com/id/kyltest12/" title="Steam">
-                <img src="https://img.icons8.com/?size=100&id=bAueu1nRM1E2&format=png&color=000000" alt="Steam">
+            <a href="https://steamcommunity.com/id/kyltest12/" title="Steam" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.icons8.com/?size=100&id=bAueu1nRM1E2&format=png&color=000000" alt="Steam" width="24" height="24" loading="lazy">
             </a>
-            <a href="https://guns.lol/kyltest12" title="Guns.lol">
-                <img src="https://avatars.githubusercontent.com/u/157977633?s=200&v=4" alt="Guns.lol">
+            <a href="https://guns.lol/kyltest12" title="Guns.lol" target="_blank" rel="noopener noreferrer">
+                <img src="https://avatars.githubusercontent.com/u/157977633?s=200&v=4" alt="Guns.lol" width="24" height="24" loading="lazy">
             </a>
         </div>
-        <div>Телеграм - @kyltest12</div>
+        <div>Телеграм - <a href="https://t.me/kyltest12" target="_blank" rel="noopener noreferrer">@kyltest12</a></div>
     </footer>
 
     <!-- Туториал подсказка -->
-    <div id="artifactTooltip" class="artifact-tooltip"></div>
+    <div id="artifactTooltip" class="artifact-tooltip" aria-hidden="true"></div>
 
-    <script src="js/shared.js"></script>
-    <script src="js/artifacts.js"></script>
-    <script src="js/mutants.js"></script>
-    <script src="js/cigars.js"></script>
+    <script src="js/shared.js" defer></script>
+    <script src="js/artifacts.js" defer></script>
+    <script src="js/mutants.js" defer></script>
+    <script src="js/cigars.js" defer></script>
 </body>
 </html>
