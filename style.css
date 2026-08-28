@@ -23,6 +23,8 @@
     --mutant-header-bg: #fff7f8;
     --mutant-header-text: #53272c;
     --mutant-title-bg: #d95a64;
+    --dolg-accent: #c99a3e;
+    --dolg-accent-dark: #97711f;
     --cigar-accent: #59c86d;
     --cigar-accent-dark: #2f9749;
     --cigar-section-bg: #eef8ee;
@@ -58,6 +60,8 @@
     --mutant-header-bg: #2b181c;
     --mutant-header-text: #ffd9dd;
     --mutant-title-bg: #a63d46;
+    --dolg-accent: #e0b563;
+    --dolg-accent-dark: #b98a34;
     --cigar-accent: #79d98a;
     --cigar-accent-dark: #4eb866;
     --cigar-section-bg: #16231a;
@@ -406,7 +410,8 @@ h3 {
 
 #totalSum,
 #finalSum,
-#mutantTotalSum {
+#mutantTotalSumGreh,
+#mutantTotalSumDolg {
     color: var(--text-accent);
     cursor: pointer;
     transition: opacity 0.2s;
@@ -416,8 +421,9 @@ h3 {
 }
 
 #totalSum,
-#mutantTotalSum {
-    font-size: 28px;
+#mutantTotalSumGreh,
+#mutantTotalSumDolg {
+    font-size: 24px;
 }
 
 #finalSum {
@@ -426,7 +432,8 @@ h3 {
 
 #totalSum:hover,
 #finalSum:hover,
-#mutantTotalSum:hover {
+#mutantTotalSumGreh:hover,
+#mutantTotalSumDolg:hover {
     opacity: 0.8;
     background-color: rgba(47, 118, 198, 0.12);
 }
@@ -688,17 +695,54 @@ h3 {
     color: var(--mutant-header-text);
 }
 
+.mutant-sum-row {
+    margin-bottom: 4px;
+}
+
+.mutant-sum-row:last-child {
+    margin-bottom: 0;
+}
+
+.faction-label {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+}
+
+.faction-label-greh {
+    color: var(--mutant-accent-dark);
+}
+
+.faction-label-dolg {
+    color: var(--dolg-accent-dark);
+}
+
+#mutantTotalSumGreh,
+#mutantFinalSumGreh {
+    color: var(--mutant-accent-dark);
+}
+
+#mutantTotalSumDolg,
+#mutantFinalSumDolg {
+    color: var(--dolg-accent-dark);
+}
+
 .mutant-bonus-buttons {
     margin-top: 0;
 }
 
 .mutant-final-sum {
-    color: var(--mutant-accent-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
-#mutantTotalSum,
-#mutantFinalSum {
-    color: var(--mutant-accent-dark);
+#mutantTotalSumGreh,
+#mutantFinalSumGreh,
+#mutantTotalSumDolg,
+#mutantFinalSumDolg {
     cursor: pointer;
     transition: opacity 0.2s;
     display: inline-block;
@@ -706,10 +750,26 @@ h3 {
     border-radius: 4px;
 }
 
-#mutantTotalSum:hover,
-#mutantFinalSum:hover {
+#mutantTotalSumGreh,
+#mutantFinalSumGreh {
+    color: var(--mutant-accent-dark);
+}
+
+#mutantTotalSumDolg,
+#mutantFinalSumDolg {
+    color: var(--dolg-accent-dark);
+}
+
+#mutantTotalSumGreh:hover,
+#mutantFinalSumGreh:hover {
     opacity: 0.8;
     background-color: rgba(217, 73, 82, 0.12);
+}
+
+#mutantTotalSumDolg:hover,
+#mutantFinalSumDolg:hover {
+    opacity: 0.8;
+    background-color: rgba(201, 154, 62, 0.15);
 }
 
 .mutant-bonus-buttons .bonus-btn {
@@ -744,7 +804,34 @@ h3 {
 }
 
 .mutant-item .price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: default;
+}
+
+.mutant-item .price:hover {
+    text-decoration: none;
+}
+
+.mutant-price-greh,
+.mutant-price-dolg {
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 1px 3px;
+}
+
+.mutant-price-greh:hover,
+.mutant-price-dolg:hover {
+    text-decoration: underline;
+}
+
+.mutant-price-greh {
     color: var(--mutant-accent-dark);
+}
+
+.mutant-price-dolg {
+    color: var(--dolg-accent-dark);
 }
 
 .mutant-item .btn-control:hover {

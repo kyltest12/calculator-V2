@@ -102,7 +102,8 @@
                   <input type="text" class="search-input mutant-search-input" id="mutantSearchInput" placeholder="Поиск частей мутантов...">
               </div>
               <div class="mutant-sum-display">
-                  Сумма за части: <span id="mutantTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+                  <div class="mutant-sum-row"><span class="faction-label faction-label-greh">Грех:</span> <span id="mutantTotalSumGreh" title="Нажмите, чтобы скопировать">0</span> руб.</div>
+                  <div class="mutant-sum-row"><span class="faction-label faction-label-dolg">Долг:</span> <span id="mutantTotalSumDolg" title="Нажмите, чтобы скопировать">0</span> руб.</div>
               </div>
               <div class="bonus-buttons mutant-bonus-buttons">
                   <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="0">Без %</button>
@@ -112,7 +113,8 @@
                   <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="20">-20%</button>
               </div>
               <div class="final-sum mutant-final-sum">
-                  Итого: <span id="mutantFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+                  <div><span class="faction-label faction-label-greh">Итого (Грех):</span> <span id="mutantFinalSumGreh" title="Нажмите, чтобы скопировать">0</span> руб.</div>
+                  <div><span class="faction-label faction-label-dolg">Итого (Долг):</span> <span id="mutantFinalSumDolg" title="Нажмите, чтобы скопировать">0</span> руб.</div>
               </div>
 
               <button type="button" class="reset-btn" id="mutantResetBtn">Очистить</button>
