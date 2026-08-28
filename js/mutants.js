@@ -22,18 +22,24 @@
 
         const mutantParts = mutantsData.parts.map(part => ({
             name: part.name,
-            price: part.price,
+            grehPrice: Number.isFinite(part.grehPrice) ? part.grehPrice : (Number.isFinite(part.price) ? part.price : 0),
+            dolgPrice: Number.isFinite(part.dolgPrice) ? part.dolgPrice : (Number.isFinite(part.price) ? part.price : 0),
             image: getLocalMutantImagePath(part.name)
         }));
+
+        if (mutantsData.parts.some(part => !Number.isFinite(part.grehPrice) || !Number.isFinite(part.dolgPrice))) {
+            console.warn('data/mutants.json ещё в старом формате (без grehPrice/dolgPrice) — обновите файл, чтобы обе цены отображались корректно.');
+        }
 
         if (savedMutantPrices) {
             try {
                 const prices = JSON.parse(savedMutantPrices);
                 if (prices && !Array.isArray(prices) && typeof prices === 'object') {
                     mutantParts.forEach(part => {
-                        const savedPrice = prices[part.name];
-                        if (Number.isFinite(savedPrice) && savedPrice >= 0) {
-                            part.price = savedPrice;
+                        const saved = prices[part.name];
+                        if (saved && typeof saved === 'object') {
+                            if (Number.isFinite(saved.greh) && saved.greh >= 0) part.grehPrice = saved.greh;
+                            if (Number.isFinite(saved.dolg) && saved.dolg >= 0) part.dolgPrice = saved.dolg;
                         }
                     });
                 } else {
@@ -46,16 +52,41 @@
         }
 
         function saveMutantPricesToStorage() {
-            const prices = Object.fromEntries(mutantParts.map(part => [part.name, part.price]));
+            const prices = Object.fromEntries(mutantParts.map(part => [part.name, { greh: part.grehPrice, dolg: part.dolgPrice }]));
             localStorage.setItem('mutantPartPrices', JSON.stringify(prices));
         }
 
-        const mutantTotalDisplay = document.getElementById('mutantTotalSum');
-        const mutantFinalDisplay = document.getElementById('mutantFinalSum');
+        const mutantTotalDisplayGreh = document.getElementById('mutantTotalSumGreh');
+        const mutantTotalDisplayDolg = document.getElementById('mutantTotalSumDolg');
+        const mutantFinalDisplayGreh = document.getElementById('mutantFinalSumGreh');
+        const mutantFinalDisplayDolg = document.getElementById('mutantFinalSumDolg');
         const mutantBonusButtons = document.querySelectorAll('.mutant-bonus-btn');
         const mutantSearchInput = document.getElementById('mutantSearchInput');
         const mutantButtonsContainer = document.getElementById('mutantButtonsContainer');
-        let mutantTotalSum = 0;
+        const mutantResetBtnEl = document.getElementById('mutantResetBtn');
+
+        const requiredElements = {
+            mutantTotalSumGreh: mutantTotalDisplayGreh,
+            mutantTotalSumDolg: mutantTotalDisplayDolg,
+            mutantFinalSumGreh: mutantFinalDisplayGreh,
+            mutantFinalSumDolg: mutantFinalDisplayDolg,
+            mutantSearchInput: mutantSearchInput,
+            mutantButtonsContainer: mutantButtonsContainer,
+            mutantResetBtn: mutantResetBtnEl
+        };
+        const missingIds = Object.entries(requiredElements)
+            .filter(([, el]) => !el)
+            .map(([id]) => id);
+
+        if (missingIds.length > 0) {
+            console.error(
+                'Раздел "Мутанты" не запущен: в index.html не найдены элементы с id: ' + missingIds.join(', ') +
+                '. Проверьте, что index.html и js/mutants.js обновлены одной и той же версией (двойные цены Грех/Долг).'
+            );
+            return;
+        }
+        let mutantTotalSumGreh = 0;
+        let mutantTotalSumDolg = 0;
         let currentMutantBonus = 0;
         const mutantQuantityElements = new Map();
         const mutantCards = new Map();
@@ -75,7 +106,7 @@
                 const span = mutantQuantityElements.get(part.name);
                 const qty = parseInt(span.textContent, 10);
                 if (qty > 0) {
-                    items.push({ name: part.name, qty, price: part.price });
+                    items.push({ name: part.name, qty, grehPrice: part.grehPrice, dolgPrice: part.dolgPrice });
                 }
             });
             return items;
@@ -84,9 +115,12 @@
         function buildMetrikaPayload() {
             const items = getSelectedParts();
             return {
-                totalSum: mutantTotalSum,
+                totalSum: mutantTotalSumGreh, // основная сумма для проверки на > 0 в отправщике
+                totalSumGreh: mutantTotalSumGreh,
+                totalSumDolg: mutantTotalSumDolg,
                 bonus: currentMutantBonus,
-                finalSum: Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)),
+                finalSumGreh: Math.round(mutantTotalSumGreh * (1 - currentMutantBonus / 100)),
+                finalSumDolg: Math.round(mutantTotalSumDolg * (1 - currentMutantBonus / 100)),
                 itemsCount: items.length,
                 items
             };
@@ -97,8 +131,10 @@
         }
 
         function updateMutantTotals() {
-            mutantTotalDisplay.textContent = mutantTotalSum.toLocaleString('ru-RU');
-            mutantFinalDisplay.textContent = Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
+            mutantTotalDisplayGreh.textContent = mutantTotalSumGreh.toLocaleString('ru-RU');
+            mutantTotalDisplayDolg.textContent = mutantTotalSumDolg.toLocaleString('ru-RU');
+            mutantFinalDisplayGreh.textContent = Math.round(mutantTotalSumGreh * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
+            mutantFinalDisplayDolg.textContent = Math.round(mutantTotalSumDolg * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
         }
 
         function updateMutantList() {
@@ -106,6 +142,19 @@
             mutantCards.forEach((card, name) => {
                 const matches = searchTerm === '' || name.toLowerCase().includes(searchTerm);
                 card.classList.toggle('hidden', !matches);
+            });
+        }
+
+        function recalcTotalsFromQuantities() {
+            mutantTotalSumGreh = 0;
+            mutantTotalSumDolg = 0;
+            mutantQuantityElements.forEach((span, name) => {
+                const qty = parseInt(span.textContent, 10);
+                const part = mutantParts.find(item => item.name === name);
+                if (part && qty > 0) {
+                    mutantTotalSumGreh += qty * part.grehPrice;
+                    mutantTotalSumDolg += qty * part.dolgPrice;
+                }
             });
         }
 
@@ -128,7 +177,19 @@
 
             const priceDiv = document.createElement('div');
             priceDiv.className = 'price';
-            priceDiv.textContent = part.price + ' руб.';
+
+            const priceGrehSpan = document.createElement('span');
+            priceGrehSpan.className = 'mutant-price-greh';
+            priceGrehSpan.textContent = 'Грех: ' + part.grehPrice + ' руб.';
+            priceGrehSpan.title = 'Двойной клик — изменить цену (Грех)';
+
+            const priceDolgSpan = document.createElement('span');
+            priceDolgSpan.className = 'mutant-price-dolg';
+            priceDolgSpan.textContent = 'Долг: ' + part.dolgPrice + ' руб.';
+            priceDolgSpan.title = 'Двойной клик — изменить цену (Долг)';
+
+            priceDiv.appendChild(priceGrehSpan);
+            priceDiv.appendChild(priceDolgSpan);
 
             itemDiv.appendChild(nameDiv);
             itemDiv.appendChild(imgButton);
@@ -161,7 +222,8 @@
 
                 quantitySpan.textContent = nextQty;
                 SC.updateItemSelectedState(itemDiv, nextQty);
-                mutantTotalSum += actualDelta * part.price;
+                mutantTotalSumGreh += actualDelta * part.grehPrice;
+                mutantTotalSumDolg += actualDelta * part.dolgPrice;
                 updateMutantTotals();
                 scheduleMetrikaSend();
             };
@@ -188,7 +250,8 @@
                     e.preventDefault();
                     const currentQty = parseInt(quantitySpan.textContent);
                     if (currentQty > 0) {
-                        mutantTotalSum -= currentQty * part.price;
+                        mutantTotalSumGreh -= currentQty * part.grehPrice;
+                        mutantTotalSumDolg -= currentQty * part.dolgPrice;
                         quantitySpan.textContent = '0';
                         SC.updateItemSelectedState(itemDiv, 0);
                         updateMutantTotals();
@@ -199,39 +262,40 @@
 
             itemDiv.addEventListener('contextmenu', (e) => e.preventDefault());
 
-            priceDiv.addEventListener('dblclick', () => {
-                const input = document.createElement('input');
-                input.type = 'number';
-                input.className = 'price-input';
-                input.value = part.price;
-                input.min = '0';
-                input.step = '1';
+            function makePriceEditable(span, priceKey, labelText) {
+                span.addEventListener('dblclick', () => {
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.className = 'price-input';
+                    input.value = part[priceKey];
+                    input.min = '0';
+                    input.step = '1';
 
-                priceDiv.textContent = '';
-                priceDiv.appendChild(input);
-                input.focus();
+                    span.textContent = '';
+                    span.appendChild(input);
+                    input.focus();
 
-                const saveNewPrice = () => {
-                    const parsedPrice = parseInt(input.value, 10);
-                    const newPrice = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : part.price;
-                    part.price = newPrice;
-                    priceDiv.textContent = newPrice + ' руб.';
+                    const saveNewPrice = () => {
+                        const parsedPrice = parseInt(input.value, 10);
+                        const newPrice = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : part[priceKey];
+                        part[priceKey] = newPrice;
+                        span.textContent = labelText + ': ' + newPrice + ' руб.';
 
-                    mutantTotalSum = Array.from(mutantQuantityElements.entries()).reduce((sum, [name, span]) => {
-                        const mutantPart = mutantParts.find(item => item.name === name);
-                        return sum + (parseInt(span.textContent) * mutantPart.price);
-                    }, 0);
+                        recalcTotalsFromQuantities();
+                        updateMutantTotals();
+                        saveMutantPricesToStorage();
+                        scheduleMetrikaSend();
+                    };
 
-                    updateMutantTotals();
-                    saveMutantPricesToStorage();
-                    scheduleMetrikaSend();
-                };
-
-                input.addEventListener('blur', saveNewPrice);
-                input.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') saveNewPrice();
+                    input.addEventListener('blur', saveNewPrice);
+                    input.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') saveNewPrice();
+                    });
                 });
-            });
+            }
+
+            makePriceEditable(priceGrehSpan, 'grehPrice', 'Грех');
+            makePriceEditable(priceDolgSpan, 'dolgPrice', 'Долг');
 
             buttonGroup.appendChild(subBtn);
             buttonGroup.appendChild(quantitySpan);
@@ -252,8 +316,9 @@
             scheduleMetrikaSend();
         }));
 
-        document.getElementById('mutantResetBtn').addEventListener('click', () => {
-            mutantTotalSum = 0;
+        mutantResetBtnEl.addEventListener('click', () => {
+            mutantTotalSumGreh = 0;
+            mutantTotalSumDolg = 0;
             currentMutantBonus = 0;
             mutantBonusButtons.forEach(b => b.classList.remove('active'));
             mutantBonusButtons[0].classList.add('active');
@@ -265,8 +330,10 @@
             metrikaSender.cancel();
         });
 
-        mutantTotalDisplay.addEventListener('click', (e) => SC.copyToClipboard(mutantTotalSum.toString(), e));
-        mutantFinalDisplay.addEventListener('click', (e) => SC.copyToClipboard(Math.round(mutantTotalSum * (1 - currentMutantBonus / 100)).toString(), e));
+        mutantTotalDisplayGreh.addEventListener('click', (e) => SC.copyToClipboard(mutantTotalSumGreh.toString(), e));
+        mutantTotalDisplayDolg.addEventListener('click', (e) => SC.copyToClipboard(mutantTotalSumDolg.toString(), e));
+        mutantFinalDisplayGreh.addEventListener('click', (e) => SC.copyToClipboard(Math.round(mutantTotalSumGreh * (1 - currentMutantBonus / 100)).toString(), e));
+        mutantFinalDisplayDolg.addEventListener('click', (e) => SC.copyToClipboard(Math.round(mutantTotalSumDolg * (1 - currentMutantBonus / 100)).toString(), e));
 
         mutantParts.forEach(p => createMutantButton(p));
         mutantBonusButtons[0].classList.add('active');
