@@ -274,7 +274,7 @@
 
     StalkerCalc.loadDataFile = async function (url) {
         try {
-            const versionedUrl = `${url}?v=20260920-two-sources-2`;
+            const versionedUrl = `${url}?v=20260920-two-sources-3`;
             const response = await fetch(versionedUrl, { cache: 'no-cache' });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             return await response.json();

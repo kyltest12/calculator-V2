@@ -265,7 +265,7 @@
 
             const priceDiv = document.createElement('div');
             priceDiv.className = 'price';
-            priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price} руб.</span><span class="artifact-price-iig">ИИГ: ${artifact.iigPrice || 0} руб.</span>`;
+            priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price}</span>${artifact.iigPrice > 0 ? `<span class="artifact-price-iig">ИИГ: ${artifact.iigPrice}</span>` : ''}`;
             priceDiv.dataset.artifactName = artifact.name;
             itemDiv.appendChild(priceDiv);
 
@@ -376,7 +376,7 @@
                     const parsedPrice = parseInt(input.value, 10);
                     const newPrice = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
                     artifact.price = newPrice;
-                    priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price} руб.</span><span class="artifact-price-iig">ИИГ: ${artifact.iigPrice || 0} руб.</span>`;
+                    priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price}</span>${artifact.iigPrice > 0 ? `<span class="artifact-price-iig">ИИГ: ${artifact.iigPrice}</span>` : ''}`;
 
                     totalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
                         const art = artifacts.find(a => a.name === name);
@@ -509,7 +509,7 @@
             document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv) => {
                 const artifact = artifacts.find(a => a.name === priceDiv.dataset.artifactName);
                 if (artifact) {
-                    priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price} руб.</span><span class="artifact-price-iig">ИИГ: ${artifact.iigPrice || 0} руб.</span>`;
+                    priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price}</span>${artifact.iigPrice > 0 ? `<span class="artifact-price-iig">ИИГ: ${artifact.iigPrice}</span>` : ''}`;
                 }
             });
 
