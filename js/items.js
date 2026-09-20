@@ -11,7 +11,7 @@
             salePrice: Number(item.salePrice) || 0
         }));
         const searchInput = document.getElementById('traderSearchInput');
-        const categorySelect = document.getElementById('traderCategorySelect');
+        const categoryTabs = document.getElementById('traderCategoryTabs');
         const buttonsContainer = document.getElementById('traderButtonsContainer');
         const purchaseTotalDisplay = document.getElementById('traderPurchaseTotal');
         const saleTotalDisplay = document.getElementById('traderSaleTotal');
@@ -30,11 +30,21 @@
             document.querySelector('.trader-section')
         ]);
 
-        [...new Set(items.map(item => item.category))].forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            categorySelect.appendChild(option);
+        const categories = [...new Set(items.map(item => item.category))];
+        let selectedCategory = '';
+        const allCategoriesButton = document.createElement('button');
+        allCategoriesButton.type = 'button';
+        allCategoriesButton.className = 'trader-category-tab active';
+        allCategoriesButton.textContent = 'Все';
+        allCategoriesButton.dataset.category = '';
+        categoryTabs.appendChild(allCategoriesButton);
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'trader-category-tab';
+            button.textContent = category;
+            button.dataset.category = category;
+            categoryTabs.appendChild(button);
         });
 
         function updateTotals() {
@@ -48,11 +58,10 @@
 
         function updateList() {
             const term = searchInput.value.toLowerCase().trim();
-            const category = categorySelect.value;
             cards.forEach((card, name) => {
                 const item = items.find(entry => entry.name === name);
                 const matchesTerm = !term || name.toLowerCase().includes(term);
-                const matchesCategory = !category || item.category === category;
+                const matchesCategory = !selectedCategory || item.category === selectedCategory;
                 card.classList.toggle('hidden', !matchesTerm || !matchesCategory);
             });
         }
@@ -112,7 +121,15 @@
         }
 
         searchInput.addEventListener('input', updateList);
-        categorySelect.addEventListener('change', updateList);
+        categoryTabs.addEventListener('click', event => {
+            const button = event.target.closest('.trader-category-tab');
+            if (!button) return;
+            selectedCategory = button.dataset.category;
+            categoryTabs.querySelectorAll('.trader-category-tab').forEach(tab => {
+                tab.classList.toggle('active', tab === button);
+            });
+            updateList();
+        });
         bonusButtons.forEach(button => button.addEventListener('click', () => {
             bonusButtons.forEach(item => item.classList.remove('active'));
             button.classList.add('active');
@@ -124,7 +141,10 @@
             saleTotal = 0;
             currentBonus = 0;
             searchInput.value = '';
-            categorySelect.value = '';
+            selectedCategory = '';
+            categoryTabs.querySelectorAll('.trader-category-tab').forEach(tab => {
+                tab.classList.toggle('active', tab === allCategoriesButton);
+            });
             bonusButtons.forEach(button => button.classList.remove('active'));
             bonusButtons[0].classList.add('active');
             quantities.forEach(quantity => { quantity.textContent = '0'; });

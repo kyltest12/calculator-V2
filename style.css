@@ -205,8 +205,7 @@ h2 {
     width: 100%;
 }
 
-.trader-search-input,
-.trader-category-select {
+.trader-search-input {
     min-width: 220px;
     padding: 10px 12px;
     border: 2px solid #6977ca;
@@ -214,6 +213,30 @@ h2 {
     background-color: var(--bg-card);
     color: var(--text-primary);
     font-size: 15px;
+}
+
+.trader-category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.trader-category-tab {
+    border: 1px solid #6977ca;
+    border-radius: 6px;
+    padding: 8px 12px;
+    background: var(--bg-card);
+    color: var(--text-accent);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.trader-category-tab.active,
+.trader-category-tab:hover {
+    background: #6977ca;
+    color: white;
 }
 
 .trader-sum-display,

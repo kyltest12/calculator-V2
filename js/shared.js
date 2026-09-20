@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     "use strict";
 
     const StalkerCalc = window.StalkerCalc = window.StalkerCalc || {};
@@ -7,14 +7,14 @@
     StalkerCalc.DEAL_HISTORY_KEY = 'artifactDealHistory';
     StalkerCalc.METRIKA_COUNTER_ID = 109681385;
 
-    // === РџРђР РћР›Р Р РђР—Р”Р•Р›РћР’ ===
-    // РњРµРЅСЏР№С‚Рµ СЌС‚Рё Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРёРѕРґРёС‡РµСЃРєРё РїРµСЂРµРґ РїСѓР±Р»РёРєР°С†РёРµР№ СЃР°Р№С‚Р°.
-    // РќР° СЃС‚Р°С‚РёС‡РµСЃРєРѕРј СЃР°Р№С‚Рµ СЌС‚Рѕ Р·Р°С‰РёС‚Р° РѕС‚ РѕР±С‹С‡РЅРѕРіРѕ РїСЂРѕСЃРјРѕС‚СЂР°, Р° РЅРµ РїРѕР»РЅРѕС†РµРЅРЅР°СЏ СЃРµСЂРІРµСЂРЅР°СЏ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ.
+    // === ПАРОЛИ РАЗДЕЛОВ ===
+    // Меняйте эти значения периодически перед публикацией сайта.
+    // На статическом сайте это защита от обычного просмотра, а не полноценная серверная авторизация.
     const sectionAccessConfig = {
-        artifacts: { title: 'РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ С†РµРЅС‹ Р°СЂС‚РµС„Р°РєС‚РѕРІ', password: 'Art7Kx92mQr4' },
-        mutants: { title: 'РЎРєСѓРїРєР° С‡Р°СЃС‚РµР№ РјСѓС‚Р°РЅС‚РѕРІ', password: 'Mut3Vb58Ldn1' },
-        cigars: { title: 'РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ СЃРёРіР°СЂ', password: 'Cig9Wp16Ztq5' },
-        traders: { title: 'РћСЂСѓР¶РёРµ, СЂР°СЃС…РѕРґРЅРёРєРё Рё РјР°СЃРєРёСЂРѕРІРєРё', password: 'Trd8Qp41Wmz6' }
+        artifacts: { title: 'Калькулятор цены артефактов', password: 'Art7Kx92mQr4' },
+        mutants: { title: 'Скупка частей мутантов', password: 'Mut3Vb58Ldn1' },
+        cigars: { title: 'Калькулятор сигар', password: 'Cig9Wp16Ztq5' },
+        traders: { title: 'Оружие, расходники и маскировки', password: 'Trd8Qp41Wmz6' }
     };
     const sectionAccessDurationMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -32,7 +32,7 @@
                 return true;
             }
         } catch (error) {
-            console.warn('РќРµ СѓРґР°Р»РѕСЃСЊ РїСЂРѕС‡РёС‚Р°С‚СЊ РґРѕСЃС‚СѓРї Рє СЂР°Р·РґРµР»Сѓ:', error);
+            console.warn('Не удалось прочитать доступ к разделу:', error);
         }
 
         localStorage.removeItem(getAccessStorageKey(sectionKey));
@@ -55,10 +55,10 @@
         gate.innerHTML = `
             <h2>${config.title}</h2>
             <div class="access-gate-box">
-                <label for="accessPassword_${sectionKey}">РџР°СЂРѕР»СЊ СЂР°Р·РґРµР»Р°</label>
+                <label for="accessPassword_${sectionKey}">Пароль раздела</label>
                 <div class="access-gate-row">
-                    <input type="password" id="accessPassword_${sectionKey}" autocomplete="current-password" placeholder="Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ">
-                    <button type="submit">РћС‚РєСЂС‹С‚СЊ</button>
+                    <input type="password" id="accessPassword_${sectionKey}" autocomplete="current-password" placeholder="Введите пароль">
+                    <button type="submit">Открыть</button>
                 </div>
                 <div class="access-gate-error" role="alert"></div>
             </div>
@@ -88,7 +88,7 @@
                 return;
             }
 
-            error.textContent = 'РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ';
+            error.textContent = 'Неверный пароль';
             input.select();
         });
     };
@@ -98,7 +98,7 @@
         navigator.clipboard.writeText(text).then(() => {
             const copyTooltip = document.createElement('div');
             copyTooltip.className = 'copy-tooltip';
-            copyTooltip.textContent = 'РЎРєРѕРїРёСЂРѕРІР°РЅРѕ!';
+            copyTooltip.textContent = 'Скопировано!';
             document.body.appendChild(copyTooltip);
             copyTooltip.style.left = (event.clientX + 15) + 'px';
             copyTooltip.style.top = (event.clientY - 30) + 'px';
@@ -108,29 +108,29 @@
                 setTimeout(() => copyTooltip.remove(), 200);
             }, 800);
         }).catch(err => {
-            alert('РќРµ СѓРґР°Р»РѕСЃСЊ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ: ' + err);
+            alert('Не удалось скопировать: ' + err);
         });
     };
 
-    // === РћРўРџР РђР’РљРђ РЎРћР‘Р«РўРР™ Р’ РЇРќР”Р•РљРЎ.РњР•РўР РРљРЈ ===
-    // goalName вЂ” РЅР°Р·РІР°РЅРёРµ С†РµР»Рё (РЅР°СЃС‚СЂР°РёРІР°РµС‚СЃСЏ РІ РёРЅС‚РµСЂС„РµР№СЃРµ РњРµС‚СЂРёРєРё, Р»РёР±Рѕ РїСЂРѕСЃС‚Рѕ С„РёРєСЃРёСЂСѓРµС‚СЃСЏ РєР°Рє РµСЃС‚СЊ).
-    // params вЂ” РїСЂРѕРёР·РІРѕР»СЊРЅС‹Р№ РѕР±СЉРµРєС‚ СЃ РґРµС‚Р°Р»СЏРјРё (СЃСѓРјРјР°, Р±РѕРЅСѓСЃ, СЃРїРёСЃРѕРє РїРѕР·РёС†РёР№ Рё С‚.Рґ.).
+    // === ОТПРАВКА СОБЫТИЙ В ЯНДЕКС.МЕТРИКУ ===
+    // goalName — название цели (настраивается в интерфейсе Метрики, либо просто фиксируется как есть).
+    // params — произвольный объект с деталями (сумма, бонус, список позиций и т.д.).
     StalkerCalc.sendMetrikaEvent = function (goalName, params) {
         try {
             if (typeof window.ym === 'function') {
                 window.ym(StalkerCalc.METRIKA_COUNTER_ID, 'reachGoal', goalName, params);
             } else {
-                console.warn('РЇРЅРґРµРєСЃ.РњРµС‚СЂРёРєР° РЅРµРґРѕСЃС‚СѓРїРЅР°, СЃРѕР±С‹С‚РёРµ РЅРµ РѕС‚РїСЂР°РІР»РµРЅРѕ:', goalName, params);
+                console.warn('Яндекс.Метрика недоступна, событие не отправлено:', goalName, params);
             }
         } catch (error) {
-            console.warn('РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РїСЂР°РІРёС‚СЊ СЃРѕР±С‹С‚РёРµ РІ РЇРЅРґРµРєСЃ.РњРµС‚СЂРёРєСѓ:', error);
+            console.warn('Не удалось отправить событие в Яндекс.Метрику:', error);
         }
     };
 
-    // РЎРѕР·РґР°С‘С‚ Р°РІС‚РѕРЅРѕРјРЅС‹Р№ "РѕС‚РїСЂР°РІРёС‚РµР»СЊ" СЃРѕР±С‹С‚РёСЏ РІ РњРµС‚СЂРёРєСѓ СЃ Р·Р°РґРµСЂР¶РєРѕР№ (debounce):
-    // РїСЂРё РєР°Р¶РґРѕРј РІС‹Р·РѕРІРµ schedule(getPayload) С‚Р°Р№РјРµСЂ СЃР±СЂР°СЃС‹РІР°РµС‚СЃСЏ Рё Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ Р·Р°РЅРѕРІРѕ,
-    // СЃРѕР±С‹С‚РёРµ СЂРµР°Р»СЊРЅРѕ СѓР№РґС‘С‚ С‚РѕР»СЊРєРѕ С‡РµСЂРµР· delayMs РїРѕСЃР»Рµ РџРћРЎР›Р•Р”РќР•Р“Рћ РІС‹Р·РѕРІР°, Рё С‚РѕР»СЊРєРѕ
-    // РµСЃР»Рё РЅР° РјРѕРјРµРЅС‚ РѕС‚РїСЂР°РІРєРё getPayload().totalSum > 0 (РЅСѓР»РµРІС‹Рµ/СЃР±СЂРѕС€РµРЅРЅС‹Рµ СЃСѓРјРјС‹ РЅРµ С€Р»С‘Рј).
+    // Создаёт автономный "отправитель" события в Метрику с задержкой (debounce):
+    // при каждом вызове schedule(getPayload) таймер сбрасывается и запускается заново,
+    // событие реально уйдёт только через delayMs после ПОСЛЕДНЕГО вызова, и только
+    // если на момент отправки getPayload().totalSum > 0 (нулевые/сброшенные суммы не шлём).
     StalkerCalc.createDebouncedMetrikaSender = function (goalName, delayMs) {
         let timer = null;
         return {
@@ -175,7 +175,7 @@
 
         function updateThemeIcon() {
             const isDark = htmlElement.getAttribute('data-theme') === 'dark';
-            themeToggle.textContent = isDark ? 'вЂпёЏ' : 'рџЊ™';
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
         }
 
         themeToggle.addEventListener('click', () => {
@@ -214,21 +214,21 @@
         `;
 
         welcomeBox.innerHTML = `
-            <div style="font-size: 60px; margin-bottom: 15px;">рџ’Ћ</div>
-            <p style="margin-bottom: 10px; font-size: 16px;">Р­С‚Рѕ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂ РґР»СЏ РїРѕРґСЃС‡С‘С‚Р° СЃС‚РѕРёРјРѕСЃС‚Рё Р°СЂС‚РµС„Р°РєС‚РѕРІ Рё С‡Р°СЃС‚РµР№ РјСѓС‚Р°РЅС‚РѕРІ.</p>
+            <div style="font-size: 60px; margin-bottom: 15px;">💎</div>
+            <p style="margin-bottom: 10px; font-size: 16px;">Это калькулятор для подсчёта стоимости артефактов и частей мутантов.</p>
             <p style="margin-bottom: 20px; font-size: 14px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">
-                рџЋ® <strong>Р“РѕСЂСЏС‡РёРµ РєР»Р°РІРёС€Рё:</strong><br>
-                вЂў РљР»РёРє РїРѕ РєР°СЂС‚РёРЅРєРµ вЂ” РґРѕР±Р°РІРёС‚СЊ 1 С€С‚.<br>
-                вЂў Shift + РєР»РёРє / РџРљРњ вЂ” СѓР±СЂР°С‚СЊ 1 С€С‚.<br>
-                вЂў РЎСЂРµРґРЅСЏСЏ РєРЅРѕРїРєР° РјС‹С€Рё вЂ” СЃР±СЂРѕСЃРёС‚СЊ Р°СЂС‚РµС„Р°РєС‚<br>
-                вЂў Р”РІРѕР№РЅРѕР№ РєР»РёРє РїРѕ С†РµРЅРµ вЂ” РёР·РјРµРЅРёС‚СЊ С†РµРЅСѓ<br>
-                вЂў РќР°РІРµРґРµРЅРёРµ РЅР° Р°СЂС‚РµС„Р°РєС‚ вЂ” РїРѕРєР°Р·Р°С‚СЊ СЃРІРѕР№СЃС‚РІР°
+                🎮 <strong>Горячие клавиши:</strong><br>
+                • Клик по картинке — добавить 1 шт.<br>
+                • Shift + клик / ПКМ — убрать 1 шт.<br>
+                • Средняя кнопка мыши — сбросить артефакт<br>
+                • Двойной клик по цене — изменить цену<br>
+                • Наведение на артефакт — показать свойства
             </p>
             <button id="welcomeCloseBtn" style="
                 background: white; color: var(--bg-header2); border: none; padding: 12px 30px;
                 border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;
                 transition: all 0.2s; border: 2px solid transparent;
-            ">РџРѕРЅСЏС‚РЅРѕ</button>
+            ">Понятно</button>
         `;
 
         welcomeOverlay.appendChild(welcomeBox);
@@ -275,12 +275,12 @@
 
     StalkerCalc.loadDataFile = async function (url) {
         try {
-            const versionedUrl = `${url}?v=20260920-trader-items-3`;
+            const versionedUrl = `${url}?v=20260920-trader-items-4`;
             const response = await fetch(versionedUrl, { cache: 'no-cache' });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             return await response.json();
         } catch (error) {
-            console.warn(`РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ ${url}:`, error);
+            console.warn(`Не удалось загрузить ${url}:`, error);
             return null;
         }
     };
@@ -292,7 +292,7 @@
             const parsed = JSON.parse(saved);
             return Array.isArray(parsed) ? parsed : [];
         } catch (error) {
-            console.warn('РќРµ СѓРґР°Р»РѕСЃСЊ РїСЂРѕС‡РёС‚Р°С‚СЊ РёСЃС‚РѕСЂРёСЋ СЃРґРµР»РѕРє:', error);
+            console.warn('Не удалось прочитать историю сделок:', error);
             return [];
         }
     };
@@ -328,7 +328,7 @@
             historyList.innerHTML = '';
 
             if (history.length === 0) {
-                historyList.innerHTML = '<p class="sidebar-empty">РќРµС‚ СЃРѕС…СЂР°РЅС‘РЅРЅС‹С… СЃРґРµР»РѕРє</p>';
+                historyList.innerHTML = '<p class="sidebar-empty">Нет сохранённых сделок</p>';
                 return;
             }
 
@@ -339,14 +339,14 @@
                 item.innerHTML = `
                     <div class="sidebar-deal-header">
                         <span class="sidebar-deal-date">${formatDate(deal.date)}</span>
-                        <span class="sidebar-deal-sum">${deal.finalSum.toLocaleString('ru-RU')} СЂСѓР±.</span>
+                        <span class="sidebar-deal-sum">${deal.finalSum.toLocaleString('ru-RU')} руб.</span>
                     </div>
-                    <div class="sidebar-deal-meta">${itemCount} С€С‚. В· ${deal.items.length} РїРѕР·.</div>
+                    <div class="sidebar-deal-meta">${itemCount} шт. · ${deal.items.length} поз.</div>
                     <div class="sidebar-deal-details hidden"></div>
                     <div class="sidebar-deal-actions">
-                        <button type="button" class="sidebar-action-btn" data-action="details">РџРѕРґСЂРѕР±РЅРµРµ</button>
-                        <button type="button" class="sidebar-action-btn sidebar-action-restore" data-action="restore">Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ</button>
-                        <button type="button" class="sidebar-action-btn sidebar-action-delete" data-action="delete">РЈРґР°Р»РёС‚СЊ</button>
+                        <button type="button" class="sidebar-action-btn" data-action="details">Подробнее</button>
+                        <button type="button" class="sidebar-action-btn sidebar-action-restore" data-action="restore">Восстановить</button>
+                        <button type="button" class="sidebar-action-btn sidebar-action-delete" data-action="delete">Удалить</button>
                     </div>
                 `;
 
@@ -357,13 +357,13 @@
                     const isHidden = detailsEl.classList.contains('hidden');
                     if (isHidden) {
                         detailsEl.innerHTML = deal.items.map(entry =>
-                            `<div>${entry.name}: ${entry.qty} С€С‚. Г— ${entry.price.toLocaleString('ru-RU')} = ${(entry.qty * entry.price).toLocaleString('ru-RU')} СЂСѓР±.</div>`
+                            `<div>${entry.name}: ${entry.qty} шт. × ${entry.price.toLocaleString('ru-RU')} = ${(entry.qty * entry.price).toLocaleString('ru-RU')} руб.</div>`
                         ).join('');
                         detailsEl.classList.remove('hidden');
-                        detailsBtn.textContent = 'РЎРєСЂС‹С‚СЊ';
+                        detailsBtn.textContent = 'Скрыть';
                     } else {
                         detailsEl.classList.add('hidden');
-                        detailsBtn.textContent = 'РџРѕРґСЂРѕР±РЅРµРµ';
+                        detailsBtn.textContent = 'Подробнее';
                     }
                 });
 
@@ -408,7 +408,7 @@
         saveBtn.addEventListener('click', () => {
             const state = getArtifactState();
             if (!state.items.length) {
-                alert('РќРµС‚ РІС‹Р±СЂР°РЅРЅС‹С… Р°СЂС‚РµС„Р°РєС‚РѕРІ РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ');
+                alert('Нет выбранных артефактов для сохранения');
                 return;
             }
 
@@ -429,7 +429,7 @@
         });
 
         clearHistoryBtn.addEventListener('click', () => {
-            if (confirm('РћС‡РёСЃС‚РёС‚СЊ РІСЃСЋ РёСЃС‚РѕСЂРёСЋ СЃРґРµР»РѕРє?')) {
+            if (confirm('Очистить всю историю сделок?')) {
                 StalkerCalc.saveDealHistory([]);
                 renderHistory();
             }
@@ -448,7 +448,7 @@
         ]);
 
         if (!artifactsData || !mutantsData || !cigarsData || !traderData) {
-            alert('РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР°. Р—Р°РїСѓСЃС‚РёС‚Рµ СЃР°Р№С‚ С‡РµСЂРµР· Р»РѕРєР°Р»СЊРЅС‹Р№ СЃРµСЂРІРµСЂ (python -m http.server).');
+            alert('Не удалось загрузить данные калькулятора. Запустите сайт через локальный сервер (python -m http.server).');
             return;
         }
 

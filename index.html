@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90'>рџ’Ћ</text></svg>">
-    <title>РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ С†РµРЅС‹ Р°СЂС‚РµС„Р°РєС‚РѕРІ</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90'>💎</text></svg>">
+    <title>Калькулятор цены артефактов</title>
     <link rel="stylesheet" href="style.css">
     <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -21,47 +21,47 @@
 <!-- /Yandex.Metrika counter -->
     <!-- Varioqub experiments (temporarily disabled: original script in repository was truncated and caused JS errors) -->
 <script type="text/javascript">
-  // NOTE: РѕСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ СЃРєСЂРёРїС‚ exp.js Р±С‹Р» РѕР±СЂРµР·Р°РЅ РІ СЂРµРїРѕР·РёС‚РѕСЂРёРё Рё РІС‹Р·С‹РІР°Р» СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєРёРµ РѕС€РёР±РєРё.
-  // Р’СЂРµРјРµРЅРЅРѕ РѕС‚РєР»СЋС‡С‘РЅ: РІСЃС‚Р°РІСЊС‚Рµ РєРѕСЂСЂРµРєС‚РЅСѓСЋ РІРµСЂСЃРёСЋ СЃРєСЂРёРїС‚Р° РїРѕ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё.
+  // NOTE: оригинальный скрипт exp.js был обрезан в репозитории и вызывал синтаксические ошибки.
+  // Временно отключён: вставьте корректную версию скрипта по необходимости.
 </script>
 </head>
 <body>
-    <button type="button" class="sidebar-toggle-btn" id="sidebarToggleBtn" title="РСЃС‚РѕСЂРёСЏ СЃРґРµР»РѕРє" aria-label="РћС‚РєСЂС‹С‚СЊ РёСЃС‚РѕСЂРёСЋ СЃРґРµР»РѕРє">в°</button>
+    <button type="button" class="sidebar-toggle-btn" id="sidebarToggleBtn" title="История сделок" aria-label="Открыть историю сделок">☰</button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <aside role="complementary" class="deal-sidebar" id="dealSidebar" aria-label="РСЃС‚РѕСЂРёСЏ СЃРґРµР»РѕРє">
+    <aside role="complementary" class="deal-sidebar" id="dealSidebar" aria-label="История сделок">
         <div class="sidebar-header">
-            <h3>РСЃС‚РѕСЂРёСЏ СЃРґРµР»РѕРє</h3>
-            <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" title="Р—Р°РєСЂС‹С‚СЊ" aria-label="Р—Р°РєСЂС‹С‚СЊ">&times;</button>
+            <h3>История сделок</h3>
+            <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" title="Закрыть" aria-label="Закрыть">&times;</button>
         </div>
         <div class="sidebar-content">
             <div id="dealHistoryList" class="deal-history-list"></div>
-            <button type="button" class="sidebar-clear-btn" id="clearDealHistoryBtn">РћС‡РёСЃС‚РёС‚СЊ РёСЃС‚РѕСЂРёСЋ</button>
+            <button type="button" class="sidebar-clear-btn" id="clearDealHistoryBtn">Очистить историю</button>
         </div>
     </aside>
 
     <main>
-      <nav class="site-tabs" aria-label="Р Р°Р·РґРµР»С‹ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР°">
-          <button type="button" class="site-tab active" data-tab-target="artifactsTab">РђСЂС‚РµС„Р°РєС‚С‹, РјСѓС‚Р°РЅС‚С‹ Рё СЃРёРіР°СЂРµС‚С‹</button>
-          <button type="button" class="site-tab" data-tab-target="traderTab">РћСЂСѓР¶РёРµ, СЂР°СЃС…РѕРґРЅРёРєРё Рё РјР°СЃРєРёСЂРѕРІРєРё</button>
+      <nav class="site-tabs" aria-label="Разделы калькулятора">
+          <button type="button" class="site-tab active" data-tab-target="artifactsTab">Артефакты, мутанты и сигареты</button>
+          <button type="button" class="site-tab" data-tab-target="traderTab">Оружие, расходники и маскировки</button>
       </nav>
 
-      <section class="tab-panel active" id="artifactsTab" aria-label="РђСЂС‚РµС„Р°РєС‚С‹, РјСѓС‚Р°РЅС‚С‹ Рё СЃРёРіР°СЂРµС‚С‹">
-      <h1 class="artifact-title">РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ С†РµРЅС‹ Р°СЂС‚РµС„Р°РєС‚РѕРІ</h1>
+      <section class="tab-panel active" id="artifactsTab">
+      <h1 class="artifact-title">Калькулятор цены артефактов</h1>
 
       <div class="header-stats">
           <div class="search-container">
-              <input type="text" class="search-input" id="searchInput" placeholder="РџРѕРёСЃРє Р°СЂС‚РµС„Р°РєС‚РѕРІ...">
-              <button type="button" class="settings-btn" id="settingsBtn" title="РќР°СЃС‚СЂРѕР№РєРё С†РµРЅ">вљ™пёЏ</button>
-              <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="РџРµСЂРµРєР»СЋС‡РёС‚СЊ С‚РµРјСѓ">рџЊ™</button>
+              <input type="text" class="search-input" id="searchInput" placeholder="Поиск артефактов...">
+              <button type="button" class="settings-btn" id="settingsBtn" title="Настройки цен">⚙️</button>
+              <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="Переключить тему">🌙</button>
           </div>
 
           <div class="sum-display">
-              РЎР°С…Р°СЂРѕРІ: <span id="totalSum" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.
-              <br>РРР“: <span id="iigTotalSum" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.
+              Сахаров: <span id="totalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+              <br>ИИГ: <span id="iigTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
           </div>
 
           <div class="bonus-buttons">
-              <button type="button" class="bonus-btn" data-bonus="0">Р‘РµР· %</button>
+              <button type="button" class="bonus-btn" data-bonus="0">Без %</button>
               <button type="button" class="bonus-btn" data-bonus="5">+5%</button>
               <button type="button" class="bonus-btn" data-bonus="10">+10%</button>
               <button type="button" class="bonus-btn" data-bonus="15">+15%</button>
@@ -69,83 +69,83 @@
           </div>
 
           <div class="final-sum">
-              РС‚РѕРіРѕ (РЎР°С…Р°СЂРѕРІ): <span id="finalSum" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.
-              <br>РС‚РѕРіРѕ (РРР“): <span id="iigFinalSum" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.
+              Итого (Сахаров): <span id="finalSum" title="Нажмите, чтобы скопировать">0</span> руб.
+              <br>Итого (ИИГ): <span id="iigFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
           </div>
 
-          <button type="button" class="reset-btn" id="resetBtn">РћС‡РёСЃС‚РёС‚СЊ</button>
-          <button type="button" class="save-deal-btn" id="saveDealBtn">рџ’ѕ РЎРѕС…СЂР°РЅРёС‚СЊ СЃРґРµР»РєСѓ</button>
-          <button type="button" class="export-btn" id="exportBtn">рџ“„ Р­РєСЃРїРѕСЂС‚ РѕС‚С‡С‘С‚Р°</button>
+          <button type="button" class="reset-btn" id="resetBtn">Очистить</button>
+          <button type="button" class="save-deal-btn" id="saveDealBtn">💾 Сохранить сделку</button>
+          <button type="button" class="export-btn" id="exportBtn">📄 Экспорт отчёта</button>
       </div>
 
       <div class="content">
           <div class="buttons-container" id="buttonsContainer"></div>
       </div>
 
-      <!-- РњРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ РЅР°СЃС‚СЂРѕРµРє -->
+      <!-- Модальное окно настроек -->
       <div id="settingsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
           <div class="modal-content">
               <div class="modal-header">
-                  <h3 id="settingsModalTitle">Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ С†РµРЅ Р°СЂС‚РµС„Р°РєС‚РѕРІ</h3>
-                  <button type="button" class="close-btn" id="closeModalBtn" aria-label="Р—Р°РєСЂС‹С‚СЊ">&times;</button>
+                  <h3 id="settingsModalTitle">Редактирование цен артефактов</h3>
+                  <button type="button" class="close-btn" id="closeModalBtn" aria-label="Закрыть">&times;</button>
               </div>
               <table class="price-table" id="priceTable">
                   <thead>
                       <tr>
-                          <th>РђСЂС‚РµС„Р°РєС‚</th>
-                          <th>Р¦РµРЅР° (СЂСѓР±.)</th>
+                          <th>Артефакт</th>
+                          <th>Цена (руб.)</th>
                       </tr>
                   </thead>
                   <tbody id="priceTableBody"></tbody>
               </table>
-              <button type="button" class="save-settings-btn" id="savePricesBtn">РЎРѕС…СЂР°РЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ</button>
+              <button type="button" class="save-settings-btn" id="savePricesBtn">Сохранить изменения</button>
           </div>
       </div>
 
-      <!-- РљРђР›Р¬РљРЈР›РЇРўРћР  РњРЈРўРђРќРўРћР’ -->
-      <h2 class="section-title mutant-title">РЎРєСѓРїРєР° С‡Р°СЃС‚РµР№ РјСѓС‚Р°РЅС‚РѕРІ</h2>
+      <!-- КАЛЬКУЛЯТОР МУТАНТОВ -->
+      <h2 class="section-title mutant-title">Скупка частей мутантов</h2>
       <div class="mutant-section">
           <div class="mutant-header-stats">
               <div class="mutant-search-container">
-                  <input type="text" class="search-input mutant-search-input" id="mutantSearchInput" placeholder="РџРѕРёСЃРє С‡Р°СЃС‚РµР№ РјСѓС‚Р°РЅС‚РѕРІ...">
+                  <input type="text" class="search-input mutant-search-input" id="mutantSearchInput" placeholder="Поиск частей мутантов...">
               </div>
               <div class="mutant-sum-display">
-                  <div class="mutant-sum-row"><span class="faction-label faction-label-greh">Р“СЂРµС…:</span> <span id="mutantTotalSumGreh" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.</div>
-                  <div class="mutant-sum-row"><span class="faction-label faction-label-dolg">Р”РѕР»Рі:</span> <span id="mutantTotalSumDolg" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.</div>
-                  <div class="mutant-sum-row"><span class="faction-label faction-label-dn">Р”Рќ:</span> <span id="mutantTotalSumDn" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.</div>
+                  <div class="mutant-sum-row"><span class="faction-label faction-label-greh">Грех:</span> <span id="mutantTotalSumGreh" title="Нажмите, чтобы скопировать">0</span> руб.</div>
+                  <div class="mutant-sum-row"><span class="faction-label faction-label-dolg">Долг:</span> <span id="mutantTotalSumDolg" title="Нажмите, чтобы скопировать">0</span> руб.</div>
+                  <div class="mutant-sum-row"><span class="faction-label faction-label-dn">ДН:</span> <span id="mutantTotalSumDn" title="Нажмите, чтобы скопировать">0</span> руб.</div>
               </div>
               <div class="bonus-buttons mutant-bonus-buttons">
-                  <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="0">Р‘РµР· %</button>
+                  <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="0">Без %</button>
                   <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="5">-5%</button>
                   <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="10">-10%</button>
                   <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="15">-15%</button>
                   <button type="button" class="bonus-btn mutant-bonus-btn" data-bonus="20">-20%</button>
               </div>
               <div class="final-sum mutant-final-sum">
-                  <div><span class="faction-label faction-label-greh">РС‚РѕРіРѕ (Р“СЂРµС…):</span> <span id="mutantFinalSumGreh" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.</div>
-                  <div><span class="faction-label faction-label-dolg">РС‚РѕРіРѕ (Р”РѕР»Рі):</span> <span id="mutantFinalSumDolg" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.</div>
-                  <div><span class="faction-label faction-label-dn">РС‚РѕРіРѕ (Р”Рќ):</span> <span id="mutantFinalSumDn" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.</div>
+                  <div><span class="faction-label faction-label-greh">Итого (Грех):</span> <span id="mutantFinalSumGreh" title="Нажмите, чтобы скопировать">0</span> руб.</div>
+                  <div><span class="faction-label faction-label-dolg">Итого (Долг):</span> <span id="mutantFinalSumDolg" title="Нажмите, чтобы скопировать">0</span> руб.</div>
+                  <div><span class="faction-label faction-label-dn">Итого (ДН):</span> <span id="mutantFinalSumDn" title="Нажмите, чтобы скопировать">0</span> руб.</div>
               </div>
 
-              <button type="button" class="reset-btn" id="mutantResetBtn">РћС‡РёСЃС‚РёС‚СЊ</button>
+              <button type="button" class="reset-btn" id="mutantResetBtn">Очистить</button>
           </div>
 
           <div class="buttons-container mutant-buttons-container" id="mutantButtonsContainer"></div>
       </div>
 
-      <h2 class="section-title cigar-title">РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ СЃРёРіР°СЂ</h2>
+      <h2 class="section-title cigar-title">Калькулятор сигар</h2>
       <div class="cigar-section">
           <div class="cigar-header-stats">
               <div class="cigar-search-container">
-                  <input type="text" class="search-input cigar-search-input" id="cigarSearchInput" placeholder="РџРѕРёСЃРє СЃРёРіР°СЂ...">
+                  <input type="text" class="search-input cigar-search-input" id="cigarSearchInput" placeholder="Поиск сигар...">
               </div>
 
               <div class="cigar-sum-display">
-                  Р‘Р°Р·РѕРІР°СЏ СЃСѓРјРјР°: <span id="cigarTotalSum" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.
+                  Базовая сумма: <span id="cigarTotalSum" title="Нажмите, чтобы скопировать">0</span> руб.
               </div>
 
               <div class="bonus-buttons cigar-bonus-buttons">
-                  <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="0">Р‘РµР· %</button>
+                  <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="0">Без %</button>
                   <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="5">+5%</button>
                   <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="10">+10%</button>
                   <button type="button" class="bonus-btn cigar-bonus-btn" data-bonus="15">+15%</button>
@@ -153,10 +153,10 @@
               </div>
 
               <div class="final-sum cigar-final-sum">
-                  РС‚РѕРіРѕ: <span id="cigarFinalSum" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ">0</span> СЂСѓР±.
+                  Итого: <span id="cigarFinalSum" title="Нажмите, чтобы скопировать">0</span> руб.
               </div>
 
-              <button type="button" class="reset-btn cigar-reset-btn" id="cigarResetBtn">РћС‡РёСЃС‚РёС‚СЊ</button>
+              <button type="button" class="reset-btn cigar-reset-btn" id="cigarResetBtn">Очистить</button>
           </div>
 
           <div class="buttons-container cigar-buttons-container" id="cigarButtonsContainer"></div>
@@ -164,33 +164,31 @@
       </section>
 
       <section class="tab-panel trader-tab-panel" id="traderTab">
-          <h1 class="trader-title">РћСЂСѓР¶РёРµ, СЂР°СЃС…РѕРґРЅРёРєРё Рё РјР°СЃРєРёСЂРѕРІРєРё</h1>
+          <h1 class="trader-title">Оружие, расходники и маскировки</h1>
           <div class="trader-section">
               <div class="trader-header-stats">
                   <div class="trader-tools">
-                      <input type="text" class="search-input trader-search-input" id="traderSearchInput" placeholder="РџРѕРёСЃРє РїСЂРµРґРјРµС‚РѕРІ...">
-                      <select class="trader-category-select" id="traderCategorySelect" aria-label="РљР°С‚РµРіРѕСЂРёСЏ РїСЂРµРґРјРµС‚РѕРІ">
-                          <option value="">Р’СЃРµ РєР°С‚РµРіРѕСЂРёРё</option>
-                      </select>
+                      <input type="text" class="search-input trader-search-input" id="traderSearchInput" placeholder="Поиск предметов...">
                   </div>
+                  <div class="trader-category-tabs" id="traderCategoryTabs" role="tablist" aria-label="Категории предметов"></div>
                   <div class="trader-sum-display">
-                      Р—Р°РєСѓРїРєР°: <span id="traderPurchaseTotal">0</span> СЂСѓР±.
+                      Закупка: <span id="traderPurchaseTotal">0</span> руб.
                       <span class="trader-sum-separator">|</span>
-                      Р¦РµРЅР°: <span id="traderSaleTotal">0</span> СЂСѓР±.
+                      Цена: <span id="traderSaleTotal">0</span> руб.
                   </div>
                   <div class="bonus-buttons trader-bonus-buttons">
-                      <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="0">Р‘РµР· %</button>
+                      <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="0">Без %</button>
                       <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="5">+5%</button>
                       <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="10">+10%</button>
                       <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="15">+15%</button>
                       <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="20">+20%</button>
                   </div>
                   <div class="final-sum trader-final-sum">
-                      РС‚РѕРіРѕ (Р·Р°РєСѓРїРєР°): <span id="traderPurchaseFinal">0</span> СЂСѓР±.
+                      Итого (закупка): <span id="traderPurchaseFinal">0</span> руб.
                       <span class="trader-sum-separator">|</span>
-                      РС‚РѕРіРѕ (С†РµРЅР°): <span id="traderSaleFinal">0</span> СЂСѓР±.
+                      Итого (цена): <span id="traderSaleFinal">0</span> руб.
                   </div>
-                  <button type="button" class="reset-btn" id="traderResetBtn">РћС‡РёСЃС‚РёС‚СЊ</button>
+                  <button type="button" class="reset-btn" id="traderResetBtn">Очистить</button>
               </div>
               <div class="buttons-container trader-buttons-container" id="traderButtonsContainer"></div>
           </div>
@@ -198,9 +196,9 @@
     </main>
 
     <footer>
-        <div><strong>РЎРѕР·РґР°С‚РµР»СЊ: Р–РёСЂРёРЅ - Kyltest12</strong></div>
+        <div><strong>Создатель: Жирин - Kyltest12</strong></div>
         <div>
-            РЎРІСЏР·СЊ:
+            Связь:
             <a href="https://steamcommunity.com/id/kyltest12/" title="Steam" target="_blank" rel="noopener noreferrer">
                 <img src="https://img.icons8.com/?size=100&id=bAueu1nRM1E2&format=png&color=000000" alt="Steam" width="24" height="24" loading="lazy">
             </a>
@@ -208,11 +206,11 @@
                 <img src="https://avatars.githubusercontent.com/u/157977633?s=200&v=4" alt="Guns.lol" width="24" height="24" loading="lazy">
             </a>
         </div>
-        <div>РўРµР»РµРіСЂР°Рј - <a href="https://t.me/kyltest12" target="_blank" rel="noopener noreferrer">@kyltest12</a></div>
+        <div>Телеграм - <a href="https://t.me/kyltest12" target="_blank" rel="noopener noreferrer">@kyltest12</a></div>
         <!-- TSARVAR WIDGET -->
         <div class="tsarvar-widget">
             <a href="https://varq.net/servers/garrys-mod/212.22.85.40:27015" data-tsarvarServerId="508102">
-                РЎРµСЂРІРµСЂ вўпёЏ Р СѓСЃСЃРєРёР№ Stalker-Online в•Ѕ РЎРµСЂРІРµСЂ #1
+                Сервер ☢️ Русский Stalker-Online ╽ Сервер #1
             </a>
             <script type="text/javascript" charset="utf-8" src="https://widget.tsarvar.com/load.js?v=2"></script>
             <script type="text/javascript">
@@ -229,13 +227,13 @@
         <!-- /TSARVAR WIDGET -->
     </footer>
 
-    <!-- РўСѓС‚РѕСЂРёР°Р» РїРѕРґСЃРєР°Р·РєР° -->
+    <!-- Туториал подсказка -->
     <div id="artifactTooltip" class="artifact-tooltip" aria-hidden="true"></div>
 
     <script src="js/shared.js?v=20260920-two-sources-4" defer></script>
     <script src="js/artifacts.js?v=20260920-two-sources-4" defer></script>
     <script src="js/mutants.js?v=20260920-two-sources-4" defer></script>
     <script src="js/cigars.js?v=20260920-two-sources-4" defer></script>
-    <script src="js/items.js?v=20260920-trader-items-3" defer></script>
+    <script src="js/items.js?v=20260920-trader-items-4" defer></script>
 </body>
 </html>
