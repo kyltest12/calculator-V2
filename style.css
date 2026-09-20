@@ -849,6 +849,19 @@ h3 {
 .artifact-price-saharov,
 .artifact-price-iig {
     display: block;
+    padding: 1px 3px;
+    line-height: 1.35;
+}
+
+.item:not(.mutant-item) .price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: default;
+}
+
+.item:not(.mutant-item) .price:hover {
+    text-decoration: none;
 }
 
 .artifact-price-iig {
