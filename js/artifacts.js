@@ -4,7 +4,15 @@
     const SC = window.StalkerCalc;
 
     SC.initArtifacts = function (artifactsData) {
-        let artifacts = artifactsData.map(item => ({
+        const artifactPriceVersion = artifactsData.priceVersion || '2026-04-24';
+        const savedArtifactPriceVersion = localStorage.getItem('artifactPricesVersion');
+
+        if (savedArtifactPriceVersion !== artifactPriceVersion) {
+            localStorage.removeItem('artifactPrices');
+            localStorage.setItem('artifactPricesVersion', artifactPriceVersion);
+        }
+
+        let artifacts = artifactsData.artifacts.map(item => ({
             name: item.name,
             price: item.price,
             properties: item.properties || {},
