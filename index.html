@@ -40,6 +40,12 @@
     </aside>
 
     <main>
+      <nav class="site-tabs" aria-label="Разделы калькулятора">
+          <button type="button" class="site-tab active" data-tab-target="artifactsTab">Артефакты и мутанты</button>
+          <button type="button" class="site-tab" data-tab-target="traderTab">Оружие, расходники и маскировки</button>
+      </nav>
+
+      <section class="tab-panel active" id="artifactsTab">
       <h1 class="artifact-title">Калькулятор цены артефактов</h1>
 
       <div class="header-stats">
@@ -155,6 +161,40 @@
 
           <div class="buttons-container cigar-buttons-container" id="cigarButtonsContainer"></div>
       </div>
+      </section>
+
+      <section class="tab-panel trader-tab-panel" id="traderTab">
+          <h1 class="trader-title">Оружие, расходники и маскировки</h1>
+          <div class="trader-section">
+              <div class="trader-header-stats">
+                  <div class="trader-tools">
+                      <input type="text" class="search-input trader-search-input" id="traderSearchInput" placeholder="Поиск предметов...">
+                      <select class="trader-category-select" id="traderCategorySelect" aria-label="Категория предметов">
+                          <option value="">Все категории</option>
+                      </select>
+                  </div>
+                  <div class="trader-sum-display">
+                      Закупка: <span id="traderPurchaseTotal">0</span> руб.
+                      <span class="trader-sum-separator">|</span>
+                      Цена: <span id="traderSaleTotal">0</span> руб.
+                  </div>
+                  <div class="bonus-buttons trader-bonus-buttons">
+                      <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="0">Без %</button>
+                      <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="5">+5%</button>
+                      <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="10">+10%</button>
+                      <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="15">+15%</button>
+                      <button type="button" class="bonus-btn trader-bonus-btn" data-bonus="20">+20%</button>
+                  </div>
+                  <div class="final-sum trader-final-sum">
+                      Итого (закупка): <span id="traderPurchaseFinal">0</span> руб.
+                      <span class="trader-sum-separator">|</span>
+                      Итого (цена): <span id="traderSaleFinal">0</span> руб.
+                  </div>
+                  <button type="button" class="reset-btn" id="traderResetBtn">Очистить</button>
+              </div>
+              <div class="buttons-container trader-buttons-container" id="traderButtonsContainer"></div>
+          </div>
+      </section>
     </main>
 
     <footer>
@@ -196,5 +236,6 @@
     <script src="js/artifacts.js?v=20260920-two-sources-4" defer></script>
     <script src="js/mutants.js?v=20260920-two-sources-4" defer></script>
     <script src="js/cigars.js?v=20260920-two-sources-4" defer></script>
+    <script src="js/items.js?v=20260920-trader-items-1" defer></script>
 </body>
 </html>

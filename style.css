@@ -121,6 +121,44 @@ h2 {
     transition: background-color 0.4s ease;
 }
 
+.site-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 12px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.site-tab {
+    border: 2px solid var(--border-accent);
+    border-radius: 8px;
+    padding: 10px 18px;
+    background: var(--bg-card);
+    color: var(--text-accent);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.site-tab:hover,
+.site-tab.active {
+    background: var(--bg-header);
+    color: white;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.trader-title {
+    background: linear-gradient(135deg, #6e7fd8, #4754a1);
+}
+
 .section-title {
     letter-spacing: 0.4px;
 }
@@ -131,6 +169,79 @@ h2 {
 
 .cigar-title {
     background: linear-gradient(135deg, var(--cigar-title-bg), var(--cigar-accent-dark));
+}
+
+.trader-section {
+    background-color: #f0f2ff;
+}
+
+[data-theme="dark"] .trader-section {
+    background-color: #1b1e36;
+}
+
+.trader-header-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border-bottom: 2px solid #6977ca;
+}
+
+.trader-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+}
+
+.trader-search-input,
+.trader-category-select {
+    min-width: 220px;
+    padding: 10px 12px;
+    border: 2px solid #6977ca;
+    border-radius: 6px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.trader-sum-display,
+.trader-final-sum {
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.trader-sum-separator {
+    margin: 0 8px;
+    color: var(--text-secondary);
+}
+
+.trader-buttons-container {
+    padding-top: 24px;
+    padding-bottom: 30px;
+}
+
+.trader-item {
+    min-height: 170px;
+}
+
+.trader-item-category {
+    min-height: 18px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.trader-item-price {
+    line-height: 1.55;
+    color: var(--text-accent);
 }
 
 .section-locked,

@@ -13,7 +13,8 @@
     const sectionAccessConfig = {
         artifacts: { title: 'Калькулятор цены артефактов', password: 'Art7Kx92mQr4' },
         mutants: { title: 'Скупка частей мутантов', password: 'Mut3Vb58Ldn1' },
-        cigars: { title: 'Калькулятор сигар', password: 'Cig9Wp16Ztq5' }
+        cigars: { title: 'Калькулятор сигар', password: 'Cig9Wp16Ztq5' },
+        traders: { title: 'Оружие, расходники и маскировки', password: 'Trd8Qp41Wmz6' }
     };
     const sectionAccessDurationMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -274,7 +275,7 @@
 
     StalkerCalc.loadDataFile = async function (url) {
         try {
-            const versionedUrl = `${url}?v=20260920-two-sources-4`;
+            const versionedUrl = `${url}?v=20260920-trader-items-1`;
             const response = await fetch(versionedUrl, { cache: 'no-cache' });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             return await response.json();
@@ -439,13 +440,14 @@
         StalkerCalc.initTheme();
         StalkerCalc.showWelcomeMessage();
 
-        const [artifactsData, mutantsData, cigarsData] = await Promise.all([
+        const [artifactsData, mutantsData, cigarsData, traderData] = await Promise.all([
             StalkerCalc.loadDataFile('data/artifacts.json'),
             StalkerCalc.loadDataFile('data/mutants.json'),
-            StalkerCalc.loadDataFile('data/cigars.json')
+            StalkerCalc.loadDataFile('data/cigars.json'),
+            StalkerCalc.loadDataFile('data/trader-items.json')
         ]);
 
-        if (!artifactsData || !mutantsData || !cigarsData) {
+        if (!artifactsData || !mutantsData || !cigarsData || !traderData) {
             alert('Не удалось загрузить данные калькулятора. Запустите сайт через локальный сервер (python -m http.server).');
             return;
         }
@@ -453,7 +455,16 @@
         const artifactApi = StalkerCalc.initArtifacts(artifactsData);
         StalkerCalc.initMutants(mutantsData);
         StalkerCalc.initCigars(cigarsData);
+        StalkerCalc.initTraderItems(traderData);
         StalkerCalc.initSidebar(artifactApi.getState, artifactApi.restoreState);
+
+        document.querySelectorAll('.site-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.tabTarget;
+                document.querySelectorAll('.site-tab').forEach(item => item.classList.toggle('active', item === tab));
+                document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === targetId));
+            });
+        });
     };
 
     if (document.readyState === 'loading') {

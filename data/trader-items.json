@@ -1,0 +1,1111 @@
+{
+  "priceVersion": "2026-09-20-trader-items-2",
+  "items": [
+    {
+      "name": "Т03-66",
+      "category": "Дробовики",
+      "purchasePrice": 3675,
+      "salePrice": 5000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Т03-34 \"Вертикалка\"",
+      "category": "Дробовики",
+      "purchasePrice": 3937,
+      "salePrice": 5000,
+      "kind": "weapon"
+    },
+    {
+      "name": "МР-133",
+      "category": "Дробовики",
+      "purchasePrice": 4200,
+      "salePrice": 6000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Форт-500",
+      "category": "Дробовики",
+      "purchasePrice": 4725,
+      "salePrice": 6000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Т03-194",
+      "category": "Дробовики",
+      "purchasePrice": 5250,
+      "salePrice": 7000,
+      "kind": "weapon"
+    },
+    {
+      "name": "SPAS-12",
+      "category": "Дробовики",
+      "purchasePrice": 6300,
+      "salePrice": 8000,
+      "kind": "weapon"
+    },
+    {
+      "name": "MP-153 Wood",
+      "category": "Дробовики",
+      "purchasePrice": 7350,
+      "salePrice": 10000,
+      "kind": "weapon"
+    },
+    {
+      "name": "MP-153",
+      "category": "Дробовики",
+      "purchasePrice": 9712,
+      "salePrice": 13000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Remington 870",
+      "category": "Дробовики",
+      "purchasePrice": 10500,
+      "salePrice": 14000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Вепрь-12 Молот ВПО-205",
+      "category": "Дробовики",
+      "purchasePrice": 15225,
+      "salePrice": 20000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Сайга-12к",
+      "category": "Дробовики",
+      "purchasePrice": 16800,
+      "salePrice": 23000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Отбойник",
+      "category": "Дробовики",
+      "purchasePrice": 17850,
+      "salePrice": 24000,
+      "kind": "weapon"
+    },
+    {
+      "name": "M249",
+      "category": "Дробовики",
+      "purchasePrice": 31500,
+      "salePrice": 43000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПКМ",
+      "category": "Дробовики",
+      "purchasePrice": 38325,
+      "salePrice": 52000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПКП",
+      "category": "Дробовики",
+      "purchasePrice": 39900,
+      "salePrice": 54000,
+      "kind": "weapon"
+    },
+    {
+      "name": "РПГ - 7",
+      "category": "Дробовики",
+      "purchasePrice": 1000000,
+      "salePrice": 1500000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Бульдог",
+      "category": "Дробовики",
+      "purchasePrice": 1500000,
+      "salePrice": 2000000,
+      "kind": "weapon"
+    },
+    {
+      "name": "М79",
+      "category": "Дробовики",
+      "purchasePrice": 2000000,
+      "salePrice": 2200000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Гаусс",
+      "category": "Дробовики",
+      "purchasePrice": 1000000,
+      "salePrice": 1200000,
+      "kind": "weapon"
+    },
+    {
+      "name": "9А-91",
+      "category": "Штурмовые",
+      "purchasePrice": 7875,
+      "salePrice": 11000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ВСК-94",
+      "category": "Штурмовые",
+      "purchasePrice": 8137,
+      "salePrice": 11000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК",
+      "category": "Штурмовые",
+      "purchasePrice": 11550,
+      "salePrice": 16000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-101",
+      "category": "Штурмовые",
+      "purchasePrice": 12075,
+      "salePrice": 16000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-102",
+      "category": "Штурмовые",
+      "purchasePrice": 12337,
+      "salePrice": 17000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-105",
+      "category": "Штурмовые",
+      "purchasePrice": 12600,
+      "salePrice": 17000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-103",
+      "category": "Штурмовые",
+      "purchasePrice": 12600,
+      "salePrice": 17000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-104",
+      "category": "Штурмовые",
+      "purchasePrice": 12862,
+      "salePrice": 17000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-74",
+      "category": "Штурмовые",
+      "purchasePrice": 13072,
+      "salePrice": 18000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АКС",
+      "category": "Штурмовые",
+      "purchasePrice": 13125,
+      "salePrice": 18000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АКМ",
+      "category": "Штурмовые",
+      "purchasePrice": 13650,
+      "salePrice": 18000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-74У",
+      "category": "Штурмовые",
+      "purchasePrice": 13650,
+      "salePrice": 18000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АКМС",
+      "category": "Штурмовые",
+      "purchasePrice": 16800,
+      "salePrice": 24000,
+      "kind": "weapon"
+    },
+    {
+      "name": "СР-3М \"Вихрь\"",
+      "category": "Штурмовые",
+      "purchasePrice": 14437,
+      "salePrice": 19000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-74М",
+      "category": "Штурмовые",
+      "purchasePrice": 15225,
+      "salePrice": 21000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ОЦ-14-4А \"Гроза\"",
+      "category": "Штурмовые",
+      "purchasePrice": 16012,
+      "salePrice": 22000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АН-94 \"Абакан\"",
+      "category": "Штурмовые",
+      "purchasePrice": 16800,
+      "salePrice": 23000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АС \"Вал\"",
+      "category": "Штурмовые",
+      "purchasePrice": 17062,
+      "salePrice": 23000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АЕК-971",
+      "category": "Штурмовые",
+      "purchasePrice": 20475,
+      "salePrice": 29000,
+      "kind": "weapon"
+    },
+    {
+      "name": "РПК",
+      "category": "Штурмовые",
+      "purchasePrice": 18375,
+      "salePrice": 25000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-12",
+      "category": "Штурмовые",
+      "purchasePrice": 18900,
+      "salePrice": 26000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АК-400",
+      "category": "Штурмовые",
+      "purchasePrice": 19950,
+      "salePrice": 28000,
+      "kind": "weapon"
+    },
+    {
+      "name": "РПК-74",
+      "category": "Штурмовые",
+      "purchasePrice": 23625,
+      "salePrice": 32000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ВСС \"Винторез\"",
+      "category": "Штурмовые",
+      "purchasePrice": 26250,
+      "salePrice": 35000,
+      "kind": "weapon"
+    },
+    {
+      "name": "IMI Galil ACE 21",
+      "category": "Натовки",
+      "purchasePrice": 13125,
+      "salePrice": 18000,
+      "kind": "weapon"
+    },
+    {
+      "name": "SIG SG-552",
+      "category": "Натовки",
+      "purchasePrice": 14385,
+      "salePrice": 19000,
+      "kind": "weapon"
+    },
+    {
+      "name": "IMI Galil",
+      "category": "Натовки",
+      "purchasePrice": 14490,
+      "salePrice": 20000,
+      "kind": "weapon"
+    },
+    {
+      "name": "M4",
+      "category": "Натовки",
+      "purchasePrice": 14700,
+      "salePrice": 20000,
+      "kind": "weapon"
+    },
+    {
+      "name": "FAMAS \"F1\"",
+      "category": "Натовки",
+      "purchasePrice": 14962,
+      "salePrice": 20000,
+      "kind": "weapon"
+    },
+    {
+      "name": "M4A1",
+      "category": "Натовки",
+      "purchasePrice": 14962,
+      "salePrice": 20000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK \"G36\"",
+      "category": "Натовки",
+      "purchasePrice": 15120,
+      "salePrice": 20000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK \"G36K\"",
+      "category": "Натовки",
+      "purchasePrice": 15277,
+      "salePrice": 21000,
+      "kind": "weapon"
+    },
+    {
+      "name": "M16A2",
+      "category": "Натовки",
+      "purchasePrice": 15487,
+      "salePrice": 21000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK \"G36C\"",
+      "category": "Натовки",
+      "purchasePrice": 15592,
+      "salePrice": 21000,
+      "kind": "weapon"
+    },
+    {
+      "name": "FN FALL",
+      "category": "Натовки",
+      "purchasePrice": 16590,
+      "salePrice": 22000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Steyr AUG A1",
+      "category": "Натовки",
+      "purchasePrice": 16905,
+      "salePrice": 23000,
+      "kind": "weapon"
+    },
+    {
+      "name": "LR-300ML",
+      "category": "Натовки",
+      "purchasePrice": 17062,
+      "salePrice": 23000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Steyr AUG A3",
+      "category": "Натовки",
+      "purchasePrice": 17115,
+      "salePrice": 23000,
+      "kind": "weapon"
+    },
+    {
+      "name": "SIG SG-550",
+      "category": "Натовки",
+      "purchasePrice": 17325,
+      "salePrice": 23000,
+      "kind": "weapon"
+    },
+    {
+      "name": "FN SCAR",
+      "category": "Натовки",
+      "purchasePrice": 17535,
+      "salePrice": 24000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Зинфилд \"L85A2\"",
+      "category": "Натовки",
+      "purchasePrice": 17850,
+      "salePrice": 24000,
+      "kind": "weapon"
+    },
+    {
+      "name": "FN-2000",
+      "category": "Натовки",
+      "purchasePrice": 18375,
+      "salePrice": 25000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK G3",
+      "category": "Натовки",
+      "purchasePrice": 18900,
+      "salePrice": 26000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK-416",
+      "category": "Натовки",
+      "purchasePrice": 19425,
+      "salePrice": 26000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Винтовка Мосина",
+      "category": "Снайперские",
+      "purchasePrice": 21000,
+      "salePrice": 28000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Маузер 98К",
+      "category": "Снайперские",
+      "purchasePrice": 22050,
+      "salePrice": 30000,
+      "kind": "weapon"
+    },
+    {
+      "name": "СКС",
+      "category": "Снайперские",
+      "purchasePrice": 23625,
+      "salePrice": 32000,
+      "kind": "weapon"
+    },
+    {
+      "name": "СВТ-40",
+      "category": "Снайперские",
+      "purchasePrice": 24675,
+      "salePrice": 33000,
+      "kind": "weapon"
+    },
+    {
+      "name": "СВУ-А",
+      "category": "Снайперские",
+      "purchasePrice": 25200,
+      "salePrice": 34000,
+      "kind": "weapon"
+    },
+    {
+      "name": "SIG 551",
+      "category": "Снайперские",
+      "purchasePrice": 25200,
+      "salePrice": 34000,
+      "kind": "weapon"
+    },
+    {
+      "name": "MK 14 EBR",
+      "category": "Снайперские",
+      "purchasePrice": 26250,
+      "salePrice": 35000,
+      "kind": "weapon"
+    },
+    {
+      "name": "СВД",
+      "category": "Снайперские",
+      "purchasePrice": 27300,
+      "salePrice": 37000,
+      "kind": "weapon"
+    },
+    {
+      "name": "G3SG1",
+      "category": "Снайперские",
+      "purchasePrice": 27300,
+      "salePrice": 37000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Ремингтон 700",
+      "category": "Снайперские",
+      "purchasePrice": 36750,
+      "salePrice": 50000,
+      "kind": "weapon"
+    },
+    {
+      "name": "L96 A1",
+      "category": "Снайперские",
+      "purchasePrice": 42000,
+      "salePrice": 57000,
+      "kind": "weapon"
+    },
+    {
+      "name": "СВ-98",
+      "category": "Снайперские",
+      "purchasePrice": 47250,
+      "salePrice": 64000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Баррет \"M98B\"",
+      "category": "Снайперские",
+      "purchasePrice": 73500,
+      "salePrice": 99000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ППШ-41",
+      "category": "Снайперские",
+      "purchasePrice": 7350,
+      "salePrice": 10000,
+      "kind": "weapon"
+    },
+    {
+      "name": "СР-2 \"Вереск\"",
+      "category": "Снайперские",
+      "purchasePrice": 8925,
+      "salePrice": 12000,
+      "kind": "weapon"
+    },
+    {
+      "name": "MP5A3",
+      "category": "Снайперские",
+      "purchasePrice": 9450,
+      "salePrice": 13000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK UMP-45",
+      "category": "Снайперские",
+      "purchasePrice": 9450,
+      "salePrice": 13000,
+      "kind": "weapon"
+    },
+    {
+      "name": "MP5SD",
+      "category": "Снайперские",
+      "purchasePrice": 9712,
+      "salePrice": 13000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПП-2000",
+      "category": "Снайперские",
+      "purchasePrice": 8925,
+      "salePrice": 13000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПП-19 \"Бизон\"",
+      "category": "Снайперские",
+      "purchasePrice": 9975,
+      "salePrice": 14000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПП-19-01 Витязь-СН",
+      "category": "Снайперские",
+      "purchasePrice": 10500,
+      "salePrice": 15000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПМ",
+      "category": "Пистолеты",
+      "purchasePrice": 1207,
+      "salePrice": 2000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПБ",
+      "category": "Пистолеты",
+      "purchasePrice": 1680,
+      "salePrice": 2000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ТТ-33",
+      "category": "Пистолеты",
+      "purchasePrice": 1680,
+      "salePrice": 2000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Кольт \"М-1911\"",
+      "category": "Пистолеты",
+      "purchasePrice": 1837,
+      "salePrice": 2000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Форт-12",
+      "category": "Пистолеты",
+      "purchasePrice": 2152,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "SIG-Sauer P220",
+      "category": "Пистолеты",
+      "purchasePrice": 2205,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK USP",
+      "category": "Пистолеты",
+      "purchasePrice": 2205,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ЦЗ-75",
+      "category": "Пистолеты",
+      "purchasePrice": 2310,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ОЦ-33 \"Пернач\"",
+      "category": "Пистолеты",
+      "purchasePrice": 2415,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "FN FNP",
+      "category": "Пистолеты",
+      "purchasePrice": 2520,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Форт-17",
+      "category": "Пистолеты",
+      "purchasePrice": 2572,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Hi-Pover",
+      "category": "Пистолеты",
+      "purchasePrice": 2572,
+      "salePrice": 3000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Fiveseven \"FN57\"",
+      "category": "Пистолеты",
+      "purchasePrice": 2730,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Глок-19",
+      "category": "Пистолеты",
+      "purchasePrice": 2730,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "FN FNX",
+      "category": "Пистолеты",
+      "purchasePrice": 2756,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ГШ-18",
+      "category": "Пистолеты",
+      "purchasePrice": 2835,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ЦЗ-75 АВТО",
+      "category": "Пистолеты",
+      "purchasePrice": 2835,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "HK USP MATCH",
+      "category": "Пистолеты",
+      "purchasePrice": 2835,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Walter-99",
+      "category": "Пистолеты",
+      "purchasePrice": 2992,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Беретта \"92FS\"",
+      "category": "Пистолеты",
+      "purchasePrice": 3150,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "ПЯ \"Грач\"",
+      "category": "Пистолеты",
+      "purchasePrice": 3360,
+      "salePrice": 4000,
+      "kind": "weapon"
+    },
+    {
+      "name": "АПС",
+      "category": "Пистолеты",
+      "purchasePrice": 5000,
+      "salePrice": 7000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Черный Ястреб",
+      "category": "Пистолеты",
+      "purchasePrice": 10500,
+      "salePrice": 14000,
+      "kind": "weapon"
+    },
+    {
+      "name": "Хлеб",
+      "category": "????????",
+      "purchasePrice": 100,
+      "salePrice": 180,
+      "kind": "consumable"
+    },
+    {
+      "name": "Вода",
+      "category": "????????",
+      "purchasePrice": 100,
+      "salePrice": 180,
+      "kind": "consumable"
+    },
+    {
+      "name": "Водка Казаки",
+      "category": "????????",
+      "purchasePrice": 165,
+      "salePrice": 250,
+      "kind": "consumable"
+    },
+    {
+      "name": "Водка 'Немировская'",
+      "category": "????????",
+      "purchasePrice": 165,
+      "salePrice": 250,
+      "kind": "consumable"
+    },
+    {
+      "name": "Водка 'Путинка'",
+      "category": "????????",
+      "purchasePrice": 165,
+      "salePrice": 250,
+      "kind": "consumable"
+    },
+    {
+      "name": "Говядина Конс.",
+      "category": "????????",
+      "purchasePrice": 180,
+      "salePrice": 300,
+      "kind": "consumable"
+    },
+    {
+      "name": "Колбаса",
+      "category": "????????",
+      "purchasePrice": 150,
+      "salePrice": 250,
+      "kind": "consumable"
+    },
+    {
+      "name": "Кукуруза Конс.",
+      "category": "????????",
+      "purchasePrice": 180,
+      "salePrice": 300,
+      "kind": "consumable"
+    },
+    {
+      "name": "Бобы Конс.",
+      "category": "????????",
+      "purchasePrice": 180,
+      "salePrice": 300,
+      "kind": "consumable"
+    },
+    {
+      "name": "Свинина Конс.",
+      "category": "????????",
+      "purchasePrice": 180,
+      "salePrice": 300,
+      "kind": "consumable"
+    },
+    {
+      "name": "Острые бобы Конс.",
+      "category": "????????",
+      "purchasePrice": 180,
+      "salePrice": 300,
+      "kind": "consumable"
+    },
+    {
+      "name": "Пиво 'Обломовъ' (в банке)",
+      "category": "????????",
+      "purchasePrice": 110,
+      "salePrice": 250,
+      "kind": "consumable"
+    },
+    {
+      "name": "Пиво 'Оболонь' (в бутылке)",
+      "category": "????????",
+      "purchasePrice": 110,
+      "salePrice": 250,
+      "kind": "consumable"
+    },
+    {
+      "name": "Энергетик STALKER",
+      "category": "????????",
+      "purchasePrice": 300,
+      "salePrice": 500,
+      "kind": "consumable"
+    },
+    {
+      "name": "Энергетик 'Нон-Стоп'",
+      "category": "????????",
+      "purchasePrice": 400,
+      "salePrice": 700,
+      "kind": "consumable"
+    },
+    {
+      "name": "Энергетик 'Электро",
+      "category": "????????",
+      "purchasePrice": 500,
+      "salePrice": 600,
+      "kind": "consumable"
+    },
+    {
+      "name": "Рация",
+      "category": "????????",
+      "purchasePrice": 1250,
+      "salePrice": 4000,
+      "kind": "consumable"
+    },
+    {
+      "name": "Наручники",
+      "category": "????????",
+      "purchasePrice": 1500,
+      "salePrice": 10000,
+      "kind": "consumable"
+    },
+    {
+      "name": "Батарейки",
+      "category": "????????",
+      "purchasePrice": 350,
+      "salePrice": 550,
+      "kind": "consumable"
+    },
+    {
+      "name": "Фонарик",
+      "category": "????????",
+      "purchasePrice": 2250,
+      "salePrice": 3500,
+      "kind": "consumable"
+    },
+    {
+      "name": "11,43 х 23 мм",
+      "category": "???????",
+      "purchasePrice": 180,
+      "salePrice": 350,
+      "kind": "consumable"
+    },
+    {
+      "name": "12 x 70 (Дробь)",
+      "category": "???????",
+      "purchasePrice": 180,
+      "salePrice": 350,
+      "kind": "consumable"
+    },
+    {
+      "name": "12 x 70 (Дробь) БП",
+      "category": "???????",
+      "purchasePrice": 360,
+      "salePrice": 800,
+      "kind": "consumable"
+    },
+    {
+      "name": "5,45 х 39 мм",
+      "category": "???????",
+      "purchasePrice": 145,
+      "salePrice": 400,
+      "kind": "consumable"
+    },
+    {
+      "name": "5,45 х 39 мм БП",
+      "category": "???????",
+      "purchasePrice": 290,
+      "salePrice": 700,
+      "kind": "consumable"
+    },
+    {
+      "name": "5,56 х 45 мм",
+      "category": "???????",
+      "purchasePrice": 145,
+      "salePrice": 400,
+      "kind": "consumable"
+    },
+    {
+      "name": "5,56 х 45 мм БП",
+      "category": "???????",
+      "purchasePrice": 290,
+      "salePrice": 700,
+      "kind": "consumable"
+    },
+    {
+      "name": "7,62 х 54 мм",
+      "category": "???????",
+      "purchasePrice": 350,
+      "salePrice": 600,
+      "kind": "consumable"
+    },
+    {
+      "name": "Снаряды ОГ-7В",
+      "category": "???????",
+      "purchasePrice": 7500,
+      "salePrice": 24000,
+      "kind": "consumable"
+    },
+    {
+      "name": "Снаряды ВОГ-25",
+      "category": "???????",
+      "purchasePrice": 1150,
+      "salePrice": 10000,
+      "kind": "consumable"
+    },
+    {
+      "name": "Граната Ф1",
+      "category": "???????",
+      "purchasePrice": 0,
+      "salePrice": 4500,
+      "kind": "consumable"
+    },
+    {
+      "name": "Граната РГД-5",
+      "category": "???????",
+      "purchasePrice": 0,
+      "salePrice": 6000,
+      "kind": "consumable"
+    },
+    {
+      "name": "7,62 х 54 мм 7Н1",
+      "category": "???????",
+      "purchasePrice": 300,
+      "salePrice": 400,
+      "kind": "consumable"
+    },
+    {
+      "name": "7,62 х 54 мм 7Н1 БП",
+      "category": "???????",
+      "purchasePrice": 600,
+      "salePrice": 1200,
+      "kind": "consumable"
+    },
+    {
+      "name": "9 х 18 мм",
+      "category": "???????",
+      "purchasePrice": 90,
+      "salePrice": 190,
+      "kind": "consumable"
+    },
+    {
+      "name": "9 х 18 мм БП",
+      "category": "???????",
+      "purchasePrice": 180,
+      "salePrice": 380,
+      "kind": "consumable"
+    },
+    {
+      "name": "9 х 19 мм FMJ",
+      "category": "???????",
+      "purchasePrice": 210,
+      "salePrice": 195,
+      "kind": "consumable"
+    },
+    {
+      "name": "9 х 19 мм FMJ БП",
+      "category": "???????",
+      "purchasePrice": 105,
+      "salePrice": 380,
+      "kind": "consumable"
+    },
+    {
+      "name": "9 х 39 мм",
+      "category": "???????",
+      "purchasePrice": 145,
+      "salePrice": 400,
+      "kind": "consumable"
+    },
+    {
+      "name": "9 х 39 мм БП",
+      "category": "???????",
+      "purchasePrice": 290,
+      "salePrice": 700,
+      "kind": "consumable"
+    },
+    {
+      "name": "Заря Токсик",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 2500,
+      "salePrice": 10000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Заря Хомяк",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 2500,
+      "salePrice": 10000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Заря Шахтёр",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 2500,
+      "salePrice": 10000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Искатель",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 4500,
+      "salePrice": 15000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Сталкерский Берил",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 5250,
+      "salePrice": 18000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Сталкерский Масхалат",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 4850,
+      "salePrice": 15000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Сталкерский Плащ",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 4000,
+      "salePrice": 15000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Сева",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 4550,
+      "salePrice": 18000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "Сталкерский Скат",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 5300,
+      "salePrice": 23000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "ТБК",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 5800,
+      "salePrice": 23000,
+      "kind": "camouflage"
+    },
+    {
+      "name": "ЧН Сталкер",
+      "category": "?????????? ??? ????????? ????????",
+      "purchasePrice": 3400,
+      "salePrice": 18000,
+      "kind": "camouflage"
+    }
+  ]
+}
