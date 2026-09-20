@@ -743,6 +743,12 @@ h3 {
     margin-top: 20px;
 }
 
+.buttons-container.trader-buttons-container {
+    display: block;
+    width: 100%;
+    margin: 0;
+}
+
 .item {
     cursor: url('https://snipp.ru/demo/712/pointer-1.cur') 4 1, pointer;
     display: flex;
