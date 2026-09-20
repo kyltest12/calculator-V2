@@ -695,6 +695,10 @@ h3 {
 }
 
 .mutant-sum-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 15px;
@@ -702,7 +706,8 @@ h3 {
 }
 
 .mutant-sum-row {
-    margin-bottom: 4px;
+    margin-bottom: 0;
+    white-space: nowrap;
 }
 
 .mutant-sum-row:last-child {
@@ -741,8 +746,11 @@ h3 {
 
 .mutant-final-sum {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
 }
 
 #mutantTotalSumGreh,
