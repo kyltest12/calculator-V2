@@ -255,13 +255,16 @@ h2 {
 }
 
 .trader-buttons-container {
+    display: block;
+    width: 100%;
+    margin: 0;
     padding-top: 24px;
     padding-bottom: 30px;
 }
 
 .trader-category-group {
     margin: 0 auto 30px;
-    width: 92%;
+    width: calc(100% - 28px);
     border: 2px solid #6977ca;
     border-radius: 12px;
     overflow: hidden;
@@ -313,6 +316,10 @@ h2 {
     grid-template-columns: repeat(7, 1fr);
     gap: 15px;
     padding: 18px;
+}
+
+.trader-category-group .trader-item {
+    min-width: 0;
 }
 
 [data-theme="dark"] .trader-category-heading {
