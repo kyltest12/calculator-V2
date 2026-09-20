@@ -21,6 +21,7 @@
         const resetBtn = document.getElementById('traderResetBtn');
         const quantities = new Map();
         const cards = new Map();
+        const groups = new Map();
         let purchaseTotal = 0;
         let saleTotal = 0;
         let currentBonus = 0;
@@ -31,6 +32,21 @@
         ]);
 
         const categories = [...new Set(items.map(item => item.category))];
+        categories.forEach((category, index) => {
+            const group = document.createElement('section');
+            group.className = `trader-category-group trader-category-group-${index % 6}`;
+            group.dataset.category = category;
+
+            const heading = document.createElement('h2');
+            heading.className = 'trader-category-heading';
+            heading.textContent = category;
+
+            const grid = document.createElement('div');
+            grid.className = 'trader-category-grid';
+            group.append(heading, grid);
+            buttonsContainer.appendChild(group);
+            groups.set(category, { group, grid });
+        });
         let selectedCategory = '';
         const allCategoriesButton = document.createElement('button');
         allCategoriesButton.type = 'button';
@@ -63,6 +79,11 @@
                 const matchesTerm = !term || name.toLowerCase().includes(term);
                 const matchesCategory = !selectedCategory || item.category === selectedCategory;
                 card.classList.toggle('hidden', !matchesTerm || !matchesCategory);
+            });
+            groups.forEach(({ group, grid }, category) => {
+                const hasVisibleCards = [...grid.children].some(card => !card.classList.contains('hidden'));
+                group.classList.toggle('hidden', !hasVisibleCards);
+                group.classList.toggle('trader-category-group-selected', selectedCategory === category);
             });
         }
 
@@ -117,7 +138,7 @@
             controls.appendChild(group);
             card.append(name, category, price, controls);
             cards.set(item.name, card);
-            buttonsContainer.appendChild(card);
+            groups.get(item.category).grid.appendChild(card);
         }
 
         searchInput.addEventListener('input', updateList);
@@ -150,6 +171,7 @@
             quantities.forEach(quantity => { quantity.textContent = '0'; });
             cards.forEach(card => SC.updateItemSelectedState(card, 0));
             cards.forEach(card => card.classList.remove('hidden'));
+            groups.forEach(({ group }) => group.classList.remove('hidden'));
             updateTotals();
         });
         purchaseTotalDisplay.addEventListener('click', event => SC.copyToClipboard(String(purchaseTotal), event));
@@ -159,6 +181,7 @@
 
         items.forEach(createCard);
         bonusButtons[0].classList.add('active');
+        updateList();
         updateTotals();
     };
 })();

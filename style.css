@@ -224,13 +224,15 @@ h2 {
 }
 
 .trader-category-tab {
-    border: 1px solid #6977ca;
+    border: 2px solid #6977ca;
     border-radius: 6px;
     padding: 8px 12px;
     background: var(--bg-card);
     color: var(--text-accent);
     cursor: pointer;
     font-weight: bold;
+    font-family: inherit;
+    transition: all 0.2s ease;
 }
 
 .trader-category-tab.active,
@@ -255,6 +257,84 @@ h2 {
 .trader-buttons-container {
     padding-top: 24px;
     padding-bottom: 30px;
+}
+
+.trader-category-group {
+    margin: 0 auto 30px;
+    width: 92%;
+    border: 2px solid #6977ca;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    box-shadow: 0 3px 10px var(--shadow-light);
+}
+
+.trader-category-group.hidden {
+    display: none;
+}
+
+.trader-category-heading {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 12px 18px;
+    justify-content: flex-start;
+    font-size: 18px;
+    letter-spacing: 0.4px;
+    text-align: left;
+    text-shadow: none;
+    color: #263646;
+    background: linear-gradient(135deg, #dce4ff, #c4d0ff);
+    border-bottom: 2px solid #6977ca;
+}
+
+.trader-category-group-1 .trader-category-heading,
+.trader-category-group-4 .trader-category-heading {
+    color: #5a3f0b;
+    background: linear-gradient(135deg, #fff0c2, #f8d978);
+    border-color: #c99a3e;
+}
+
+.trader-category-group-2 .trader-category-heading,
+.trader-category-group-5 .trader-category-heading {
+    color: #174f35;
+    background: linear-gradient(135deg, #d4f5df, #a9e4bd);
+    border-color: #4cae70;
+}
+
+.trader-category-group-3 .trader-category-heading {
+    color: #5c2630;
+    background: linear-gradient(135deg, #ffe0e4, #f6b8c0);
+    border-color: #d95a64;
+}
+
+.trader-category-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
+    padding: 18px;
+}
+
+[data-theme="dark"] .trader-category-heading {
+    color: #e8eef8;
+    background: linear-gradient(135deg, #2d3d68, #263453);
+}
+
+[data-theme="dark"] .trader-category-group-1 .trader-category-heading,
+[data-theme="dark"] .trader-category-group-4 .trader-category-heading {
+    color: #fff0c2;
+    background: linear-gradient(135deg, #604d22, #493b1b);
+}
+
+[data-theme="dark"] .trader-category-group-2 .trader-category-heading,
+[data-theme="dark"] .trader-category-group-5 .trader-category-heading {
+    color: #d4f5df;
+    background: linear-gradient(135deg, #214d35, #1e3d2d);
+}
+
+[data-theme="dark"] .trader-category-group-3 .trader-category-heading {
+    color: #ffe0e4;
+    background: linear-gradient(135deg, #5c2630, #472128);
 }
 
 .trader-item {
@@ -1516,12 +1596,14 @@ body.sidebar-open {
 /* Адаптив */
 @media (max-width: 1024px) {
     .buttons-container { grid-template-columns: repeat(5, 1fr); }
+    .trader-category-grid { grid-template-columns: repeat(5, 1fr); }
     .search-input { width: 150px; }
     .search-input:focus { width: 200px; }
 }
 
 @media (max-width: 768px) {
     .buttons-container { grid-template-columns: repeat(3, 1fr); }
+    .trader-category-grid { grid-template-columns: repeat(3, 1fr); }
     h1 { font-size: 24px; height: 70px; }
     h2 { font-size: 20px; height: 55px; }
     .artifact-tools {
@@ -1556,6 +1638,7 @@ body.sidebar-open {
     }
 
     .buttons-container { grid-template-columns: repeat(2, 1fr); }
+    .trader-category-grid { grid-template-columns: repeat(2, 1fr); }
     .artifact-tools {
         flex-direction: column;
         align-items: stretch;
