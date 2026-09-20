@@ -24,6 +24,7 @@
             name: part.name,
             grehPrice: Number.isFinite(part.grehPrice) ? part.grehPrice : (Number.isFinite(part.price) ? part.price : 0),
             dolgPrice: Number.isFinite(part.dolgPrice) ? part.dolgPrice : (Number.isFinite(part.price) ? part.price : 0),
+            dnPrice: Number.isFinite(part.dnPrice) ? part.dnPrice : 0,
             image: getLocalMutantImagePath(part.name)
         }));
 
@@ -40,6 +41,7 @@
                         if (saved && typeof saved === 'object') {
                             if (Number.isFinite(saved.greh) && saved.greh >= 0) part.grehPrice = saved.greh;
                             if (Number.isFinite(saved.dolg) && saved.dolg >= 0) part.dolgPrice = saved.dolg;
+                            if (Number.isFinite(saved.dn) && saved.dn >= 0) part.dnPrice = saved.dn;
                         }
                     });
                 } else {
@@ -52,14 +54,20 @@
         }
 
         function saveMutantPricesToStorage() {
-            const prices = Object.fromEntries(mutantParts.map(part => [part.name, { greh: part.grehPrice, dolg: part.dolgPrice }]));
+            const prices = Object.fromEntries(mutantParts.map(part => [part.name, {
+                greh: part.grehPrice,
+                dolg: part.dolgPrice,
+                dn: part.dnPrice
+            }]));
             localStorage.setItem('mutantPartPrices', JSON.stringify(prices));
         }
 
         const mutantTotalDisplayGreh = document.getElementById('mutantTotalSumGreh');
         const mutantTotalDisplayDolg = document.getElementById('mutantTotalSumDolg');
+        const mutantTotalDisplayDn = document.getElementById('mutantTotalSumDn');
         const mutantFinalDisplayGreh = document.getElementById('mutantFinalSumGreh');
         const mutantFinalDisplayDolg = document.getElementById('mutantFinalSumDolg');
+        const mutantFinalDisplayDn = document.getElementById('mutantFinalSumDn');
         const mutantBonusButtons = document.querySelectorAll('.mutant-bonus-btn');
         const mutantSearchInput = document.getElementById('mutantSearchInput');
         const mutantButtonsContainer = document.getElementById('mutantButtonsContainer');
@@ -68,8 +76,10 @@
         const requiredElements = {
             mutantTotalSumGreh: mutantTotalDisplayGreh,
             mutantTotalSumDolg: mutantTotalDisplayDolg,
+            mutantTotalSumDn: mutantTotalDisplayDn,
             mutantFinalSumGreh: mutantFinalDisplayGreh,
             mutantFinalSumDolg: mutantFinalDisplayDolg,
+            mutantFinalSumDn: mutantFinalDisplayDn,
             mutantSearchInput: mutantSearchInput,
             mutantButtonsContainer: mutantButtonsContainer,
             mutantResetBtn: mutantResetBtnEl
@@ -87,6 +97,7 @@
         }
         let mutantTotalSumGreh = 0;
         let mutantTotalSumDolg = 0;
+        let mutantTotalSumDn = 0;
         let currentMutantBonus = 0;
         const mutantQuantityElements = new Map();
         const mutantCards = new Map();
@@ -106,7 +117,7 @@
                 const span = mutantQuantityElements.get(part.name);
                 const qty = parseInt(span.textContent, 10);
                 if (qty > 0) {
-                    items.push({ name: part.name, qty, grehPrice: part.grehPrice, dolgPrice: part.dolgPrice });
+                    items.push({ name: part.name, qty, grehPrice: part.grehPrice, dolgPrice: part.dolgPrice, dnPrice: part.dnPrice });
                 }
             });
             return items;
@@ -118,9 +129,11 @@
                 totalSum: mutantTotalSumGreh, // основная сумма для проверки на > 0 в отправщике
                 totalSumGreh: mutantTotalSumGreh,
                 totalSumDolg: mutantTotalSumDolg,
+                totalSumDn: mutantTotalSumDn,
                 bonus: currentMutantBonus,
                 finalSumGreh: Math.round(mutantTotalSumGreh * (1 - currentMutantBonus / 100)),
                 finalSumDolg: Math.round(mutantTotalSumDolg * (1 - currentMutantBonus / 100)),
+                finalSumDn: Math.round(mutantTotalSumDn * (1 - currentMutantBonus / 100)),
                 itemsCount: items.length,
                 items
             };
@@ -133,8 +146,10 @@
         function updateMutantTotals() {
             mutantTotalDisplayGreh.textContent = mutantTotalSumGreh.toLocaleString('ru-RU');
             mutantTotalDisplayDolg.textContent = mutantTotalSumDolg.toLocaleString('ru-RU');
+            mutantTotalDisplayDn.textContent = mutantTotalSumDn.toLocaleString('ru-RU');
             mutantFinalDisplayGreh.textContent = Math.round(mutantTotalSumGreh * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
             mutantFinalDisplayDolg.textContent = Math.round(mutantTotalSumDolg * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
+            mutantFinalDisplayDn.textContent = Math.round(mutantTotalSumDn * (1 - currentMutantBonus / 100)).toLocaleString('ru-RU');
         }
 
         function updateMutantList() {
@@ -148,12 +163,14 @@
         function recalcTotalsFromQuantities() {
             mutantTotalSumGreh = 0;
             mutantTotalSumDolg = 0;
+            mutantTotalSumDn = 0;
             mutantQuantityElements.forEach((span, name) => {
                 const qty = parseInt(span.textContent, 10);
                 const part = mutantParts.find(item => item.name === name);
                 if (part && qty > 0) {
                     mutantTotalSumGreh += qty * part.grehPrice;
                     mutantTotalSumDolg += qty * part.dolgPrice;
+                    mutantTotalSumDn += qty * part.dnPrice;
                 }
             });
         }
@@ -188,8 +205,14 @@
             priceDolgSpan.textContent = 'Долг: ' + part.dolgPrice + ' руб.';
             priceDolgSpan.title = 'Двойной клик — изменить цену (Долг)';
 
+            const priceDnSpan = document.createElement('span');
+            priceDnSpan.className = 'mutant-price-dn';
+            priceDnSpan.textContent = 'ДН: ' + part.dnPrice + ' руб.';
+            priceDnSpan.title = 'Двойной клик — изменить цену (ДН)';
+
             priceDiv.appendChild(priceGrehSpan);
             priceDiv.appendChild(priceDolgSpan);
+            priceDiv.appendChild(priceDnSpan);
 
             itemDiv.appendChild(nameDiv);
             itemDiv.appendChild(imgButton);
@@ -224,6 +247,7 @@
                 SC.updateItemSelectedState(itemDiv, nextQty);
                 mutantTotalSumGreh += actualDelta * part.grehPrice;
                 mutantTotalSumDolg += actualDelta * part.dolgPrice;
+                mutantTotalSumDn += actualDelta * part.dnPrice;
                 updateMutantTotals();
                 scheduleMetrikaSend();
             };
@@ -252,6 +276,7 @@
                     if (currentQty > 0) {
                         mutantTotalSumGreh -= currentQty * part.grehPrice;
                         mutantTotalSumDolg -= currentQty * part.dolgPrice;
+                        mutantTotalSumDn -= currentQty * part.dnPrice;
                         quantitySpan.textContent = '0';
                         SC.updateItemSelectedState(itemDiv, 0);
                         updateMutantTotals();
@@ -296,6 +321,7 @@
 
             makePriceEditable(priceGrehSpan, 'grehPrice', 'Грех');
             makePriceEditable(priceDolgSpan, 'dolgPrice', 'Долг');
+            makePriceEditable(priceDnSpan, 'dnPrice', 'ДН');
 
             buttonGroup.appendChild(subBtn);
             buttonGroup.appendChild(quantitySpan);
@@ -319,6 +345,7 @@
         mutantResetBtnEl.addEventListener('click', () => {
             mutantTotalSumGreh = 0;
             mutantTotalSumDolg = 0;
+            mutantTotalSumDn = 0;
             currentMutantBonus = 0;
             mutantBonusButtons.forEach(b => b.classList.remove('active'));
             mutantBonusButtons[0].classList.add('active');
@@ -332,8 +359,10 @@
 
         mutantTotalDisplayGreh.addEventListener('click', (e) => SC.copyToClipboard(mutantTotalSumGreh.toString(), e));
         mutantTotalDisplayDolg.addEventListener('click', (e) => SC.copyToClipboard(mutantTotalSumDolg.toString(), e));
+        mutantTotalDisplayDn.addEventListener('click', (e) => SC.copyToClipboard(mutantTotalSumDn.toString(), e));
         mutantFinalDisplayGreh.addEventListener('click', (e) => SC.copyToClipboard(Math.round(mutantTotalSumGreh * (1 - currentMutantBonus / 100)).toString(), e));
         mutantFinalDisplayDolg.addEventListener('click', (e) => SC.copyToClipboard(Math.round(mutantTotalSumDolg * (1 - currentMutantBonus / 100)).toString(), e));
+        mutantFinalDisplayDn.addEventListener('click', (e) => SC.copyToClipboard(Math.round(mutantTotalSumDn * (1 - currentMutantBonus / 100)).toString(), e));
 
         mutantParts.forEach(p => createMutantButton(p));
         mutantBonusButtons[0].classList.add('active');

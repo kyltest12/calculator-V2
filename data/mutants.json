@@ -1,5 +1,5 @@
 {
-    "priceVersion":  "2026-09-20",
+    "priceVersion":  "2026-09-20-all-sources",
     "imageAliases":  {
                          "Глаз Плоти":  "Глаз плоти",
                          "Голова Зомби Паразита":  "Голова зараженного зомби",
@@ -30,38 +30,47 @@
                          "Шкура Собаки":  "Шкура собика",
                          "Шкура Химеры":  "Шкура химеры",
                          "Шкура Плоти":  "Шкура плоти",
-                         "Щупальца Кровососа":  "Шупальца кровососа"
+                         "Щупальца Кровососа":  "Шупальца кровососа",
+                         "???? ????? ?????":  "???? ????? ?????",
+                         "?????? ??????":  "?????? ??????",
+                         "?????? ?????":  "?????? ?????"
                      },
     "parts":  [
                   {
                       "name":  "Голова Крысы",
                       "grehPrice":  380,
-                      "dolgPrice":  380
+                      "dolgPrice":  380,
+                      "dnPrice":  280
                   },
                   {
                       "name":  "Голова Тушкана",
                       "grehPrice":  844,
-                      "dolgPrice":  844
+                      "dolgPrice":  844,
+                      "dnPrice":  720
                   },
                   {
                       "name":  "Хвост Собаки",
                       "grehPrice":  932,
-                      "dolgPrice":  932
+                      "dolgPrice":  932,
+                      "dnPrice":  800
                   },
                   {
                       "name":  "Глаз Плоти",
                       "grehPrice":  1112,
-                      "dolgPrice":  1112
+                      "dolgPrice":  1112,
+                      "dnPrice":  960
                   },
                   {
                       "name":  "Рука Карлика",
                       "grehPrice":  1160,
-                      "dolgPrice":  1160
+                      "dolgPrice":  1160,
+                      "dnPrice":  1000
                   },
                   {
                       "name":  "Голова Собаки",
                       "grehPrice":  1200,
-                      "dolgPrice":  1200
+                      "dolgPrice":  1200,
+                      "dnPrice":  1000
                   },
                   {
                       "name":  "Шкура Собаки",
@@ -76,35 +85,44 @@
                   {
                       "name":  "Шкура Плоти",
                       "grehPrice":  1112,
-                      "dolgPrice":  1112
+                      "dolgPrice":  1112,
+                      "dnPrice":  1280
                   },
                   {
-                      "name":  "Голова Собаки Паразита"
+                      "name":  "Голова Собаки Паразита",
+                      "dnPrice":  1080,
+                      "grehPrice":  1400,
+                      "dolgPrice":  1400
                   },
                   {
                       "name":  "Нога Кабана",
                       "grehPrice":  1644,
-                      "dolgPrice":  1644
+                      "dolgPrice":  1644,
+                      "dnPrice":  1440
                   },
                   {
                       "name":  "Рука Зомби",
                       "grehPrice":  1912,
-                      "dolgPrice":  1912
+                      "dolgPrice":  1912,
+                      "dnPrice":  1680
                   },
                   {
                       "name":  "Шкура Кабана",
                       "grehPrice":  1920,
-                      "dolgPrice":  1920
+                      "dolgPrice":  1920,
+                      "dnPrice":  1840
                   },
                   {
                       "name":  "Рука Излома",
                       "grehPrice":  2044,
-                      "dolgPrice":  2044
+                      "dolgPrice":  2044,
+                      "dnPrice":  1800
                   },
                   {
                       "name":  "Нога Снорка",
                       "grehPrice":  2312,
-                      "dolgPrice":  2312
+                      "dolgPrice":  2312,
+                      "dnPrice":  2040
                   },
                   {
                       "name":  "Голова Зомби Паразита",
@@ -114,17 +132,20 @@
                   {
                       "name":  "Рука Коллектора",
                       "grehPrice":  2600,
-                      "dolgPrice":  2600
+                      "dolgPrice":  2600,
+                      "dnPrice":  2320
                   },
                   {
                       "name":  "Маска Снорка",
                       "grehPrice":  2600,
-                      "dolgPrice":  2600
+                      "dolgPrice":  2600,
+                      "dnPrice":  2360
                   },
                   {
                       "name":  "Крыло Псевдоснорка",
                       "grehPrice":  2800,
-                      "dolgPrice":  2800
+                      "dolgPrice":  2800,
+                      "dnPrice":  2560
                   },
                   {
                       "name":  "Щупальца Кровососа",
@@ -134,32 +155,38 @@
                   {
                       "name":  "Рука Полтергейста",
                       "grehPrice":  2720,
-                      "dolgPrice":  2720
+                      "dolgPrice":  2720,
+                      "dnPrice":  2400
                   },
                   {
                       "name":  "Хвост Псевдособаки",
                       "grehPrice":  2800,
-                      "dolgPrice":  2800
+                      "dolgPrice":  2800,
+                      "dnPrice":  2480
                   },
                   {
                       "name":  "Шкура Кровососа",
                       "grehPrice":  2968,
-                      "dolgPrice":  2968
+                      "dolgPrice":  2968,
+                      "dnPrice":  2640
                   },
                   {
                       "name":  "Шкура Полтергейста",
                       "grehPrice":  3000,
-                      "dolgPrice":  3000
+                      "dolgPrice":  3000,
+                      "dnPrice":  2600
                   },
                   {
                       "name":  "Шкура Псевдособаки",
                       "grehPrice":  3280,
-                      "dolgPrice":  3280
+                      "dolgPrice":  3280,
+                      "dnPrice":  2960
                   },
                   {
                       "name":  "Рука Бюрера",
                       "grehPrice":  3448,
-                      "dolgPrice":  3448
+                      "dolgPrice":  3448,
+                      "dnPrice":  3080
                   },
                   {
                       "name":  "Коготь Химеры",
@@ -169,17 +196,38 @@
                   {
                       "name":  "Шкура Химеры",
                       "grehPrice":  4600,
-                      "dolgPrice":  4600
+                      "dolgPrice":  4600,
+                      "dnPrice":  4160
                   },
                   {
                       "name":  "Рука Псевдогиганта",
                       "grehPrice":  5288,
-                      "dolgPrice":  5288
+                      "dolgPrice":  5288,
+                      "dnPrice":  4720
                   },
                   {
                       "name":  "Шкура Псевдогиганта",
                       "grehPrice":  5760,
-                      "dolgPrice":  5760
+                      "dolgPrice":  5760,
+                      "dnPrice":  5200
+                  },
+                  {
+                      "name":  "Рука Зомби Бабки",
+                      "grehPrice":  0,
+                      "dolgPrice":  0,
+                      "dnPrice":  1720
+                  },
+                  {
+                      "name":  "Голова Занозы",
+                      "grehPrice":  0,
+                      "dolgPrice":  0,
+                      "dnPrice":  600
+                  },
+                  {
+                      "name":  "Голова Паука",
+                      "grehPrice":  0,
+                      "dolgPrice":  0,
+                      "dnPrice":  1480
                   }
               ]
 }

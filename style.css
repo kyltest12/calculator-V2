@@ -411,7 +411,8 @@ h3 {
 #totalSum,
 #finalSum,
 #mutantTotalSumGreh,
-#mutantTotalSumDolg {
+#mutantTotalSumDolg,
+#mutantTotalSumDn {
     color: var(--text-accent);
     cursor: pointer;
     transition: opacity 0.2s;
@@ -422,7 +423,8 @@ h3 {
 
 #totalSum,
 #mutantTotalSumGreh,
-#mutantTotalSumDolg {
+#mutantTotalSumDolg,
+#mutantTotalSumDn {
     font-size: 24px;
 }
 
@@ -433,7 +435,8 @@ h3 {
 #totalSum:hover,
 #finalSum:hover,
 #mutantTotalSumGreh:hover,
-#mutantTotalSumDolg:hover {
+#mutantTotalSumDolg:hover,
+#mutantTotalSumDn:hover {
     opacity: 0.8;
     background-color: rgba(47, 118, 198, 0.12);
 }
@@ -815,14 +818,16 @@ h3 {
 }
 
 .mutant-price-greh,
-.mutant-price-dolg {
+.mutant-price-dolg,
+.mutant-price-dn {
     cursor: pointer;
     border-radius: 3px;
     padding: 1px 3px;
 }
 
 .mutant-price-greh:hover,
-.mutant-price-dolg:hover {
+.mutant-price-dolg:hover,
+.mutant-price-dn:hover {
     text-decoration: underline;
 }
 
@@ -832,6 +837,10 @@ h3 {
 
 .mutant-price-dolg {
     color: var(--dolg-accent-dark);
+}
+
+.mutant-price-dn {
+    color: var(--text-accent);
 }
 
 .mutant-item .btn-control:hover {
