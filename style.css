@@ -122,6 +122,9 @@ h2 {
 }
 
 .site-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -153,6 +156,10 @@ h2 {
 
 .tab-panel.active {
     display: block;
+}
+
+.trader-tab-panel {
+    min-height: 70vh;
 }
 
 .trader-title {
@@ -1513,6 +1520,18 @@ body.sidebar-open {
 }
 
 @media (max-width: 480px) {
+    .site-tabs {
+        gap: 6px;
+        padding: 10px 8px;
+    }
+
+    .site-tab {
+        flex: 1;
+        min-width: 0;
+        padding: 9px 6px;
+        font-size: 12px;
+    }
+
     .buttons-container { grid-template-columns: repeat(2, 1fr); }
     .artifact-tools {
         flex-direction: column;

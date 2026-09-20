@@ -1,5 +1,5 @@
 {
-  "priceVersion": "2026-09-20-trader-items-2",
+  "priceVersion": "2026-09-20-trader-items-3",
   "items": [
     {
       "name": "Т03-66",
@@ -752,357 +752,357 @@
     },
     {
       "name": "Хлеб",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 100,
       "salePrice": 180,
       "kind": "consumable"
     },
     {
       "name": "Вода",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 100,
       "salePrice": 180,
       "kind": "consumable"
     },
     {
       "name": "Водка Казаки",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 165,
       "salePrice": 250,
       "kind": "consumable"
     },
     {
       "name": "Водка 'Немировская'",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 165,
       "salePrice": 250,
       "kind": "consumable"
     },
     {
       "name": "Водка 'Путинка'",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 165,
       "salePrice": 250,
       "kind": "consumable"
     },
     {
       "name": "Говядина Конс.",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 180,
       "salePrice": 300,
       "kind": "consumable"
     },
     {
       "name": "Колбаса",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 150,
       "salePrice": 250,
       "kind": "consumable"
     },
     {
       "name": "Кукуруза Конс.",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 180,
       "salePrice": 300,
       "kind": "consumable"
     },
     {
       "name": "Бобы Конс.",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 180,
       "salePrice": 300,
       "kind": "consumable"
     },
     {
       "name": "Свинина Конс.",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 180,
       "salePrice": 300,
       "kind": "consumable"
     },
     {
       "name": "Острые бобы Конс.",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 180,
       "salePrice": 300,
       "kind": "consumable"
     },
     {
       "name": "Пиво 'Обломовъ' (в банке)",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 110,
       "salePrice": 250,
       "kind": "consumable"
     },
     {
       "name": "Пиво 'Оболонь' (в бутылке)",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 110,
       "salePrice": 250,
       "kind": "consumable"
     },
     {
       "name": "Энергетик STALKER",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 300,
       "salePrice": 500,
       "kind": "consumable"
     },
     {
       "name": "Энергетик 'Нон-Стоп'",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 400,
       "salePrice": 700,
       "kind": "consumable"
     },
     {
       "name": "Энергетик 'Электро",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 500,
       "salePrice": 600,
       "kind": "consumable"
     },
     {
       "name": "Рация",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 1250,
       "salePrice": 4000,
       "kind": "consumable"
     },
     {
       "name": "Наручники",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 1500,
       "salePrice": 10000,
       "kind": "consumable"
     },
     {
       "name": "Батарейки",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 350,
       "salePrice": 550,
       "kind": "consumable"
     },
     {
       "name": "Фонарик",
-      "category": "????????",
+      "category": "Провизия",
       "purchasePrice": 2250,
       "salePrice": 3500,
       "kind": "consumable"
     },
     {
       "name": "11,43 х 23 мм",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 180,
       "salePrice": 350,
       "kind": "consumable"
     },
     {
       "name": "12 x 70 (Дробь)",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 180,
       "salePrice": 350,
       "kind": "consumable"
     },
     {
       "name": "12 x 70 (Дробь) БП",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 360,
       "salePrice": 800,
       "kind": "consumable"
     },
     {
       "name": "5,45 х 39 мм",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 145,
       "salePrice": 400,
       "kind": "consumable"
     },
     {
       "name": "5,45 х 39 мм БП",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 290,
       "salePrice": 700,
       "kind": "consumable"
     },
     {
       "name": "5,56 х 45 мм",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 145,
       "salePrice": 400,
       "kind": "consumable"
     },
     {
       "name": "5,56 х 45 мм БП",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 290,
       "salePrice": 700,
       "kind": "consumable"
     },
     {
       "name": "7,62 х 54 мм",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 350,
       "salePrice": 600,
       "kind": "consumable"
     },
     {
       "name": "Снаряды ОГ-7В",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 7500,
       "salePrice": 24000,
       "kind": "consumable"
     },
     {
       "name": "Снаряды ВОГ-25",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 1150,
       "salePrice": 10000,
       "kind": "consumable"
     },
     {
       "name": "Граната Ф1",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 0,
       "salePrice": 4500,
       "kind": "consumable"
     },
     {
       "name": "Граната РГД-5",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 0,
       "salePrice": 6000,
       "kind": "consumable"
     },
     {
       "name": "7,62 х 54 мм 7Н1",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 300,
       "salePrice": 400,
       "kind": "consumable"
     },
     {
       "name": "7,62 х 54 мм 7Н1 БП",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 600,
       "salePrice": 1200,
       "kind": "consumable"
     },
     {
       "name": "9 х 18 мм",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 90,
       "salePrice": 190,
       "kind": "consumable"
     },
     {
       "name": "9 х 18 мм БП",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 180,
       "salePrice": 380,
       "kind": "consumable"
     },
     {
       "name": "9 х 19 мм FMJ",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 210,
       "salePrice": 195,
       "kind": "consumable"
     },
     {
       "name": "9 х 19 мм FMJ БП",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 105,
       "salePrice": 380,
       "kind": "consumable"
     },
     {
       "name": "9 х 39 мм",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 145,
       "salePrice": 400,
       "kind": "consumable"
     },
     {
       "name": "9 х 39 мм БП",
-      "category": "???????",
+      "category": "Патроны",
       "purchasePrice": 290,
       "salePrice": 700,
       "kind": "consumable"
     },
     {
       "name": "Заря Токсик",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под кастомных одиночек",
       "purchasePrice": 2500,
       "salePrice": 10000,
       "kind": "camouflage"
     },
     {
       "name": "Заря Хомяк",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под кастомных одиночек",
       "purchasePrice": 2500,
       "salePrice": 10000,
       "kind": "camouflage"
     },
     {
       "name": "Заря Шахтёр",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под кастомных одиночек",
       "purchasePrice": 2500,
       "salePrice": 10000,
       "kind": "camouflage"
     },
     {
       "name": "Искатель",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под кастомных одиночек",
       "purchasePrice": 4500,
       "salePrice": 15000,
       "kind": "camouflage"
     },
     {
       "name": "Сталкерский Берил",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под кастомных одиночек",
       "purchasePrice": 5250,
       "salePrice": 18000,
       "kind": "camouflage"
     },
     {
       "name": "Сталкерский Масхалат",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под кастомных одиночек",
       "purchasePrice": 4850,
       "salePrice": 15000,
       "kind": "camouflage"
     },
     {
       "name": "Сталкерский Плащ",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под кастомных одиночек",
       "purchasePrice": 4000,
       "salePrice": 15000,
       "kind": "camouflage"
     },
     {
       "name": "Сева",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под ванильных одиночек",
       "purchasePrice": 4550,
       "salePrice": 18000,
       "kind": "camouflage"
     },
     {
       "name": "Сталкерский Скат",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под ванильных одиночек",
       "purchasePrice": 5300,
       "salePrice": 23000,
       "kind": "camouflage"
     },
     {
       "name": "ТБК",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под ванильных одиночек",
       "purchasePrice": 5800,
       "salePrice": 23000,
       "kind": "camouflage"
     },
     {
       "name": "ЧН Сталкер",
-      "category": "?????????? ??? ????????? ????????",
+      "category": "Маскировка под ванильных одиночек",
       "purchasePrice": 3400,
       "salePrice": 18000,
       "kind": "camouflage"
