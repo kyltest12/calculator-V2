@@ -15,6 +15,7 @@
         let artifacts = artifactsData.artifacts.map(item => ({
             name: item.name,
             price: item.price,
+            iigPrice: Number.isFinite(item.iigPrice) ? item.iigPrice : 0,
             properties: item.properties || {},
             image: ''
         }));
@@ -26,9 +27,7 @@
                 if (Array.isArray(prices)) {
                     artifacts.forEach((artifact, index) => {
                         const savedPrice = prices[index];
-                        if (Number.isFinite(savedPrice) && savedPrice >= 0) {
-                            artifact.price = savedPrice;
-                        }
+                        if (Number.isFinite(savedPrice)) artifact.price = savedPrice;
                     });
                 }
             } catch (error) {
@@ -77,7 +76,9 @@
         }
 
         const totalDisplay = document.getElementById('totalSum');
+        const iigTotalDisplay = document.getElementById('iigTotalSum');
         const finalDisplay = document.getElementById('finalSum');
+        const iigFinalDisplay = document.getElementById('iigFinalSum');
         const bonusButtons = document.querySelectorAll('.header-stats .bonus-btn');
         const resetBtn = document.getElementById('resetBtn');
         const searchInput = document.getElementById('searchInput');
@@ -112,6 +113,7 @@
                 totalSum,
                 bonus: currentBonus,
                 finalSum: Math.round(totalSum * (1 + currentBonus / 100)),
+                totalSumIig: iigTotalSum,
                 itemsCount: items.length,
                 items
             };
@@ -122,6 +124,7 @@
         }
 
         let totalSum = 0;
+        let iigTotalSum = 0;
         let currentBonus = 0;
         const quantityElements = new Map();
         const artifactCards = new Map();
@@ -215,8 +218,11 @@
 
         function updateTotals() {
             totalDisplay.textContent = totalSum.toLocaleString('ru-RU');
+            iigTotalDisplay.textContent = iigTotalSum.toLocaleString('ru-RU');
             const finalSum = Math.round(totalSum * (1 + currentBonus / 100));
+            const iigFinalSum = Math.round(iigTotalSum * (1 + currentBonus / 100));
             finalDisplay.textContent = finalSum.toLocaleString('ru-RU');
+            iigFinalDisplay.textContent = iigFinalSum.toLocaleString('ru-RU');
         }
 
         function createButton(artifact) {
@@ -259,7 +265,7 @@
 
             const priceDiv = document.createElement('div');
             priceDiv.className = 'price';
-            priceDiv.textContent = artifact.price + ' руб.';
+            priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price} руб.</span><span class="artifact-price-iig">ИИГ: ${artifact.iigPrice || 0} руб.</span>`;
             priceDiv.dataset.artifactName = artifact.name;
             itemDiv.appendChild(priceDiv);
 
@@ -293,6 +299,7 @@
                 quantitySpan.textContent = nextQty;
                 SC.updateItemSelectedState(itemDiv, nextQty);
                 totalSum += actualDelta * artifact.price;
+                iigTotalSum += actualDelta * artifact.iigPrice;
                 updateTotals();
                 scheduleMetrikaSend();
             };
@@ -320,6 +327,7 @@
                     const currentQty = parseInt(quantitySpan.textContent, 10);
                     if (currentQty > 0) {
                         totalSum -= currentQty * artifact.price;
+                        iigTotalSum -= currentQty * artifact.iigPrice;
                         quantitySpan.textContent = '0';
                         SC.updateItemSelectedState(itemDiv, 0);
                         updateTotals();
@@ -368,11 +376,15 @@
                     const parsedPrice = parseInt(input.value, 10);
                     const newPrice = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
                     artifact.price = newPrice;
-                    priceDiv.textContent = newPrice + ' руб.';
+                    priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price} руб.</span><span class="artifact-price-iig">ИИГ: ${artifact.iigPrice || 0} руб.</span>`;
 
                     totalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
                         const art = artifacts.find(a => a.name === name);
                         return sum + (parseInt(span.textContent, 10) * art.price);
+                    }, 0);
+                    iigTotalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
+                        const art = artifacts.find(a => a.name === name);
+                        return sum + (parseInt(span.textContent, 10) * art.iigPrice);
                     }, 0);
                     updateTotals();
                     updateArtifactList();
@@ -409,6 +421,7 @@
 
         resetBtn.addEventListener('click', () => {
             totalSum = 0;
+            iigTotalSum = 0;
             currentBonus = 0;
             bonusButtons.forEach(b => b.classList.remove('active'));
             bonusButtons[0].classList.add('active');
@@ -464,7 +477,10 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${artifact.name}</td>
-                    <td><input type="number" id="price_${index}" value="${artifact.price}" min="0" step="1"></td>
+                    <td>
+                        <label>Сахаров <input type="number" id="price_${index}" value="${artifact.price}" min="0" step="1"></label>
+                        <label>ИИГ <input type="number" id="iigPrice_${index}" value="${artifact.iigPrice || 0}" min="0" step="1"></label>
+                    </td>
                 `;
                 priceTableBody.appendChild(row);
             });
@@ -485,11 +501,16 @@
                 const input = document.getElementById(`price_${index}`);
                 const parsedPrice = parseInt(input.value, 10);
                 artifact.price = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
+                const iigInput = document.getElementById(`iigPrice_${index}`);
+                const parsedIigPrice = parseInt(iigInput.value, 10);
+                artifact.iigPrice = Number.isFinite(parsedIigPrice) && parsedIigPrice >= 0 ? parsedIigPrice : artifact.iigPrice;
             });
 
             document.querySelectorAll('#buttonsContainer .price').forEach((priceDiv) => {
                 const artifact = artifacts.find(a => a.name === priceDiv.dataset.artifactName);
-                if (artifact) priceDiv.textContent = artifact.price + ' руб.';
+                if (artifact) {
+                    priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price} руб.</span><span class="artifact-price-iig">ИИГ: ${artifact.iigPrice || 0} руб.</span>`;
+                }
             });
 
             totalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
@@ -505,7 +526,9 @@
         });
 
         totalDisplay.addEventListener('click', (e) => SC.copyToClipboard(totalSum.toString(), e));
+        iigTotalDisplay.addEventListener('click', (e) => SC.copyToClipboard(iigTotalSum.toString(), e));
         finalDisplay.addEventListener('click', (e) => SC.copyToClipboard(Math.round(totalSum * (1 + currentBonus / 100)).toString(), e));
+        iigFinalDisplay.addEventListener('click', (e) => SC.copyToClipboard(Math.round(iigTotalSum * (1 + currentBonus / 100)).toString(), e));
 
         createArtifactTools();
         artifacts.forEach(a => createButton(a));
@@ -518,12 +541,14 @@
                 return {
                     items,
                     totalSum,
+                    iigTotalSum,
                     bonus: currentBonus,
                     finalSum: Math.round(totalSum * (1 + currentBonus / 100))
                 };
             },
             restoreState(deal) {
                 totalSum = 0;
+                iigTotalSum = 0;
                 currentBonus = deal.bonus || 0;
                 bonusButtons.forEach(b => b.classList.remove('active'));
                 const activeBtn = Array.from(bonusButtons).find(b => parseInt(b.dataset.bonus, 10) === currentBonus);
@@ -537,6 +562,7 @@
                     if (card) SC.updateItemSelectedState(card, qty);
                     const art = artifacts.find(a => a.name === name);
                     if (art) totalSum += qty * art.price;
+                    if (art) iigTotalSum += qty * art.iigPrice;
                 });
                 updateTotals();
                 scheduleMetrikaSend();

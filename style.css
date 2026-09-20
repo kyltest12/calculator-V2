@@ -409,6 +409,7 @@ h3 {
 }
 
 #totalSum,
+#iigTotalSum,
 #finalSum,
 #mutantTotalSumGreh,
 #mutantTotalSumDolg,
@@ -422,6 +423,7 @@ h3 {
 }
 
 #totalSum,
+#iigTotalSum,
 #mutantTotalSumGreh,
 #mutantTotalSumDolg,
 #mutantTotalSumDn {
@@ -433,6 +435,7 @@ h3 {
 }
 
 #totalSum:hover,
+#iigTotalSum:hover,
 #finalSum:hover,
 #mutantTotalSumGreh:hover,
 #mutantTotalSumDolg:hover,
@@ -840,6 +843,15 @@ h3 {
 }
 
 .mutant-price-dn {
+    color: var(--text-accent);
+}
+
+.artifact-price-saharov,
+.artifact-price-iig {
+    display: block;
+}
+
+.artifact-price-iig {
     color: var(--text-accent);
 }
 
