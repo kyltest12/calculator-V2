@@ -9,6 +9,7 @@
 
         if (savedArtifactPriceVersion !== artifactPriceVersion) {
             localStorage.removeItem('artifactPrices');
+            localStorage.removeItem('artifactPricesByName');
             localStorage.setItem('artifactPricesVersion', artifactPriceVersion);
         }
 
@@ -20,46 +21,80 @@
             image: ''
         }));
 
-        const savedPrices = localStorage.getItem('artifactPrices');
-        if (savedPrices) {
-            try {
-                const prices = JSON.parse(savedPrices);
-                if (Array.isArray(prices)) {
-                    artifacts.forEach((artifact, index) => {
-                        const savedPrice = prices[index];
-                        if (Number.isFinite(savedPrice)) artifact.price = savedPrice;
+        // Цены хранятся по названию (раньше — массивом по индексу, из-за чего они
+        // «съезжали» при любой перестановке артефактов в JSON). ИИГ-цены тоже сохраняются.
+        try {
+            const savedByName = localStorage.getItem('artifactPricesByName');
+            if (savedByName) {
+                const prices = JSON.parse(savedByName);
+                if (prices && typeof prices === 'object' && !Array.isArray(prices)) {
+                    artifacts.forEach(artifact => {
+                        const saved = prices[artifact.name];
+                        if (!saved) return;
+                        if (Number.isFinite(saved.price) && saved.price >= 0) artifact.price = saved.price;
+                        if (Number.isFinite(saved.iig) && saved.iig >= 0) artifact.iigPrice = saved.iig;
                     });
                 }
-            } catch (error) {
-                console.warn('Не удалось загрузить сохраненные цены:', error);
-                localStorage.removeItem('artifactPrices');
+            } else {
+                const legacy = localStorage.getItem('artifactPrices');
+                if (legacy) {
+                    const prices = JSON.parse(legacy);
+                    if (Array.isArray(prices)) {
+                        artifacts.forEach((artifact, index) => {
+                            const p = prices[index];
+                            if (Number.isFinite(p) && p >= 0) artifact.price = p;
+                        });
+                    }
+                }
             }
+        } catch (error) {
+            console.warn('Не удалось загрузить сохраненные цены:', error);
+            localStorage.removeItem('artifactPricesByName');
+            localStorage.removeItem('artifactPrices');
         }
 
         const tooltip = document.getElementById('artifactTooltip');
         let tooltipTimeout = null;
         let currentTooltipItem = null;
 
+        function positionTooltip(event) {
+            const margin = 15;
+            const rect = tooltip.getBoundingClientRect();
+            let x = event.clientX + margin;
+            let y = event.clientY - 10;
+            if (x + rect.width > window.innerWidth - 8) x = event.clientX - rect.width - margin;
+            if (y + rect.height > window.innerHeight - 8) y = window.innerHeight - rect.height - 8;
+            tooltip.style.left = Math.max(8, x) + 'px';
+            tooltip.style.top = Math.max(8, y) + 'px';
+        }
+
+        function getPropertyClass(key, value) {
+            const num = SC.parsePropertyValue(value);
+            if (!Number.isFinite(num) || num === 0) return 'property-neutral';
+            // Для радиации минус — это хорошо (артефакт её снижает)
+            const isGood = key === 'Радиация' ? num < 0 : num > 0;
+            return isGood ? 'property-positive' : 'property-negative';
+        }
+
         function showTooltip(artifact, event) {
-            if (!artifact.properties || Object.keys(artifact.properties).length === 0) return;
+            const entries = Object.entries(artifact.properties || {});
+            if (entries.length === 0) return;
 
-            let propertiesHtml = `<strong>${artifact.name}</strong>`;
-            for (const [key, value] of Object.entries(artifact.properties)) {
-                let valueClass = 'property-neutral';
-                const numValue = parseFloat(value);
-                if (!isNaN(numValue)) {
-                    if (numValue > 0) valueClass = 'property-positive';
-                    else if (numValue < 0) valueClass = 'property-negative';
-                } else {
-                    if (value.includes('+')) valueClass = 'property-positive';
-                    else if (value.includes('-')) valueClass = 'property-negative';
-                }
-                propertiesHtml += `<div><span class="${valueClass}">${key}: ${value}</span></div>`;
-            }
+            tooltip.textContent = '';
+            const title = document.createElement('strong');
+            title.textContent = artifact.name;
+            tooltip.appendChild(title);
 
-            tooltip.innerHTML = propertiesHtml;
-            tooltip.style.left = (event.clientX + 15) + 'px';
-            tooltip.style.top = (event.clientY - 10) + 'px';
+            entries.forEach(([key, value]) => {
+                const row = document.createElement('div');
+                const span = document.createElement('span');
+                span.className = getPropertyClass(key, value);
+                span.textContent = `${key}: ${value}`;
+                row.appendChild(span);
+                tooltip.appendChild(row);
+            });
+
+            positionTooltip(event);
             tooltip.style.opacity = '1';
         }
 
@@ -69,10 +104,7 @@
         }
 
         function updateTooltipPosition(event) {
-            if (currentTooltipItem) {
-                tooltip.style.left = (event.clientX + 15) + 'px';
-                tooltip.style.top = (event.clientY - 10) + 'px';
-            }
+            if (currentTooltipItem) positionTooltip(event);
         }
 
         const totalDisplay = document.getElementById('totalSum');
@@ -212,8 +244,9 @@
         }
 
         function savePricesToStorage() {
-            const prices = artifacts.map(a => a.price);
-            localStorage.setItem('artifactPrices', JSON.stringify(prices));
+            const prices = Object.fromEntries(artifacts.map(a => [a.name, { price: a.price, iig: a.iigPrice }]));
+            localStorage.setItem('artifactPricesByName', JSON.stringify(prices));
+            localStorage.removeItem('artifactPrices');
         }
 
         function updateTotals() {
@@ -360,6 +393,7 @@
             });
 
             priceDiv.addEventListener('dblclick', () => {
+                if (priceDiv.querySelector('input')) return; // не создаём второе поле
                 const input = document.createElement('input');
                 input.type = 'number';
                 input.className = 'price-input';
@@ -371,8 +405,12 @@
                 priceDiv.textContent = '';
                 priceDiv.appendChild(input);
                 input.focus();
+                input.select();
 
+                let finished = false;
                 const saveNewPrice = () => {
+                    if (finished) return; // Enter + blur не должны сохранять дважды
+                    finished = true;
                     const parsedPrice = parseInt(input.value, 10);
                     const newPrice = Number.isFinite(parsedPrice) && parsedPrice >= 0 ? parsedPrice : artifact.price;
                     artifact.price = newPrice;
@@ -393,8 +431,12 @@
                 };
 
                 input.addEventListener('blur', saveNewPrice);
-                input.addEventListener('keypress', (e) => {
+                input.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') saveNewPrice();
+                    if (e.key === 'Escape') {
+                        finished = true;
+                        priceDiv.innerHTML = `<span class="artifact-price-saharov">Сахаров: ${artifact.price}</span>${artifact.iigPrice > 0 ? `<span class="artifact-price-iig">ИИГ: ${artifact.iigPrice}</span>` : ''}`;
+                    }
                 });
             });
 
@@ -476,12 +518,13 @@
             artifacts.forEach((artifact, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${artifact.name}</td>
+                    <td></td>
                     <td>
                         <label>Сахаров <input type="number" id="price_${index}" value="${artifact.price}" min="0" step="1"></label>
                         <label>ИИГ <input type="number" id="iigPrice_${index}" value="${artifact.iigPrice || 0}" min="0" step="1"></label>
                     </td>
                 `;
+                row.firstElementChild.textContent = artifact.name;
                 priceTableBody.appendChild(row);
             });
         }
@@ -494,6 +537,9 @@
         closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
         window.addEventListener('click', (e) => {
             if (e.target === modal) modal.style.display = 'none';
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') modal.style.display = 'none';
         });
 
         savePricesBtn.addEventListener('click', () => {
@@ -517,6 +563,10 @@
                 const art = artifacts.find(a => a.name === name);
                 return sum + (parseInt(span.textContent, 10) * art.price);
             }, 0);
+            iigTotalSum = Array.from(quantityElements.entries()).reduce((sum, [name, span]) => {
+                const art = artifacts.find(a => a.name === name);
+                return sum + (parseInt(span.textContent, 10) * art.iigPrice);
+            }, 0);
             updateTotals();
             updateArtifactList();
 
@@ -534,39 +584,5 @@
         artifacts.forEach(a => createButton(a));
         updateArtifactList();
         bonusButtons[0].classList.add('active');
-
-        return {
-            getState() {
-                const items = getSelectedItems();
-                return {
-                    items,
-                    totalSum,
-                    iigTotalSum,
-                    bonus: currentBonus,
-                    finalSum: Math.round(totalSum * (1 + currentBonus / 100))
-                };
-            },
-            restoreState(deal) {
-                totalSum = 0;
-                iigTotalSum = 0;
-                currentBonus = deal.bonus || 0;
-                bonusButtons.forEach(b => b.classList.remove('active'));
-                const activeBtn = Array.from(bonusButtons).find(b => parseInt(b.dataset.bonus, 10) === currentBonus);
-                (activeBtn || bonusButtons[0]).classList.add('active');
-
-                const qtyMap = new Map(deal.items.map(item => [item.name, item.qty]));
-                quantityElements.forEach((span, name) => {
-                    const qty = qtyMap.get(name) || 0;
-                    span.textContent = String(qty);
-                    const card = artifactCards.get(name);
-                    if (card) SC.updateItemSelectedState(card, qty);
-                    const art = artifacts.find(a => a.name === name);
-                    if (art) totalSum += qty * art.price;
-                    if (art) iigTotalSum += qty * art.iigPrice;
-                });
-                updateTotals();
-                scheduleMetrikaSend();
-            }
-        };
     };
 })();
